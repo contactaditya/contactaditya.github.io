@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aditya Gupta — Research Data Infrastructure</title>
+<meta name="description" content="Open clinical datasets, publications, and independently verifiable external citations. Every identifier resolves to its source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F5F6F8;--card:#fff;--ink:#14171E;--indigo:#2B3A8F;--rust:#A14A2A;--grey:#6B7280;
+--rule:#E1E4E9;--rule2:#C9CED6;--sans:'IBM Plex Sans',system-ui,sans-serif;
+--cond:'IBM Plex Sans Condensed',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--wrap:1180px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--indigo)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.mast{border-bottom:1px solid var(--rule2);background:var(--card)}
+.mast-in{max-width:var(--wrap);margin:0 auto;padding:44px 28px 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin:0 0 14px}
+h1{font-family:var(--cond);font-weight:700;font-size:clamp(38px,6.4vw,62px);line-height:.96;letter-spacing:-.022em;margin:0 0 16px}
+.role{font-size:17px;max-width:64ch;margin:0 0 6px;color:#2A2F3A}.role b{font-weight:600;color:var(--ink)}
+.thesis{font-size:15px;max-width:64ch;color:var(--grey);margin:0 0 24px}
+.idlinks{display:flex;flex-wrap:wrap;gap:8px}
+.idlinks a{font-family:var(--mono);font-size:12px;text-decoration:none;color:var(--ink);border:1px solid var(--rule2);border-radius:2px;padding:6px 11px;background:var(--paper);transition:.15s}
+.idlinks a:hover{border-color:var(--indigo);color:var(--indigo)}
+.reach{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);margin-top:26px;padding-top:20px}
+.reach div{padding-right:40px}
+.reach b{font-family:var(--cond);font-size:30px;font-weight:700;display:block;line-height:1}
+.reach span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.sec{padding:54px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:20px}
+.sec-head h2{font-family:var(--cond);font-weight:700;font-size:23px;letter-spacing:-.01em;margin:0;flex:1}
+.sec-head .n{font-family:var(--mono);font-size:12px;color:var(--grey)}
+.lede{max-width:76ch;color:#3A404C;margin:0 0 22px;font-size:14.5px}
+.traces{border:1px solid var(--rule2);background:var(--card)}
+.trace{display:grid;grid-template-columns:1.05fr 1.35fr 1fr;border-bottom:1px solid var(--rule)}
+.trace:last-child{border-bottom:0}
+.tcell{padding:16px 18px;position:relative}
+.tcell+.tcell{border-left:1px solid var(--rule)}
+.tcell+.tcell::before{content:"";position:absolute;left:-4px;top:50%;width:7px;height:7px;background:var(--card);border:1px solid var(--rule2);border-radius:50%;transform:translateY(-50%)}
+.tlab{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);display:block;margin-bottom:5px}
+.tname{font-weight:600;font-size:15px;display:block;line-height:1.3}
+.tmeta{font-size:13px;color:var(--grey);display:block;margin-top:3px}
+.tvenue{font-style:italic;font-size:14px;display:block}
+.tdep{font-family:var(--mono);font-size:10px;color:var(--rust);letter-spacing:.06em;margin-top:6px;display:block}
+.trace a{text-decoration:none;border-bottom:1px solid rgba(43,58,143,.3)}
+.trace a:hover{border-bottom-color:var(--indigo)}
+.rows{border-top:1px solid var(--rule2);background:var(--card)}
+.row{display:grid;grid-template-columns:1fr auto;gap:18px;padding:13px 18px;border-bottom:1px solid var(--rule);align-items:baseline}
+.row-t{font-weight:500}.row-m{font-size:13.5px;color:var(--grey);display:block;margin-top:2px}
+.row-d{font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+.row-d a{text-decoration:none;border-bottom:1px solid rgba(43,58,143,.28)}
+.row-d a:hover{border-bottom-color:var(--indigo)}.nodoi{color:var(--grey)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.filt{font-family:var(--mono);font-size:11px;padding:5px 10px;border:1px solid var(--rule2);background:var(--card);color:var(--grey);border-radius:2px;cursor:pointer;transition:.12s}
+.filt:hover{border-color:var(--indigo);color:var(--indigo)}
+.filt[aria-pressed="true"]{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.tbl-wrap{background:var(--card);border:1px solid var(--rule2);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+thead th{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule2);white-space:nowrap;background:var(--paper)}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#FAFBFC}
+.c-inst{font-weight:500;min-width:230px}.c-geo{color:var(--grey);white-space:nowrap}
+.chip{font-family:var(--mono);font-size:10.5px;padding:3px 7px;border:1px solid var(--rule2);border-radius:2px;color:#3A404C;white-space:nowrap;display:inline-block}
+.c-doi a{font-family:var(--mono);font-size:11.5px;text-decoration:none;border-bottom:1px solid rgba(43,58,143,.28);white-space:nowrap}
+.c-doi a:hover{border-bottom-color:var(--indigo)}
+.count{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin-top:10px}
+.regions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--rule2);background:var(--card)}
+.region{padding:18px 20px;border-right:1px solid var(--rule)}
+.region:last-child{border-right:0}
+.region h4{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--grey);margin:0 0 9px;font-weight:500}
+.region ul{margin:0;padding:0;list-style:none}
+.region li{font-size:14px;padding:2px 0}
+.inst-grid{columns:3;column-gap:34px;background:var(--card);border:1px solid var(--rule2);padding:20px 22px}
+.inst{break-inside:avoid;font-size:13.5px;padding:3px 0;display:flex;gap:7px;align-items:baseline}
+.dot{width:6px;height:6px;border-radius:50%;flex:0 0 6px;margin-top:6px}
+.dot.trained{background:var(--indigo)}.dot.landmark{background:#7B86C4}.dot.cited{background:var(--rule2)}
+.inst em{font-style:normal;color:var(--grey);font-size:12px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px;font-family:var(--mono);font-size:10.5px;color:var(--grey);letter-spacing:.04em}
+.legend span{display:flex;gap:6px;align-items:center}
+.chal{background:var(--card);border:1px solid var(--rule2);border-top:3px solid var(--indigo);padding:24px 26px}
+.chal h3{font-family:var(--cond);font-size:19px;margin:0 0 4px;font-weight:700}
+.chal .sub{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0 0 4px}
+.chal .fund{font-family:var(--mono);font-size:11.5px;color:var(--rust);margin:0 0 16px}
+.chal ul{margin:0 0 16px;padding-left:18px}.chal li{font-size:14.5px;margin-bottom:7px;max-width:78ch}
+.chal a.go{font-family:var(--mono);font-size:12px;text-decoration:none;border:1px solid var(--indigo);color:var(--indigo);padding:7px 13px;border-radius:2px;display:inline-block}
+.chal a.go:hover{background:var(--indigo);color:#fff}
+.use{padding:14px 18px;border-bottom:1px solid var(--rule)}
+.use-h{display:flex;gap:12px;justify-content:space-between;align-items:baseline;flex-wrap:wrap}
+.use-b{font-weight:600;font-size:14.5px}
+.use-w{font-size:13.5px;color:#3A404C;margin-top:5px;max-width:82ch}
+.use-v{font-size:13px;color:var(--grey);font-style:italic;margin-top:4px}
+.contact{background:var(--card);border:1px solid var(--rule2);border-left:3px solid var(--rust);padding:22px 26px;margin-top:8px}
+.contact p{margin:0;font-size:15.5px;max-width:74ch}
+.contact a.mail{font-family:var(--mono);font-size:15px;text-decoration:none;border-bottom:1px solid rgba(43,58,143,.4)}
+.contact a.mail:hover{border-bottom-color:var(--indigo)}
+.note{background:var(--card);border:1px solid var(--rule2);border-left:3px solid var(--indigo);padding:22px 24px}
+.note h3{font-family:var(--cond);font-size:16px;margin:0 0 10px;font-weight:600}
+.note p{margin:0 0 11px;font-size:14px;max-width:78ch}.note p:last-child{margin-bottom:0}
+.note code{font-family:var(--mono);font-size:12.5px;background:var(--paper);padding:1px 5px;border:1px solid var(--rule)}
+footer{margin-top:60px;border-top:1px solid var(--rule2);background:var(--card);padding:26px 0 44px}
+footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
+@media (max-width:900px){.inst-grid{columns:2}}
+@media (max-width:820px){.trace{grid-template-columns:1fr}.tcell+.tcell{border-left:0;border-top:1px solid var(--rule)}
+.tcell+.tcell::before{left:50%;top:-4px;transform:translateX(-50%)}.row{grid-template-columns:1fr}
+.inst-grid{columns:1}.region{border-right:0;border-bottom:1px solid var(--rule)}
+.wrap,.mast-in{padding-left:18px;padding-right:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+:focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
+</style>
+</head>
+<body>
+<header class="mast"><div class="mast-in">
+<p class="eyebrow">Research data infrastructure · Boston</p>
+<h1>Aditya Gupta</h1>
+<p class="role">Software and data engineer at <b>Massachusetts General Hospital</b>. One of three engineers on the <a href="https://bdsp.io/about/" target="_blank" rel="noopener">Brain Data Science Platform</a>, which distributes clinical EEG, ECG, sleep and electronic health record data drawn from multiple U.S. academic medical centers.</p>
+<p class="thesis">Everything here is checkable. Each dataset, publication and external citation carries an identifier that resolves to its source.</p>
+<div class="idlinks" id="profiles"></div>
+<div class="reach" id="reach"></div>
+</div></header>
+<main class="wrap">
+<section class="sec" id="models"><div class="sec-head"><h2>Models built on these datasets</h2><span class="n" id="n-models"></span></div>
+<p class="lede">The clearest evidence that infrastructure matters is what other people build with it. Each row runs from a dataset I co-engineered, through the model trained on it, to where that model was published. Rows marked <em>shared authorship</em> come from groups I have co-authored with; the rest are independent.</p>
+<div class="traces" id="traces"></div></section>
+<section class="sec" id="datasets"><div class="sec-head"><h2>Open datasets</h2><span class="n" id="n-data"></span></div>
+<p class="lede">Each is a DOI-registered release on the Brain Data Science Platform, distributed under credentialed access and a signed data-use agreement. My name appears in the citation string of each.</p>
+<div class="rows" id="datasets-list"></div></section>
+<section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
+<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets — as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
+<div class="rows" id="uses-list"></div></section>
+
+<section class="sec" id="challenge"><div class="sec-head"><h2>An international challenge runs on this data</h2><span class="n">NIH-funded</span></div>
+<div class="chal" id="chal"></div></section>
+
+<section class="sec" id="citations"><div class="sec-head"><h2>Independent external citations</h2><span class="n" id="n-cit"></span></div>
+<p class="lede">Peer-reviewed publications by groups that share no author with me, citing work I co-authored. Filter by which of my works is cited; every identifier resolves to the source.</p>
+<div class="filters" id="filters"></div>
+<div class="tbl-wrap"><table><thead><tr><th>Citing institution</th><th>Country</th><th>Cites</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<p class="count" id="count"></p></section>
+<section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
+<p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with — they are shown for completeness, not counted as independent.</p>
+<div class="rows" id="nature-list"></div></section>
+
+<section class="sec" id="editorials"><div class="sec-head"><h2>Invited editorials</h2><span class="n" id="n-ed"></span></div>
+<p class="lede">Journals do not commission a companion editorial for routine work. Three separate editorial boards independently invited specialists to assess studies I co-authored. These are separate from, and additional to, the citations above.</p>
+<div class="rows" id="ed-list"></div></section>
+
+<section class="sec" id="preprints"><div class="sec-head"><h2>Preprints citing or using the work</h2><span class="n" id="n-pre"></span></div>
+<p class="lede">Not peer-reviewed, and kept separate from the citations table for that reason. Several are substantial uses rather than citations — noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
+<div class="tbl-wrap"><table><thead><tr><th>Preprint</th><th>Authors' institutions</th><th>Cites / uses</th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
+
+<section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
+<p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint — including Germany and India — are listed in the next section and marked as such.</p>
+<div class="regions" id="regions"></div></section>
+<section class="sec" id="fields"><div class="sec-head"><h2>Fields of medicine</h2><span class="n" id="n-fields"></span></div>
+<p class="lede">Clinical specialties in which independent groups have cited this work. The count is a floor, not a ceiling — neuroimaging is a plausible eighth via BIND.</p>
+<div class="rows" id="fields-list"></div></section>
+
+<section class="sec" id="institutions"><div class="sec-head"><h2>Institutions citing the work independently</h2><span class="n" id="n-inst"></span></div>
+<p class="lede">Named institutions with no shared authorship. Depth of engagement is marked: some trained or validated models on the data, some named it among the field's key resources, and some cite it as prior work.</p>
+<div class="legend"><span><i class="dot trained"></i>Trained or validated a model on the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = work not yet peer-reviewed</span></div>
+<div class="inst-grid" id="inst-grid"></div></section>
+<section class="sec" id="publications"><div class="sec-head"><h2>Publications</h2><span class="n" id="n-pubs"></span></div>
+<p class="lede">Peer-reviewed articles and conference abstracts. The complete, authoritative list is on <a href="https://orcid.org/0000-0002-5243-368X" target="_blank" rel="noopener">ORCID</a>.</p>
+<div class="rows" id="pubs-list"></div></section>
+<section class="sec" id="method"><div class="sec-head"><h2>How this page defines independence</h2><span class="n">Method</span></div>
+<div class="note">
+<h3>A citation counts as independent only if the citing paper shares no author with me.</h3>
+<p>That is a stricter test than it sounds. Large clinical datasets are built by large teams, and papers using them often carry an author in common. Every citation in the table above was checked, individually, against the full list of everyone I have co-authored with — 121 people across 19 papers and dataset releases.</p>
+<p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <code>ECGFounder</code> and <code>MORGOTH</code> are in that category; <code>ECG-CPC</code>, <code>ECG-LFM</code>, <code>NeuroLex</code> and <code>CAMEL</code> are not.</p>
+<p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later — status shown is current, not permanent.</p>
+</div></section>
+<section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
+<div class="contact"><p>If you would like to collaborate, or to learn more about this work, you can reach me at <a class="mail" href="mailto:contactadityag@gmail.com">contactadityag@gmail.com</a>.</p></div></section>
+
+</main>
+<footer><div class="wrap"><p>Every identifier on this page resolves to its source · contactadityag@gmail.com</p></div></footer>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   HOW TO UPDATE THIS PAGE
+   ───────────────────────────────────────────────────────────────────────
+   Everything below is data. The page builds itself from it.
+   To add a new citation, copy any line in CITATIONS and change the values.
+   To add a publication, dataset, model, country or institution, do the same
+   in the list below it. Nothing else in the file needs to change.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+const PROFILES = [
+  {label:"ORCID",          url:"https://orcid.org/0000-0002-5243-368X"},
+  {label:"Google Scholar", url:"https://scholar.google.com/citations?user=v7CyOQQAAAAJ&hl=en"},
+  {label:"ResearchGate",   url:"https://www.researchgate.net/profile/Aditya-Gupta-231"},
+  {label:"LinkedIn",       url:"https://www.linkedin.com/in/aditya-gupta-16ab6a80/"},
+  {label:"GitHub",         url:"https://github.com/contactaditya"},
+  {label:"bdsp.io",        url:"https://bdsp.io/about/"},
+];
+
+const MODELS = [
+  // independent — no shared authorship
+  {data:"Harvard–Emory ECG Database", scale:"Full corpus, 10.7 million recordings",
+   model:"ECG-CPC", murl:"https://arxiv.org/abs/2509.25095",
+   by:"AI4Health, University of Oldenburg, Germany", venue:"Preprint, arXiv",
+   note:"Top-3 of eight foundation models benchmarked", shared:false},
+  {data:"Harvard–Emory ECG Database", scale:"~92% of the pre-training corpus",
+   model:"ECG-LFM", murl:"https://doi.org/10.1038/s41467-026-72436-2",
+   by:"Sun Yat-Sen University, China", venue:"Nature Communications, 2026",
+   note:"10,608,417 of 11,571,587 records", shared:false},
+  {data:"Harvard EEG Database", scale:"Report text, ~70,000 reports",
+   model:"NeuroLex", murl:"https://ieeexplore.ieee.org/document/11435041",
+   by:"Korea University", venue:"IEEE, 2026",
+   note:"Trained exclusively on this corpus", shared:false},
+  {data:"Harvard–Emory ECG Database", scale:"~20 million samples",
+   model:"CAMEL", murl:"https://arxiv.org/abs/2602.15677",
+   by:"University of Pennsylvania", venue:"ICLR 2026",
+   note:"Entire Stage-2 instruction tuning", shared:false},
+  {data:"Harvard EEG Database", scale:"12,290 reports from 10,886 patients",
+   model:"CELM", murl:"https://arxiv.org/abs/2601.22197",
+   by:"University of Illinois Urbana-Champaign", venue:"Preprint, arXiv",
+   note:"Clinical EEG-to-language foundation model", shared:false},
+  {data:"BIND", scale:"External-validation benchmark",
+   model:"Neuro-JEPA", murl:"https://arxiv.org/abs/2606.14957",
+   by:"NYU Langone Health", venue:"Preprint, arXiv",
+   note:"Multimodal neuroimaging foundation model", shared:false},
+  // shared authorship — groups I have co-authored with
+  {data:"Harvard–Emory ECG Database", scale:"All 10,771,552 ECGs",
+   model:"ECGFounder", murl:"https://doi.org/10.1056/AIoa2401033",
+   by:"Weights publicly released", venue:"NEJM AI, 2025", note:"", shared:true},
+  {data:"Harvard EEG Database v4.1", scale:"14,500 patients pre-training",
+   model:"MORGOTH", murl:"https://doi.org/10.60508/v7ky-5g40",
+   by:"Recorded by the platform as derived from this database", venue:"The Lancet Digital Health, 2026",
+   note:"", shared:true},
+  {data:"Human Sleep Project", scale:"Part of 580,865 hours of PSG pre-training",
+   model:"BCGNet", murl:"https://doi.org/10.1038/s41746-026-02885-y",
+   by:"Contactless under-pillow sleep mat; patent pending CN202511270603.8", venue:"npj Digital Medicine, 2026",
+   note:"Deployed commercial device", shared:true},
+  {data:"BCH Sleep Corpus", scale:"3,804 held-out test recordings",
+   model:"PANDA", murl:"https://doi.org/10.1038/s41746-026-02967-x",
+   by:"Benchmarked against CAISR", venue:"npj Digital Medicine, 2026", note:"", shared:true},
+  {data:"BCH Sleep Corpus", scale:"Training and evaluation cohort",
+   model:"Pediatric SleepNet", murl:"https://doi.org/10.1093/sleep/zsag064",
+   by:"Benchmarked against CAISR", venue:"Sleep, 2026", note:"", shared:true},
+  {data:"Human Sleep Project", scale:"20,737 recordings plus two further centres",
+   model:"RLCI", murl:"https://doi.org/10.1093/sleep/zsag204",
+   by:"New cardiovascular-risk biomarker built end-to-end on the corpus", venue:"Sleep, 2026",
+   note:"", shared:true},
+];
+
+/* Distinct peer-reviewed venues that have published an independent citation.
+   Update this number when a citation appears in a journal not already represented. */
+const VENUES = 29;
+
+const FIELDS = [
+  {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
+  {n:"Sleep medicine", e:"polysomnography, sleep-EEG analysis"},
+  {n:"Cardiology", e:"large-scale ECG interpretation, cardiac-event prediction"},
+  {n:"Critical care & neurocritical care", e:"continuous EEG monitoring of critically ill adults"},
+  {n:"Emergency & resuscitation medicine", e:"cardiac-arrest phenotyping, post-arrest outcomes"},
+  {n:"Neurosurgery", e:"subdural haematoma, epilepsy-surgery evaluation"},
+  {n:"Geriatric medicine & cognitive aging", e:"dementia, mild cognitive impairment, brain-health prediction"},
+];
+
+const NATURE = [
+  {j:"Nature Communications", w:"ECG-LFM", by:"Sun Yat-Sen University, China", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41467-026-72436-2", dep:false},
+  {j:"npj Digital Medicine", w:"Review of open foundation models and datasets for ECG and PPG", by:"MIT Lab for Computational Physiology; Seoul National; Yonsei; IUHW", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-03101-7", dep:false},
+  {j:"npj Digital Medicine", w:"CODE-II", by:"UFMG / Uppsala / Glasgow", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-02704-4", dep:false},
+  {j:"npj Digital Medicine", w:"Coon & Ogg", by:"Johns Hopkins Applied Physics Laboratory", cites:"Brain Health Score (NEJM AI)", doi:"10.1038/s41746-026-02970-2", dep:false},
+  {j:"Scientific Reports", w:"Sleep-staging evaluation", by:"General Hospital of Ningxia Medical University", cites:"CAISR", doi:"10.1038/s41598-026-63589-7", dep:false},
+  {j:"Nature Communications", w:"ABED", by:"DTU / Danish Center for Sleep Medicine / Stanford", cites:"CAISR", doi:"10.1038/s41467-026-69163-z", dep:true},
+  {j:"npj Digital Medicine", w:"PANDA", by:"Pediatric sleep staging", cites:"BCH Sleep Corpus", doi:"10.1038/s41746-026-02967-x", dep:true},
+  {j:"npj Digital Medicine", w:"BCGNet", by:"Contactless sleep monitoring; deployed device", cites:"Human Sleep Project", doi:"10.1038/s41746-026-02885-y", dep:true},
+  {j:"Scientific Data", w:"The Harvard–Emory ECG Database", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-06861-9", dep:null},
+  {j:"Scientific Data", w:"BIND", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-07421-x", dep:null},
+];
+
+const EDITORIALS = [
+  {who:"Cesari, Brink-Kjaer & Rechichi", where:"Medical University of Innsbruck · Technical University of Denmark · Politecnico di Torino",
+   j:"Sleep, 2025", about:"CAISR", doi:"10.1093/sleep/zsaf147",
+   quote:"the excellent methodology and results make CAISR a milestone toward full automation of PSG analysis"},
+  {who:"Raphaelson", where:"American Academy of Neurology journal, United States",
+   j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG health-outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
+   quote:"a more intuitive view of future risks — high, intermediate, or low — for a larger range of unwanted outcomes"},
+  {who:"Schütz & Goldstein", where:"University of Michigan, United States",
+   j:"Sleep, 2026", about:"Health-Oriented Sleep States, designated Companion Article", doi:"10.1093/sleep/zsaf292",
+   quote:"applauded the authors for their use of novel data science techniques"},
+];
+
+const DATASETS = [
+  {name:"Harvard Electroencephalography Database", ver:"v4.1",
+   meta:"280,000+ recordings from 108,000+ patients across four Harvard-affiliated Boston hospitals",
+   doi:"10.60508/k85b-fc87", bdsp:"https://bdsp.io/content/harvard-eeg-db/4.1/"},
+  {name:"Harvard–Emory ECG Database", ver:"v5.0",
+   meta:"10.7 million 12-lead ECGs from two U.S. health systems",
+   doi:"10.60508/rv6h-7d10", bdsp:"https://bdsp.io/content/heedb/5.0/"},
+  {name:"Human Sleep Project", ver:"v3.0",
+   meta:"119,234 overnight recordings (115,129 PSGs + 4,105 home sleep apnea tests) from 90,000+ patients across Stanford, Mass General Brigham, Emory, BIDMC and Boston Children's",
+   doi:"10.60508/m3sw-rz13", bdsp:"https://bdsp.io/content/hsp/3.0/"},
+  {name:"Boston Children's Hospital Sleep Corpus", ver:"v1.0.1",
+   meta:"15,695 annotated pediatric polysomnograms, 139,208 hours of EEG — the largest pediatric PSG dataset available",
+   doi:"10.60508/hjdt-fz71", bdsp:"https://bdsp.io/content/l8c86mgywuneuy74ae71/1.0.1/"},
+  {name:"Brain Imaging and Neurophysiology Database (BIND)", ver:"v1.0",
+   meta:"1.8 million brain scans from 38,945 patients, linked to neurophysiology and clinical records",
+   doi:"", bdsp:"https://bdsp.io/content/n1vba1x5qt62frfjem65/1.0/"},
+  {name:"PROPHET", ver:"v1.0",
+   meta:"17 neurological phenotypes, 18,282 patients, 34,162 annotated visits, six U.S. health systems",
+   doi:"10.60508/zkvt-gt36", bdsp:"https://bdsp.io/content/480zbyvqxlq0agc6myih/1.0/"},
+];
+
+/* Documented substantial uses — a group that trained on, validated against, or
+   evaluated using one of the datasets. Add a line when a new one appears. */
+const USES = [
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"Bashir et al. — Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
+   what:"Used as an out-of-distribution external validation cohort. Trained on the Nationwide Children's Hospital Sleep DataBank, then tested against this corpus \u201con an independent external cohort ... to examine cross cohort generalizability\u201d.",
+   where:"Applied Soft Computing, 2026;202:115590", doi:"10.1016/j.asoc.2026.115590", dep:false},
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"Andronache, Juvină & Neacsu Nicolae — Politehnica Bucharest, Romania",
+   what:"Named as one of only two public pediatric PSG resources that \u201cmade large-scale pediatric studies more feasible\u201d, with the corpus figures reproduced in the paper's own words.",
+   where:"Electronics, 2026;15(16):3537", doi:"10.3390/electronics15163537", dep:false},
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"Clínica Universidad de Navarra, Pamplona",
+   what:"Cited in a clinical neurophysiology study of pediatric sleep.",
+   where:"Clinical Neurophysiology, 2026", doi:"10.1016/j.clinph.2026.2111977", dep:false},
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"PANDA",
+   what:"Evaluated on a held-out test set of 3,804 recordings from 3,000 subjects, and benchmarked against CAISR (\u03ba = 0.45 vs 0.26).",
+   where:"npj Digital Medicine, 2026", doi:"10.1038/s41746-026-02967-x", dep:true},
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"Pediatric SleepNet",
+   what:"Trained and evaluated on the corpus; reported mean Cohen's \u03ba rising from 0.49 in infants aged 0\u20136 months to 0.72 in children over 12.",
+   where:"Sleep, 2026", doi:"10.1093/sleep/zsag064", dep:true},
+];
+
+/* Preprints that cite or use the work. Not peer-reviewed — kept separate from
+   CITATIONS on purpose. Move a row into CITATIONS when it publishes, and record
+   the acceptance date, not the publication date. */
+const PREPRINTS = [
+  {w:"ECG-CPC — Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks",
+   inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany",
+   cites:"Harvard–Emory ECG Database", how:"Pretrained ECG-CPC on the full 10.7-million-record corpus",
+   id:"arXiv:2509.25095", url:"https://arxiv.org/abs/2509.25095", posted:"29 Sep 2025", dep:false},
+  {w:"CAMEL — An ECG Language Model for Forecasting Cardiac Events",
+   inst:"University of Pennsylvania", geo:"United States",
+   cites:"Harvard–Emory ECG Database", how:"~20 million samples formed the entirety of Stage-2 instruction tuning; accepted at ICLR 2026",
+   id:"arXiv:2602.15677", url:"https://arxiv.org/abs/2602.15677", posted:"17 Feb 2026", dep:false},
+  {w:"DeepECG-Tok — A unified 12-lead ECG-language model",
+   inst:"Montreal Heart Institute · Mila–Québec AI Institute · Université de Montréal · University of Toronto · University of Ottawa", geo:"Canada",
+   cites:"Harvard–Emory ECG Database", how:"5,100 ECGs used as one of four external validation cohorts; macro-AUROC 0.90",
+   id:"medRxiv 10.64898/2026.07.22.26358591", url:"https://doi.org/10.64898/2026.07.22.26358591", posted:"24 Jul 2026", dep:false},
+  {w:"Nicolson et al. — cardiovascular risk validation",
+   inst:"Medical University of Innsbruck · Eurac Research", geo:"Austria / Italy",
+   cites:"Harvard–Emory ECG Database", how:"One of four external validation cohorts; HR 1.41, C-index 0.740",
+   id:"medRxiv 10.64898/2026.07.10.26357749", url:"https://doi.org/10.64898/2026.07.10.26357749", posted:"10 Jul 2026", dep:false},
+  {w:"Neuro-JEPA — Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
+   inst:"NYU Langone Health", geo:"United States",
+   cites:"BIND", how:"Used as an external-validation benchmark (\u201cBIND-MGH\u201d) among 12 public cohorts",
+   id:"arXiv:2606.14957", url:"https://arxiv.org/abs/2606.14957", posted:"12 Jun 2026", dep:false},
+  {w:"NeuralBench — EEG foundation model benchmark",
+   inst:"Meta FAIR (Brain & AI) · École Normale Supérieure / CNRS · Inria · Fondation Rothschild", geo:"France",
+   cites:"Harvard EEG Database", how:"Named one of only five \u201clandmark public datasets\u201d across 94 surveyed",
+   id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"May 2026", dep:false},
+  {w:"CELM — Neural Signals Generate Clinical Notes in the Wild",
+   inst:"University of Illinois Urbana-Champaign", geo:"United States",
+   cites:"Harvard EEG Database", how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
+   id:"arXiv:2601.22197", url:"https://arxiv.org/abs/2601.22197", posted:"29 Jan 2026", dep:false},
+  {w:"EpiGraph — epilepsy knowledge graph and benchmark",
+   inst:"University of Illinois Urbana-Champaign · Florida State University · University of Osaka", geo:"United States / Japan",
+   cites:"Harvard EEG Database", how:"Used under the database's data-use agreement (v4.1)",
+   id:"arXiv:2605.09505", url:"https://arxiv.org/abs/2605.09505", posted:"13 May 2026", dep:false},
+  {w:"Position: Evaluation of ECG Representations Must Be Fixed",
+   inst:"Massachusetts Institute of Technology", geo:"United States",
+   cites:"Harvard–Emory ECG Database", how:"Cited in a survey of ECG representation-learning benchmarks",
+   id:"arXiv:2602.17531", url:"https://arxiv.org/abs/2602.17531", posted:"19 Feb 2026", dep:false},
+  {w:"DANIEL — A Distributed and Scalable Approach for Global Representation Learning with EHR Applications",
+   inst:"Harvard · University of Chicago · Carnegie Mellon University · University of Pittsburgh · Brigham and Women's Hospital", geo:"United States",
+   cites:"MCI/ADRD phenotyping study", how:"Cited as prior work on EHR phenotyping; submitted to the Journal of Machine Learning Research",
+   id:"arXiv:2511.02754", url:"https://arxiv.org/abs/2511.02754", posted:"4 Nov 2025", dep:false},
+  {w:"Multi-disorder EEG classification benchmarks",
+   inst:"Indian Institute of Technology Kharagpur", geo:"India",
+   cites:"Harvard EEG Database", how:"Classifiers built across 11 disorder categories",
+   id:"arXiv:2512.22656", url:"https://arxiv.org/abs/2512.22656", posted:"Dec 2025", dep:false},
+  {w:"Ensemble Logic for Symbolic Representation of Sleep Medicine Guidelines",
+   inst:"UTHealth Houston", geo:"United States",
+   cites:"CAISR", how:"Cited as an inter-scorer agreement reference",
+   id:"arXiv:2607.21331", url:"https://arxiv.org/abs/2607.21331", posted:"21 Jul 2026", dep:false},
+  {w:"CLEF — EEG Foundation Model for Learning Clinical Semantics",
+   inst:"MIT CSAIL · Brigham and Women's Hospital · Massachusetts General Hospital", geo:"United States",
+   cites:"Harvard EEG Database", how:"260,000+ EEG sessions from 108,000+ patients; outperformed prior models on 229 of 234 tasks",
+   id:"arXiv:2605.10817", url:"https://arxiv.org/abs/2605.10817", posted:"11 May 2026", dep:true},
+  {w:"AI Sleep Co-Scientist — agentic discovery across large-scale sleep physiology",
+   inst:"Stanford University · Technical University of Denmark · Together AI · Washington University in St. Louis", geo:"United States / Denmark",
+   cites:"Human Sleep Project", how:"HSP was one of four cohorts and the independent replication set (n = 17,810 and n = 16,973)",
+   id:"arXiv:2607.25175", url:"https://arxiv.org/abs/2607.25175", posted:"28 Jul 2026", dep:true},
+];
+
+/* The Challenge that runs on this data. */
+const CHALLENGE = {
+  name:"George B. Moody PhysioNet Challenge 2026",
+  url:"https://moody-challenge.physionet.org/2026/",
+  opened:"Opened 10 February 2026",
+  funder:"NIH / National Institute of Biomedical Imaging and Bioengineering — grant R01EB030362",
+  points:[
+    "Runs on data from the Human Sleep Project, distributed through the Brain Data Science Platform.",
+    "CAISR, which I co-authored, generated the algorithmic annotations the Challenge is scored against.",
+    "The de-identification and harmonisation pipelines I engineer are what make the data shareable for it.",
+    "PhysioNet Challenges are the field's long-running open benchmark, entered by teams worldwide."
+  ]
+};
+
+
+
+const PUBS = [
+  {t:"The Human Sleep Project: a multi-center clinical polysomnography dataset across the human lifespan", v:"Sleep, 2026", doi:"10.1093/sleep/zsag215"},
+  {t:"The Harvard–Emory ECG Database", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-06861-9"},
+  {t:"The Brain Imaging and Neurophysiology Dataset of large-scale multimodal neural data", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-07421-x"},
+  {t:"Brain health from sleep EEG: a multicohort deep learning biomarker for cognition, disease and mortality", v:"NEJM AI, 2026", doi:"10.1056/AIoa2500487"},
+  {t:"CAISR: achieving human-level performance in automated sleep analysis across all clinical sleep metrics", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf134"},
+  {t:"Harvard Electroencephalography Database: a comprehensive clinical resource from four Boston hospitals", v:"Epilepsia, 2025", doi:"10.1111/epi.18487"},
+  {t:"The Boston Children's Hospital Sleep Corpus: 15,695 annotated pediatric polysomnograms", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf273"},
+  {t:"Health-oriented sleep states: making sleep states reflect health conditions", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf229"},
+  {t:"Assessing risk of health outcomes from brain activity in sleep: a retrospective cohort study", v:"Neurology: Clinical Practice, 2024", doi:"10.1212/CPJ.0000000000200225"},
+  {t:"Automated phenotyping of mild cognitive impairment and Alzheimer's disease using electronic health records", v:"International Journal of Medical Informatics, 2025", doi:"10.1016/j.ijmedinf.2025.105917"},
+  {t:"Automated extraction of post-stroke functional outcomes from unstructured electronic health records", v:"European Stroke Journal, 2025", doi:"10.1177/23969873251314340"},
+  {t:"Large-scale automated phenotyping of cardiac arrest", v:"Resuscitation, 2026", doi:"10.1016/j.resuscitation.2026.110919"},
+  {t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},
+  {t:"Automated electronic health record phenotyping of acute and subacute subdural hematoma", v:"Algorithms, 2026;19(3):239", doi:"10.3390/a19030239"},
+  {t:"Identification of patients with congestive heart failure from the electronic health records of two hospitals", v:"JMIR Medical Informatics, 2025;13:e64113", doi:"10.2196/64113"},
+  {t:"Artificial intelligence-enabled phenotyping of neurological disease from electronic health records", v:"Innovation in Aging, 2025 — conference abstract", doi:""},
+  {t:"Learning brain health from sleep", v:"Sleep, 2026;49(Suppl 1) — conference abstract", doi:"10.1093/sleep/zsag091.0331"},
+];
+
+const REGIONS = [
+  {name:"Europe",        countries:["Austria","Czech Republic","Denmark","Finland","France","Italy","Romania","Russia","Spain","Sweden","Switzerland","United Kingdom"]},
+  {name:"Asia",          countries:["China","Japan","Macau","Saudi Arabia","South Korea","Vietnam"]},
+  {name:"North America", countries:["Canada","Mexico","United States"]},
+  {name:"South America", countries:["Brazil","Peru"]},
+  {name:"Oceania",       countries:["Australia"]},
+];
+
+const INSTITUTIONS = [
+  {n:"University of Pennsylvania",              c:"United States", d:"trained"},
+  {n:"NYU Langone Health",                      c:"United States", d:"trained", p:1},
+  {n:"Korea University",                        c:"South Korea",   d:"trained"},
+  {n:"Sun Yat-Sen University",                  c:"China",         d:"trained"},
+  {n:"Carl von Ossietzky Universität Oldenburg",c:"Germany",       d:"trained", p:1},
+  {n:"Sungkyunkwan & Sejong University",        c:"South Korea",   d:"trained"},
+  {n:"Prince Sattam bin Abdulaziz University",  c:"Saudi Arabia",  d:"trained"},
+  {n:"Medical University of Innsbruck",         c:"Austria",       d:"trained", p:1},
+  {n:"Eurac Research",                          c:"Italy",         d:"trained", p:1},
+  {n:"IIT Kharagpur",                           c:"India",         d:"trained", p:1},
+  {n:"University of Illinois Urbana-Champaign", c:"United States", d:"trained", p:1},
+  {n:"Meta FAIR (Brain & AI)",                  c:"France",        d:"landmark", p:1},
+  {n:"École Normale Supérieure / CNRS",         c:"France",        d:"landmark", p:1},
+  {n:"Inria",                                   c:"France",        d:"landmark", p:1},
+  {n:"Massachusetts Institute of Technology",   c:"United States", d:"landmark"},
+  {n:"Vanderbilt University",                   c:"United States", d:"landmark"},
+  {n:"Emory University",                        c:"United States", d:"landmark"},
+  {n:"UC San Diego",                            c:"United States", d:"landmark"},
+  {n:"UC San Francisco",                        c:"United States", d:"landmark"},
+  {n:"Duke University",                         c:"United States", d:"landmark"},
+  {n:"Thomas Jefferson University",             c:"United States", d:"landmark"},
+  {n:"University of South Carolina",            c:"United States", d:"landmark"},
+  {n:"UTHealth Houston",                        c:"United States", d:"landmark", p:1},
+  {n:"King's College London",                   c:"United Kingdom",d:"landmark", p:1},
+  {n:"Imperial College London",                 c:"United Kingdom",d:"landmark"},
+  {n:"University College London",               c:"United Kingdom",d:"landmark"},
+  {n:"Great Ormond Street Hospital",            c:"United Kingdom",d:"landmark"},
+  {n:"Tsinghua University",                     c:"China",         d:"landmark", p:1},
+  {n:"VinUniversity",                           c:"Vietnam",       d:"landmark", p:1},
+  {n:"INAOE",                                   c:"Mexico",        d:"landmark"},
+  {n:"ACCELStars, Inc.",                        c:"Japan",         d:"landmark"},
+  {n:"Johns Hopkins University / APL",          c:"United States", d:"cited"},
+  {n:"UCLA",                                    c:"United States", d:"cited"},
+  {n:"Morehouse School of Medicine",            c:"United States", d:"cited"},
+  {n:"Grady Memorial Hospital",                 c:"United States", d:"cited"},
+  {n:"University of Chicago",                   c:"United States", d:"cited", p:1},
+  {n:"Carnegie Mellon University",              c:"United States", d:"cited", p:1},
+  {n:"University of Pittsburgh",                c:"United States", d:"cited", p:1},
+  {n:"Baylor College of Medicine",              c:"United States", d:"cited"},
+  {n:"Seoul National University Hospital",      c:"South Korea",   d:"cited"},
+  {n:"Yonsei University",                       c:"South Korea",   d:"cited"},
+  {n:"Politehnica Bucharest",                   c:"Romania",       d:"cited"},
+  {n:"Clínica Universidad de Navarra",          c:"Spain",         d:"cited"},
+  {n:"Universidad Politécnica de Madrid",       c:"Spain",         d:"cited"},
+  {n:"Flinders University",                     c:"Australia",     d:"cited"},
+  {n:"University of Ottawa",                    c:"Canada",        d:"cited"},
+  {n:"McGill University",                       c:"Canada",        d:"cited"},
+  {n:"University of Calgary",                   c:"Canada",        d:"cited"},
+  {n:"Universidade Federal de Minas Gerais",    c:"Brazil",        d:"cited"},
+  {n:"Universidade de São Paulo",               c:"Brazil",        d:"cited"},
+  {n:"UNICAMP",                                 c:"Brazil",        d:"cited"},
+  {n:"Universidad Científica del Sur",          c:"Peru",          d:"cited"},
+  {n:"Uppsala University",                      c:"Sweden",        d:"cited"},
+  {n:"University of Glasgow",                   c:"United Kingdom",d:"cited"},
+  {n:"Lobachevsky University",                  c:"Russia",        d:"cited"},
+  {n:"Pirogov Russian National Research Medical University", c:"Russia", d:"cited"},
+  {n:"Hospices Civils de Lyon",                 c:"France",        d:"cited"},
+  {n:"Collège de France",                       c:"France",        d:"cited"},
+  {n:"Zhejiang University School of Medicine",  c:"China",         d:"cited"},
+  {n:"Beijing University of Technology",        c:"China",         d:"cited"},
+  {n:"Huazhong University of Science & Technology", c:"China",     d:"cited"},
+  {n:"Jilin University",                        c:"China",         d:"cited"},
+  {n:"Hebei North University",                  c:"China",         d:"cited"},
+  {n:"Ningxia Medical University",              c:"China",         d:"cited"},
+  {n:"Guangdong Polytechnic Normal University", c:"China",         d:"cited"},
+  {n:"University of Macau",                     c:"Macau",         d:"cited"},
+  {n:"Dalian University of Technology",         c:"China",         d:"cited"},
+  {n:"University of Jyväskylä",                 c:"Finland",       d:"cited"},
+  {n:"Tampere University",                      c:"Finland",       d:"cited"},
+  {n:"Toranomon Hospital",                      c:"Japan",         d:"cited"},
+  {n:"International University of Health and Welfare", c:"Japan",  d:"cited"},
+  {n:"Le Quy Don Technical University",         c:"Vietnam",       d:"cited"},
+];
+const CITATIONS = [
+  {inst:"Clínica Universidad de Navarra (Pamplona)", geo:"Spain", cites:"BCH Sleep Corpus", doi:"10.1016/j.clinph.2026.2111977", url:"https://doi.org/10.1016/j.clinph.2026.2111977"},
+  {inst:"Politehnica Bucharest (CAMPUS Research Institute)", geo:"Romania", cites:"BCH Sleep Corpus", doi:"10.3390/electronics15163537", url:"https://doi.org/10.3390/electronics15163537"},
+  {inst:"Sungkyunkwan & Sejong Univ.; Prince Sattam bin", geo:"South Korea / Sa", cites:"BCH Sleep Corpus", doi:"10.1016/j.asoc.2026.115590", url:"https://doi.org/10.1016/j.asoc.2026.115590"},
+  {inst:"UCL/GOSH", geo:"UK", cites:"BIND", doi:"10.1097/WCO.0000000000001465", url:"https://doi.org/10.1097/WCO.0000000000001465"},
+  {inst:"Flinders University", geo:"Australia", cites:"Brain Health Score (NEJM AI)", doi:"10.1093/sleep/zsag152", url:"https://doi.org/10.1093/sleep/zsag152"},
+  {inst:"Johns Hopkins APL / JHU", geo:"USA", cites:"Brain Health Score (NEJM AI)", doi:"10.1038/s41746-026-02970-2", url:"https://doi.org/10.1038/s41746-026-02970-2"},
+  {inst:"ACCELStars, Inc.; Toranomon Hospital; Universi", geo:"Japan", cites:"CAISR", doi:"10.1093/sleepadvances/zpag054", url:"https://doi.org/10.1093/sleepadvances/zpag054"},
+  {inst:"Dalian Univ. of Tech / Jyväskylä / Tampere", geo:"China", cites:"CAISR", doi:"10.1109/ICASSP55912.2026.11462444", url:"https://doi.org/10.1109/ICASSP55912.2026.11462444"},
+  {inst:"General Hospital of Ningxia Medical University", geo:"China", cites:"CAISR", doi:"10.1038/s41598-026-63589-7", url:"https://doi.org/10.1038/s41598-026-63589-7"},
+  {inst:"Seoul National Univ. Hospital", geo:"South Korea", cites:"CAISR", doi:"10.14802/jmd.26098", url:"https://doi.org/10.14802/jmd.26098"},
+  {inst:"Jilin University (2nd Hosp.; China-Japan Union", geo:"China", cites:"Cardiac-arrest phenotyping study", doi:"10.2147/CIA.S607232", url:"https://doi.org/10.2147/CIA.S607232"},
+  {inst:"Guangdong Polytechnic / Nanjing / Macau", geo:"China", cites:"Harvard EEG Database", doi:"10.3390/e27090919", url:"https://doi.org/10.3390/e27090919"},
+  {inst:"Huazhong Univ. of Sci. & Tech. (Wuhan)", geo:"China", cites:"Harvard EEG Database", doi:"10.2147/IJN.S618081", url:"https://doi.org/10.2147/IJN.S618081"},
+  {inst:"INAOE - Nat. Inst. of Astrophysics, Optics & E", geo:"Mexico", cites:"Harvard EEG Database", doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x"},
+  {inst:"Korea University", geo:"South Korea", cites:"Harvard EEG Database", doi:"ieeexplore.ieee.org/document/11435041", url:"https://ieeexplore.ieee.org/document/11435041"},
+  {inst:"Le Quy Don Technical University", geo:"Vietnam", cites:"Harvard EEG Database", doi:"10.56651/lqdtu.jst.v14.n02.1112.ict", url:"https://doi.org/10.56651/lqdtu.jst.v14.n02.1112.ict"},
+  {inst:"Lobachevsky Univ. / Pirogov RNRMU (Moscow) / U", geo:"Russia/Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies14070403", url:"https://doi.org/10.3390/technologies14070403"},
+  {inst:"Lobachevsky Univ. / UPM Madrid", geo:"Russia/Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies13110524", url:"https://doi.org/10.3390/technologies13110524"},
+  {inst:"Multinational", geo:"Multinational", cites:"Harvard EEG Database", doi:"10.1002/epi.70077", url:"https://doi.org/10.1002/epi.70077"},
+  {inst:"UPenn + Vanderbilt + multinational", geo:"USA + multinational", cites:"Harvard EEG Database", doi:"10.1002/epi.70168", url:"https://doi.org/10.1002/epi.70168"},
+  {inst:"University of Pennsylvania (+ UCLA)", geo:"USA", cites:"Harvard EEG Database", doi:"10.1088/1741-2552/ae805d", url:"https://doi.org/10.1088/1741-2552/ae805d"},
+  {inst:"Yi Guo et al. - Chinese institutions", geo:"China", cites:"Harvard EEG Database", doi:"10.1080/27706710.2025.2585594", url:"https://doi.org/10.1080/27706710.2025.2585594"},
+  {inst:"Imperial College London", geo:"UK", cites:"Harvard–Emory ECG Database", doi:"10.1145/3774906.3802787", url:"https://doi.org/10.1145/3774906.3802787"},
+  {inst:"MIT Lab for Computational Physiology; Seoul National Univ.; Yonsei Univ.; IUHW Fukuoka", geo:"USA / South Korea / Japan", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-03101-7", url:"https://doi.org/10.1038/s41746-026-03101-7"},
+  {inst:"Sun Yat-Sen University", geo:"China", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2"},
+  {inst:"UFMG/Uppsala/Glasgow", geo:"Brazil/Sweden/UK", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-02704-4", url:"https://doi.org/10.1038/s41746-026-02704-4"},
+  {inst:"Zhejiang Univ. School of Medicine / Liangzhu L", geo:"China", cites:"Harvard–Emory ECG Database", doi:"10.1109/BIBM66473.2025.11356744", url:"https://doi.org/10.1109/BIBM66473.2025.11356744"},
+  {inst:"Hebei North University", geo:"China", cites:"Heart-failure phenotyping study", doi:"10.31449/inf.v50i11.12596", url:"https://doi.org/10.31449/inf.v50i11.12596"},
+  {inst:"Calgary/McGill/UNICAMP/Huazhong", geo:"Canada/Brazil/China", cites:"Post-stroke outcomes study", doi:"10.1161/SVIN.125.002261", url:"https://doi.org/10.1161/SVIN.125.002261"},
+  {inst:"Univ. de São Paulo", geo:"Brazil", cites:"Post-stroke outcomes study", doi:"10.1186/s12911-025-03178-2", url:"https://doi.org/10.1186/s12911-025-03178-2"},
+  {inst:"Beijing Univ. of Technology", geo:"China", cites:"Sleep-EEG outcomes cohort study", doi:"10.1109/JBHI.2026.3691375", url:"https://doi.org/10.1109/JBHI.2026.3691375"},
+  {inst:"Hospices Civils de Lyon; CNRS / Collège de Fra", geo:"France", cites:"Sleep-EEG outcomes cohort study", doi:"10.1016/j.msom.2025.01.219", url:"https://doi.org/10.1016/j.msom.2025.01.219"},
+  {inst:"Morehouse School of Medicine / Grady Memorial Hospital", geo:"USA", cites:"Sleep-EEG outcomes cohort study", doi:"10.1212/CONT.0000000000001734", url:"https://doi.org/10.1212/CONT.0000000000001734"},
+  {inst:"Univ. Científica del Sur", geo:"Peru", cites:"Sleep-EEG outcomes cohort study", doi:"10.1016/j.sleepx.2026.100177", url:"https://doi.org/10.1016/j.sleepx.2026.100177"},
+  {inst:"Univ. of Ottawa + multi", geo:"Canada", cites:"Sleep-EEG outcomes cohort study", doi:"10.1161/JAHA.125.046964", url:"https://doi.org/10.1161/JAHA.125.046964"},
+];
+/* ── rendering: nothing below needs editing when you add data ───────── */
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+  $('profiles').innerHTML = PROFILES.map(function(p){
+    return '<a href="'+p.url+'" target="_blank" rel="noopener">'+esc(p.label)+'</a>'; }).join('');
+
+  var countries = REGIONS.reduce(function(a,r){ return a.concat(r.countries); },[]);
+  $('reach').innerHTML =
+    '<div><b>'+CITATIONS.length+'</b><span>Independent citations</span></div>'+
+    '<div><b>'+VENUES+'</b><span>Distinct journals</span></div>'+
+    '<div><b>'+FIELDS.length+'</b><span>Fields of medicine</span></div>'+
+    '<div><b>'+countries.length+'</b><span>Countries</span></div>'+
+    '<div><b>'+INSTITUTIONS.length+'</b><span>Institutions</span></div>'+
+    '<div><b>'+DATASETS.length+'</b><span>Open datasets</span></div>'+
+    '<div><b>'+PUBS.length+'</b><span>Publications</span></div>';
+
+  $('traces').innerHTML = MODELS.map(function(m){
+    return '<div class="trace">'+
+      '<div class="tcell"><span class="tlab">Dataset</span><span class="tname">'+esc(m.data)+'</span><span class="tmeta">'+esc(m.scale)+'</span></div>'+
+      '<div class="tcell"><span class="tlab">Model</span><span class="tname"><a href="'+m.murl+'" target="_blank" rel="noopener">'+esc(m.model)+'</a></span>'+
+        '<span class="tmeta">'+esc(m.by)+'</span>'+(m.shared?'<span class="tdep">Shared authorship</span>':'')+'</div>'+
+      '<div class="tcell"><span class="tlab">Published</span><span class="tvenue">'+esc(m.venue)+'</span>'+
+        (m.note?'<span class="tmeta">'+esc(m.note)+'</span>':'')+'</div></div>'; }).join('');
+  $('n-models').textContent = MODELS.length+' shown';
+
+  $('datasets-list').innerHTML = DATASETS.map(function(d){
+    var links = (d.doi ? '<a href="https://doi.org/'+d.doi+'" target="_blank" rel="noopener">'+esc(d.doi)+'</a><br>' : '')+
+      '<a href="'+d.bdsp+'" target="_blank" rel="noopener">bdsp.io</a>';
+    return '<div class="row"><span><span class="row-t">'+esc(d.name)+' <em style="font-style:normal;color:var(--grey);font-weight:400">'+esc(d.ver)+'</em></span>'+
+      '<span class="row-m">'+esc(d.meta)+'</span></span>'+
+      '<span class="row-d" style="text-align:right;line-height:1.9">'+links+'</span></div>'; }).join('');
+  $('n-data').textContent = DATASETS.length+' releases';
+
+  $('pubs-list').innerHTML = PUBS.map(function(p){
+    var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
+                      : '<span class="nodoi">see ORCID</span>';
+    return '<div class="row"><span><span class="row-t">'+esc(p.t)+'</span><span class="row-m">'+esc(p.v)+'</span></span>'+
+      '<span class="row-d">'+right+'</span></div>'; }).join('');
+  $('n-pubs').textContent = PUBS.length+' works';
+
+  $('regions').innerHTML = REGIONS.map(function(r){
+    return '<div class="region"><h4>'+esc(r.name)+' · '+r.countries.length+'</h4><ul>'+
+      r.countries.map(function(c){ return '<li>'+esc(c)+'</li>'; }).join('')+'</ul></div>'; }).join('');
+  $('n-geo').textContent = countries.length+' countries · '+REGIONS.length+' regions';
+
+  $('fields-list').innerHTML = FIELDS.map(function(f){
+    return '<div class="row"><span><span class="row-t">'+esc(f.n)+'</span><span class="row-m">'+esc(f.e)+'</span></span></div>'; }).join('');
+  $('n-fields').textContent = FIELDS.length+' fields';
+
+  var order = {trained:0, landmark:1, cited:2};
+  $('inst-grid').innerHTML = INSTITUTIONS.slice().sort(function(a,b){
+      return (order[a.d]-order[b.d]) || a.n.localeCompare(b.n); })
+    .map(function(i){ return '<div class="inst"><i class="dot '+i.d+'"></i><span>'+esc(i.n)+' <em>'+esc(i.c)+(i.p?' · preprint':'')+'</em></span></div>'; }).join('');
+  $('n-inst').textContent = INSTITUTIONS.length+' institutions';
+
+  var byDs = {};
+  USES.forEach(function(u){ (byDs[u.ds] = byDs[u.ds] || []).push(u); });
+  $('uses-list').innerHTML = Object.keys(byDs).map(function(ds){
+    return '<div class="use" style="background:var(--paper)"><span class="use-b" style="font-family:var(--cond);font-size:16px">'+esc(ds)+'</span></div>'+
+      byDs[ds].map(function(u){
+        var tag = u.dep ? ' <span class="tdep" style="display:inline;margin-left:8px">shared authorship</span>' : '';
+        return '<div class="use"><div class="use-h"><span class="use-b">'+esc(u.by)+tag+'</span>'+
+          '<span class="row-d"><a href="https://doi.org/'+u.doi+'" target="_blank" rel="noopener">'+esc(u.doi)+'</a></span></div>'+
+          '<div class="use-w">'+esc(u.what)+'</div><div class="use-v">'+esc(u.where)+'</div></div>'; }).join(''); }).join('');
+  $('n-uses').textContent = USES.filter(function(u){return !u.dep;}).length+' independent · '+USES.filter(function(u){return u.dep;}).length+' shared authorship';
+
+  $('chal').innerHTML =
+    '<h3>'+esc(CHALLENGE.name)+'</h3>'+
+    '<p class="sub">'+esc(CHALLENGE.opened)+'</p>'+
+    '<p class="fund">'+esc(CHALLENGE.funder)+'</p>'+
+    '<ul>'+CHALLENGE.points.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('')+'</ul>'+
+    '<a class="go" href="'+CHALLENGE.url+'" target="_blank" rel="noopener">moody-challenge.physionet.org/2026 &rarr;</a>';
+
+  $('pre-body').innerHTML = PREPRINTS.map(function(x){
+    var tag = x.dep ? ' <span class="tdep" style="display:inline;margin-left:6px">shared authorship</span>' : '';
+    return '<tr><td class="c-inst" style="min-width:250px">'+esc(x.w)+tag+
+      '<span class="row-m" style="margin-top:4px">'+esc(x.how)+'</span></td>'+
+      '<td style="min-width:190px">'+esc(x.inst)+'<span class="row-m">'+esc(x.geo)+' · posted '+esc(x.posted)+'</span></td>'+
+      '<td><span class="chip">'+esc(x.cites)+'</span></td>'+
+      '<td class="c-doi"><a href="'+x.url+'" target="_blank" rel="noopener">'+esc(x.id)+'</a></td></tr>'; }).join('');
+  $('n-pre').textContent = PREPRINTS.filter(function(x){return !x.dep;}).length+' independent · '+PREPRINTS.filter(function(x){return x.dep;}).length+' shared authorship';
+
+  $('nature-list').innerHTML = NATURE.map(function(x){
+    var tag = x.dep===true ? ' <span class="tdep" style="display:inline;margin:0 0 0 8px">shared authorship</span>'
+            : x.dep===null ? ' <span class="tdep" style="display:inline;margin:0 0 0 8px;color:var(--grey)">my own paper</span>' : '';
+    return '<div class="row"><span><span class="row-t"><em>'+esc(x.j)+'</em> — '+esc(x.w)+tag+'</span>'+
+      '<span class="row-m">'+esc(x.by)+(x.cites!=='—'?' · cites '+esc(x.cites):'')+'</span></span>'+
+      '<span class="row-d"><a href="https://doi.org/'+x.doi+'" target="_blank" rel="noopener">'+esc(x.doi)+'</a></span></div>'; }).join('');
+  var natInd = NATURE.filter(function(x){return x.dep===false;}).length;
+  $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' my own';
+
+  $('ed-list').innerHTML = EDITORIALS.map(function(e){
+    return '<div class="row"><span><span class="row-t">'+esc(e.who)+' — <em>'+esc(e.j)+'</em></span>'+
+      '<span class="row-m">'+esc(e.where)+' · on '+esc(e.about)+'</span>'+
+      '<span class="row-m" style="font-style:italic;margin-top:5px">&ldquo;'+esc(e.quote)+'&rdquo;</span></span>'+
+      '<span class="row-d"><a href="https://doi.org/'+e.doi+'" target="_blank" rel="noopener">'+esc(e.doi)+'</a></span></div>'; }).join('');
+  $('n-ed').textContent = EDITORIALS.length+' commissioned';
+
+  var works = CITATIONS.map(function(c){ return c.cites; })
+    .filter(function(v,i,a){ return a.indexOf(v)===i; }).sort();
+  $('filters').innerHTML = '<button class="filt" data-f="ALL" aria-pressed="true">All</button>'+
+    works.map(function(w){ return '<button class="filt" data-f="'+esc(w)+'">'+esc(w)+'</button>'; }).join('');
+  $('tbody').innerHTML = CITATIONS.slice().sort(function(a,b){
+      return a.cites.localeCompare(b.cites) || a.inst.localeCompare(b.inst); })
+    .map(function(c){ return '<tr data-work="'+esc(c.cites)+'">'+
+      '<td class="c-inst">'+esc(c.inst)+'</td><td class="c-geo">'+esc(c.geo)+'</td>'+
+      '<td><span class="chip">'+esc(c.cites)+'</span></td>'+
+      '<td class="c-doi"><a href="'+c.url+'" target="_blank" rel="noopener">'+esc(c.doi)+'</a></td></tr>'; }).join('');
+  $('n-cit').textContent = CITATIONS.length+' verified';
+
+  var rows = Array.prototype.slice.call($('tbody').querySelectorAll('tr'));
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.filt'));
+  function apply(f){
+    var n=0;
+    rows.forEach(function(r){
+      var show = (f==='ALL') || (r.getAttribute('data-work')===f);
+      r.style.display = show ? '' : 'none'; if(show) n++; });
+    $('count').textContent = n+(n===1?' citation shown':' citations shown');
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.f===f)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.f); }); });
+  apply('ALL');
+})();
+</script>
+</body>
+</html>
