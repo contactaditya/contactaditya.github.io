@@ -40,7 +40,7 @@ h1{font-family:var(--cond);font-weight:700;color:var(--ink);font-size:clamp(38px
 .reach{display:grid;grid-template-columns:repeat(8,1fr);border-top:1px solid var(--rule);margin-top:28px;padding-top:22px;gap:14px 8px}
 .reach div{padding:0 4px}
 .reach b{font-family:var(--cond);font-size:30px;font-weight:700;display:block;line-height:1}
-.reach span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.reach span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);display:block;min-height:2.6em;line-height:1.3}
 .sec{padding:54px 0 8px;text-align:left}
 .sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:20px}
 .sec-head h2{font-family:var(--cond);font-weight:700;font-size:23px;letter-spacing:-.01em;margin:0;flex:1}
@@ -148,8 +148,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="challenge"><div class="sec-head"><h2>An international challenge runs on this data</h2><span class="n">NIH-funded</span></div>
 <div class="chal" id="chal"></div></section>
 
-<section class="sec" id="citations"><div class="sec-head"><h2>Independent external citations</h2><span class="n" id="n-cit"></span></div>
-<p class="lede">Peer-reviewed publications by groups that share no author with me, citing work I co-authored. Filter by which of my works is cited; every identifier resolves to the source.</p>
+<section class="sec" id="citations"><div class="sec-head"><h2>Independent published citations</h2><span class="n" id="n-cit"></span></div>
+<p class="lede">Peer-reviewed publications by groups that share no author with me, citing work I co-authored. This is not a total citation count - it is the subset that is both independent and peer-reviewed. Filter by which of my works is cited; every identifier resolves to the source.</p>
 <div class="filters" id="filters"></div>
 <div class="tbl-wrap"><table><thead><tr><th>Citing institution</th><th>Country</th><th>Cites</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
@@ -168,6 +168,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
 <p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint — including Germany and India — are listed in the next section and marked as such.</p>
 <div class="regions" id="regions"></div></section>
+<section class="sec" id="journals"><div class="sec-head"><h2>Journals that have published a citation</h2><span class="n" id="n-jrn"></span></div>
+<p class="lede" id="jrn-lede"></p>
+<div class="inst-grid" id="jrn-grid"></div></section>
+
 <section class="sec" id="fields"><div class="sec-head"><h2>Fields of medicine</h2><span class="n" id="n-fields"></span></div>
 <p class="lede">Clinical specialties in which independent groups have cited this work. The count is a floor, not a ceiling — neuroimaging is a plausible eighth via BIND.</p>
 <div class="rows" id="fields-list"></div></section>
@@ -265,8 +269,10 @@ const MODELS = [
 ];
 
 /* Distinct peer-reviewed venues that have published an independent citation.
-   Update this number when a citation appears in a journal not already represented. */
-const VENUES = 29;
+   Update this number when a citation appears in a journal not already represented.
+   29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
+   (npj Digital Medicine was already represented, so the review did not add one.) */
+const VENUES = 32;
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -317,7 +323,7 @@ const DATASETS = [
    meta:"15,695 annotated pediatric polysomnograms, 139,208 hours of EEG — the largest pediatric PSG dataset available",
    doi:"10.60508/hjdt-fz71", bdsp:"https://bdsp.io/content/l8c86mgywuneuy74ae71/1.0.1/"},
   {name:"Brain Imaging and Neurophysiology Database (BIND)", ver:"v1.0",
-   meta:"1,723,699 MRI, 54,137 CT, 5,093 PET and 526 SPECT scans from 38,945 patients across MGH, Brigham and Women's and Stanford — newborn to 106 years; over 80% also appear in the Harvard EEG Database or the Human Sleep Project",
+   meta:"1,723,699 MRI, 54,137 CT, 5,093 PET and 526 SPECT scans from 38,942 patients across MGH, Brigham and Women's and Stanford — newborn to 106 years; over 80% also appear in the Harvard EEG Database or the Human Sleep Project",
    doi:"10.60508/mby8-3a26", bdsp:"https://bdsp.io/content/n1vba1x5qt62frfjem65/1.0/"},
   {name:"PROPHET", ver:"v1.0",
    meta:"17 neurological phenotypes, 18,282 patients, 34,162 annotated visits, six U.S. health systems",
@@ -348,59 +354,63 @@ const USES = [
    CITATIONS on purpose. Move a row into CITATIONS when it publishes, and record
    the acceptance date, not the publication date. */
 const PREPRINTS = [
-  {w:"ECG-CPC — Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks",
+  {d:20260706, w:"ImputeECG — Deep Learning Reconstruction of Complete 12-Lead Electrocardiograms",
+   inst:"Peking University and collaborators", geo:"China",
+   cites:"Harvard–Emory ECG Database", how:"Cites the database and ECGFounder as prior work",
+   id:"arXiv:2607.05009", url:"https://arxiv.org/abs/2607.05009", posted:"6 Jul 2026", dep:true},
+  {d:20250929, w:"ECG-CPC — Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks",
    inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany",
    cites:"Harvard–Emory ECG Database", how:"Pretrained ECG-CPC on the full 10.7-million-record corpus",
    id:"arXiv:2509.25095", url:"https://arxiv.org/abs/2509.25095", posted:"29 Sep 2025", dep:false},
-  {w:"CAMEL — An ECG Language Model for Forecasting Cardiac Events",
+  {d:20260217, w:"CAMEL — An ECG Language Model for Forecasting Cardiac Events",
    inst:"University of Pennsylvania", geo:"United States",
    cites:"Harvard–Emory ECG Database", how:"~20 million samples formed the entirety of Stage-2 instruction tuning; accepted at ICLR 2026",
    id:"arXiv:2602.15677", url:"https://arxiv.org/abs/2602.15677", posted:"17 Feb 2026", dep:false},
-  {w:"DeepECG-Tok — A unified 12-lead ECG-language model",
+  {d:20260722, w:"DeepECG-Tok — A unified 12-lead ECG-language model",
    inst:"Montreal Heart Institute · Mila–Québec AI Institute · Université de Montréal · University of Toronto · University of Ottawa", geo:"Canada",
    cites:"Harvard–Emory ECG Database", how:"5,100 ECGs used as one of four external validation cohorts; macro-AUROC 0.90",
    id:"medRxiv 10.64898/2026.07.22.26358591", url:"https://doi.org/10.64898/2026.07.22.26358591", posted:"24 Jul 2026", dep:false},
-  {w:"Nicolson et al. — cardiovascular risk validation",
+  {d:20260710, w:"Nicolson et al. — cardiovascular risk validation",
    inst:"Medical University of Innsbruck · Eurac Research", geo:"Austria / Italy",
    cites:"Harvard–Emory ECG Database", how:"One of four external validation cohorts; HR 1.41, C-index 0.740",
    id:"medRxiv 10.64898/2026.07.10.26357749", url:"https://doi.org/10.64898/2026.07.10.26357749", posted:"10 Jul 2026", dep:false},
-  {w:"Neuro-JEPA — Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
+  {d:20260612, w:"Neuro-JEPA — Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
    inst:"NYU Langone Health", geo:"United States",
    cites:"BIND", how:"Used as an external-validation benchmark (\u201cBIND-MGH\u201d) among 12 public cohorts",
    id:"arXiv:2606.14957", url:"https://arxiv.org/abs/2606.14957", posted:"12 Jun 2026", dep:false},
-  {w:"NeuralBench — EEG foundation model benchmark",
+  {d:20260515, w:"NeuralBench — EEG foundation model benchmark",
    inst:"Meta FAIR (Brain & AI) · École Normale Supérieure / CNRS · Inria · Fondation Rothschild", geo:"France",
    cites:"Harvard EEG Database", how:"Named one of only five \u201clandmark public datasets\u201d across 94 surveyed",
    id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"May 2026", dep:false},
-  {w:"CELM — Neural Signals Generate Clinical Notes in the Wild",
+  {d:20260129, w:"CELM — Neural Signals Generate Clinical Notes in the Wild",
    inst:"University of Illinois Urbana-Champaign", geo:"United States",
    cites:"Harvard EEG Database", how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
    id:"arXiv:2601.22197", url:"https://arxiv.org/abs/2601.22197", posted:"29 Jan 2026", dep:false},
-  {w:"EpiGraph — epilepsy knowledge graph and benchmark",
+  {d:20260513, w:"EpiGraph — epilepsy knowledge graph and benchmark",
    inst:"University of Illinois Urbana-Champaign · Florida State University · University of Osaka", geo:"United States / Japan",
    cites:"Harvard EEG Database", how:"Used under the database's data-use agreement (v4.1)",
    id:"arXiv:2605.09505", url:"https://arxiv.org/abs/2605.09505", posted:"13 May 2026", dep:false},
-  {w:"Position: Evaluation of ECG Representations Must Be Fixed",
+  {d:20260219, w:"Position: Evaluation of ECG Representations Must Be Fixed",
    inst:"Massachusetts Institute of Technology", geo:"United States",
    cites:"Harvard–Emory ECG Database", how:"Cited in a survey of ECG representation-learning benchmarks",
    id:"arXiv:2602.17531", url:"https://arxiv.org/abs/2602.17531", posted:"19 Feb 2026", dep:false},
-  {w:"DANIEL — A Distributed and Scalable Approach for Global Representation Learning with EHR Applications",
+  {d:20251104, w:"DANIEL — A Distributed and Scalable Approach for Global Representation Learning with EHR Applications",
    inst:"Harvard · University of Chicago · Carnegie Mellon University · University of Pittsburgh · Brigham and Women's Hospital", geo:"United States",
    cites:"MCI/ADRD phenotyping study", how:"Cited as prior work on EHR phenotyping; submitted to the Journal of Machine Learning Research",
    id:"arXiv:2511.02754", url:"https://arxiv.org/abs/2511.02754", posted:"4 Nov 2025", dep:false},
-  {w:"Multi-disorder EEG classification benchmarks",
+  {d:20251215, w:"Multi-disorder EEG classification benchmarks",
    inst:"Indian Institute of Technology Kharagpur", geo:"India",
    cites:"Harvard EEG Database", how:"Classifiers built across 11 disorder categories",
    id:"arXiv:2512.22656", url:"https://arxiv.org/abs/2512.22656", posted:"Dec 2025", dep:false},
-  {w:"Ensemble Logic for Symbolic Representation of Sleep Medicine Guidelines",
+  {d:20260721, w:"Ensemble Logic for Symbolic Representation of Sleep Medicine Guidelines",
    inst:"UTHealth Houston", geo:"United States",
    cites:"CAISR", how:"Cited as an inter-scorer agreement reference",
    id:"arXiv:2607.21331", url:"https://arxiv.org/abs/2607.21331", posted:"21 Jul 2026", dep:false},
-  {w:"CLEF — EEG Foundation Model for Learning Clinical Semantics",
+  {d:20260511, w:"CLEF — EEG Foundation Model for Learning Clinical Semantics",
    inst:"MIT CSAIL · Brigham and Women's Hospital · Massachusetts General Hospital", geo:"United States",
    cites:"Harvard EEG Database", how:"260,000+ EEG sessions from 108,000+ patients; outperformed prior models on 229 of 234 tasks",
    id:"arXiv:2605.10817", url:"https://arxiv.org/abs/2605.10817", posted:"11 May 2026", dep:true},
-  {w:"AI Sleep Co-Scientist — agentic discovery across large-scale sleep physiology",
+  {d:20260728, w:"AI Sleep Co-Scientist — agentic discovery across large-scale sleep physiology",
    inst:"Stanford University · Technical University of Denmark · Together AI · Washington University in St. Louis", geo:"United States / Denmark",
    cites:"Human Sleep Project", how:"HSP was one of four cohorts and the independent replication set (n = 17,810 and n = 16,973)",
    id:"arXiv:2607.25175", url:"https://arxiv.org/abs/2607.25175", posted:"28 Jul 2026", dep:true},
@@ -422,24 +432,70 @@ const CHALLENGE = {
 
 
 
+/* Publications. `y` is the year — the page sorts by it, newest first,
+   keeping the order below within a year. Add a row anywhere; it will slot in. */
+/* Publications. `d` is the publication date as YYYYMMDD — the page sorts by it,
+   newest first. Dates marked ✓ are taken from the article; those marked ~ are
+   inferred from the issue number or venue date and are worth confirming. */
+/* Publications. `d` is the publication date as YYYYMMDD — the page sorts by it,
+   newest first. All 17 verified. These are ONLINE publication dates where one exists;
+   two works (BIND, Learning brain health) use the acceptance or issue date - see the
+   trailing comments. */
 const PUBS = [
-  {t:"The Human Sleep Project: a multi-center clinical polysomnography dataset across the human lifespan", v:"Sleep, 2026", doi:"10.1093/sleep/zsag215"},
-  {t:"The Harvard–Emory ECG Database", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-06861-9"},
-  {t:"The Brain Imaging and Neurophysiology Dataset of large-scale multimodal neural data", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-07421-x"},
-  {t:"Brain health from sleep EEG: a multicohort deep learning biomarker for cognition, disease and mortality", v:"NEJM AI, 2026", doi:"10.1056/AIoa2500487"},
-  {t:"CAISR: achieving human-level performance in automated sleep analysis across all clinical sleep metrics", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf134"},
-  {t:"Harvard Electroencephalography Database: a comprehensive clinical resource from four Boston hospitals", v:"Epilepsia, 2025", doi:"10.1111/epi.18487"},
-  {t:"The Boston Children's Hospital Sleep Corpus: 15,695 annotated pediatric polysomnograms", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf273"},
-  {t:"Health-oriented sleep states: making sleep states reflect health conditions", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf229"},
-  {t:"Assessing risk of health outcomes from brain activity in sleep: a retrospective cohort study", v:"Neurology: Clinical Practice, 2024", doi:"10.1212/CPJ.0000000000200225"},
-  {t:"Automated phenotyping of mild cognitive impairment and Alzheimer's disease using electronic health records", v:"International Journal of Medical Informatics, 2025", doi:"10.1016/j.ijmedinf.2025.105917"},
-  {t:"Automated extraction of post-stroke functional outcomes from unstructured electronic health records", v:"European Stroke Journal, 2025", doi:"10.1177/23969873251314340"},
-  {t:"Large-scale automated phenotyping of cardiac arrest", v:"Resuscitation, 2026", doi:"10.1016/j.resuscitation.2026.110919"},
-  {t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},
-  {t:"Automated electronic health record phenotyping of acute and subacute subdural hematoma", v:"Algorithms, 2026;19(3):239", doi:"10.3390/a19030239"},
-  {t:"Identification of patients with congestive heart failure from the electronic health records of two hospitals", v:"JMIR Medical Informatics, 2025;13:e64113", doi:"10.2196/64113"},
-  {t:"Artificial intelligence-enabled phenotyping of neurological disease from electronic health records", v:"Innovation in Aging, 2025;9(Suppl 1) — conference abstract", doi:"10.1093/geroni/igaf122.2241"},
-  {t:"Learning brain health from sleep", v:"Sleep, 2026;49(Suppl 1) — conference abstract", doi:"10.1093/sleep/zsag091.0331"},
+  {d:20260805, y:2026, t:"The Human Sleep Project: a multi-center clinical polysomnography dataset across the human lifespan", v:"Sleep, 2026", doi:"10.1093/sleep/zsag215"},  // ✓ published 5 August 2026
+  {d:20260225, y:2026, t:"The Harvard–Emory ECG Database", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-06861-9"},  // ✓ Sci Data 2026 Feb 25;13:516 (recv 5 Sep 2025, acc 6 Feb 2026)
+  {d:20260521, y:2026, t:"The Brain Imaging and Neurophysiology Dataset of large-scale multimodal neural data", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-07421-x"},  // ✓ published 21 May 2026 (recv 15 Oct 2025, acc 30 Apr 2026)
+  {d:20260226, y:2026, t:"Brain health from sleep EEG: a multicohort deep learning biomarker for cognition, disease and mortality", v:"NEJM AI, 2026", doi:"10.1056/AIoa2500487"},  // ✓ published 26 February 2026
+  {d:20250624, y:2025, t:"CAISR: achieving human-level performance in automated sleep analysis across all clinical sleep metrics", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf134"},  // ✓ published 24 June 2025 (Sleep 48(8), print 14 Aug)
+  {d:20250604, y:2025, t:"Harvard Electroencephalography Database: a comprehensive clinical resource from four Boston hospitals", v:"Epilepsia, 2025", doi:"10.1111/epi.18487"},  // ✓ Epub 4 Jun 2025 (issue 66(9), Sep 2025)
+  {d:20250916, y:2025, t:"The Boston Children's Hospital Sleep Corpus: 15,695 annotated pediatric polysomnograms", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf273"},  // ✓ published 16 September 2025
+  {d:20250807, y:2025, t:"Health-oriented sleep states: making sleep states reflect health conditions", v:"Sleep, 2025", doi:"10.1093/sleep/zsaf229"},  // ✓ published 7 August 2025
+  {d:20231208, y:2023, t:"Assessing risk of health outcomes from brain activity in sleep: a retrospective cohort study", v:"Neurology: Clinical Practice, 2024", doi:"10.1212/CPJ.0000000000200225"},  // ✓ online 8 Dec 2023 (Neurol Clin Pract 14(1), issue Feb 2024)
+  {d:20250411, y:2025, t:"Automated phenotyping of mild cognitive impairment and Alzheimer's disease using electronic health records", v:"International Journal of Medical Informatics, 2025", doi:"10.1016/j.ijmedinf.2025.105917"},  // ✓ Epub 11 Apr 2025 (issue 200, Aug 2025)
+  {d:20250122, y:2025, t:"Automated extraction of post-stroke functional outcomes from unstructured electronic health records", v:"European Stroke Journal, 2025", doi:"10.1177/23969873251314340"},  // ✓ online first 22 Jan 2025 (issue 10(3), 1 Sep 2025)
+  {d:20251208, y:2025, t:"Large-scale automated phenotyping of cardiac arrest", v:"Resuscitation, 2026", doi:"10.1016/j.resuscitation.2025.110919"},  // ✓ Epub 8 Dec 2025 (issue 218, Jan 2026); DOI year is 2025
+  {d:20260401, y:2026, t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},  // ✓ Crit Care Explor 8(4):e1402, April 2026
+  {d:20260323, y:2026, t:"Automated electronic health record phenotyping of acute and subacute subdural hematoma", v:"Algorithms, 2026;19(3):239", doi:"10.3390/a19030239"},  // ✓ published 23 March 2026
+  {d:20250410, y:2025, t:"Identification of patients with congestive heart failure from the electronic health records of two hospitals", v:"JMIR Medical Informatics, 2025;13:e64113", doi:"10.2196/64113"},  // ✓ JMIR Med Inform, published 10 April 2025
+  {d:20251201, y:2025, t:"Artificial intelligence-enabled phenotyping of neurological disease from electronic health records", v:"Innovation in Aging, 2025;9(Suppl 1) — conference abstract", doi:"10.1093/geroni/igaf122.2241"},  // ✓ Innovation in Aging 9(Suppl 2), December 2025
+  {d:20260501, y:2026, t:"Learning brain health from sleep", v:"Sleep, 2026;49(Suppl 1) — conference abstract", doi:"10.1093/sleep/zsag091.0331"},  // ✓ Sleep 49(Suppl 1):A146, May 2026
+];
+
+/* Journals and conference venues that have published an independent citation.
+   `n` is the name, `c` the count of citations from that venue. */
+const JOURNALS = [
+  {n:"npj Digital Medicine", c:3},
+  {n:"Epilepsia", c:2},
+  {n:"Technologies", c:2},
+  {n:"Nature Communications", c:1},
+  {n:"Scientific Reports", c:1},
+  {n:"Sleep", c:1},
+  {n:"SLEEP Advances", c:1},
+  {n:"Continuum: Lifelong Learning in Neurology", c:1},
+  {n:"Frontiers in Neurology", c:1},
+  {n:"Current Opinion in Neurology", c:1},
+  {n:"Journal of the American Heart Association", c:1},
+  {n:"Stroke: Vascular and Interventional Neurology", c:1},
+  {n:"Clinical Neurophysiology", c:1},
+  {n:"Journal of Neural Engineering", c:1},
+  {n:"IEEE Journal of Biomedical and Health Informatics", c:1},
+  {n:"IEEE International Conference on Bioinformatics and Biomedicine", c:1},
+  {n:"IEEE ICASSP", c:1},
+  {n:"IEEE (Access / conference proceedings)", c:1},
+  {n:"ACM SenSys", c:1},
+  {n:"Applied Soft Computing", c:1},
+  {n:"Electronics", c:1},
+  {n:"Entropy", c:1},
+  {n:"Archives of Computational Methods in Engineering", c:1},
+  {n:"BMC Medical Informatics and Decision Making", c:1},
+  {n:"Sleep Medicine", c:1},
+  {n:"Sleep Medicine: X", c:1},
+  {n:"Journal of Movement Disorders", c:1},
+  {n:"Clinical Interventions in Aging", c:1},
+  {n:"International Journal of Nanomedicine", c:1},
+  {n:"Informatica", c:1},
+  {n:"Journal of Science and Technique (Le Quy Don)", c:1},
+  {n:"Sleep Epidemiology / other", c:1},
 ];
 
 const REGIONS = [
@@ -492,6 +548,14 @@ const INSTITUTIONS = [
   {n:"Baylor College of Medicine",              c:"United States", d:"cited"},
   {n:"University of Michigan",                   c:"United States", d:"editorial"},
   {n:"Sleep Consortium (Florida)",               c:"United States", d:"cited"},
+  {n:"Mayo Clinic",                              c:"United States", d:"cited"},
+  {n:"Boston University",                        c:"United States", d:"cited"},
+  {n:"VA Boston Healthcare System",              c:"United States", d:"cited"},
+  {n:"Indiana University",                       c:"United States", d:"cited"},
+  {n:"Barrow Neurological Institute",            c:"United States", d:"cited"},
+  {n:"Hoag Medical Group",                       c:"United States", d:"cited"},
+  {n:"Memorial Healthcare (Michigan)",           c:"United States", d:"cited"},
+  {n:"Eli Lilly and Company",                    c:"United States", d:"cited"},
   {n:"Seoul National University Hospital",      c:"South Korea",   d:"cited"},
   {n:"Yonsei University",                       c:"South Korea",   d:"cited"},
   {n:"Politehnica Bucharest",                   c:"Romania",       d:"cited"},
@@ -527,6 +591,7 @@ const INSTITUTIONS = [
   {n:"Le Quy Don Technical University",         c:"Vietnam",       d:"cited"},
 ];
 const CITATIONS = [
+  {inst:"VA Boston / Boston Univ.; Mayo Clinic; UCSF; Indiana Univ.; Barrow Neurological Inst.; Eli Lilly", geo:"USA", cites:"MCI/ADRD phenotyping study", doi:"10.3389/fneur.2026.1863897", url:"https://doi.org/10.3389/fneur.2026.1863897"},
   {inst:"Clínica Universidad de Navarra (Pamplona)", geo:"Spain", cites:"BCH Sleep Corpus", doi:"10.1016/j.clinph.2026.2111977", url:"https://doi.org/10.1016/j.clinph.2026.2111977"},
   {inst:"Politehnica Bucharest (CAMPUS Research Institute)", geo:"Romania", cites:"BCH Sleep Corpus", doi:"10.3390/electronics15163537", url:"https://doi.org/10.3390/electronics15163537"},
   {inst:"Sungkyunkwan & Sejong Univ.; Prince Sattam bin", geo:"South Korea / Sa", cites:"BCH Sleep Corpus", doi:"10.1016/j.asoc.2026.115590", url:"https://doi.org/10.1016/j.asoc.2026.115590"},
@@ -574,7 +639,7 @@ const CITATIONS = [
 
   var countries = REGIONS.reduce(function(a,r){ return a.concat(r.countries); },[]);
   $('reach').innerHTML =
-    '<div><b>'+CITATIONS.length+'</b><span>Citations</span></div>'+
+    '<div><b>'+CITATIONS.length+'</b><span>Independent published citations</span></div>'+
     '<div><b>'+EDITORIALS.length+'</b><span>Editorials</span></div>'+
     '<div><b>'+VENUES+'</b><span>Distinct journals</span></div>'+
     '<div><b>'+FIELDS.length+'</b><span>Fields</span></div>'+
@@ -600,7 +665,8 @@ const CITATIONS = [
       '<span class="row-d" style="text-align:right;line-height:1.9">'+links+'</span></div>'; }).join('');
   $('n-data').textContent = DATASETS.length+' releases';
 
-  $('pubs-list').innerHTML = PUBS.map(function(p){
+  var pubsSorted = PUBS.slice().sort(function(a,b){ return b.d-a.d; });
+  $('pubs-list').innerHTML = pubsSorted.map(function(p){
     var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
                       : '<span class="nodoi">see ORCID</span>';
     return '<div class="row"><span><span class="row-t">'+esc(p.t)+'</span><span class="row-m">'+esc(p.v)+'</span></span>'+
@@ -611,6 +677,18 @@ const CITATIONS = [
     return '<div class="region"><h4>'+esc(r.name)+' · '+r.countries.length+'</h4><ul>'+
       r.countries.map(function(c){ return '<li>'+esc(c)+'</li>'; }).join('')+'</ul></div>'; }).join('');
   $('n-geo').textContent = countries.length+' countries · '+REGIONS.length+' regions';
+
+  $('jrn-grid').innerHTML = JOURNALS.slice().sort(function(a,b){ return (b.c-a.c)||a.n.localeCompare(b.n); })
+    .map(function(j){ return '<div class="inst"><i class="dot landmark"></i><span>'+esc(j.n)+
+      (j.c>1?' <em>'+j.c+' citations</em>':'')+'</span></div>'; }).join('');
+  $('n-jrn').textContent = JOURNALS.length+' venues';
+  $('jrn-lede').innerHTML = 'The independent citations are spread across <strong>'+JOURNALS.length+
+    ' distinct peer-reviewed venues</strong> - not concentrated in one journal or one field. They range from '+
+    'general-science titles such as <em>Nature Communications</em> and <em>Scientific Reports</em>, through clinical journals '+
+    'including <em>Epilepsia</em>, <em>Sleep</em>, <em>Clinical Neurophysiology</em> and the American Academy of Neurology\'s '+
+    '<em>Continuum</em>, to engineering and machine-learning venues such as <em>IEEE JBHI</em>, <em>ICASSP</em> and <em>ACM SenSys</em>. '+
+    'Three are in <em>npj Digital Medicine</em> and two each in <em>Epilepsia</em> and <em>Technologies</em>; the rest are single citations, '+
+    'which is what breadth rather than concentration looks like.';
 
   $('fields-list').innerHTML = FIELDS.map(function(f){
     return '<div class="row"><span><span class="row-t">'+esc(f.n)+'</span><span class="row-m">'+esc(f.e)+'</span></span></div>'; }).join('');
@@ -640,7 +718,7 @@ const CITATIONS = [
     '<ul>'+CHALLENGE.points.map(function(x){ return '<li>'+x+'</li>'; }).join('')+'</ul>'+
     '<a class="go" href="'+CHALLENGE.url+'" target="_blank" rel="noopener">moody-challenge.physionet.org/2026 &rarr;</a>';
 
-  $('pre-body').innerHTML = PREPRINTS.map(function(x){
+  $('pre-body').innerHTML = PREPRINTS.slice().sort(function(a,b){ return b.d-a.d; }).map(function(x){
     var tag = x.dep ? ' <span class="tdep" style="display:inline;margin-left:6px">shared authorship</span>' : '';
     return '<tr><td class="c-inst" style="min-width:250px">'+esc(x.w)+tag+
       '<span class="row-m" style="margin-top:4px">'+esc(x.how)+'</span></td>'+
