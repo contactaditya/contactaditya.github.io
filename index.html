@@ -145,6 +145,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets — as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
 <div class="rows" id="uses-list"></div></section>
 
+<section class="sec" id="hosting"><div class="sec-head"><h2>Hosting and external curation</h2><span class="n" id="n-host"></span></div>
+<p class="lede">Beyond the academic literature, the datasets are curated and distributed by Amazon Web Services and carried on a joint open-science platform with the University of Pennsylvania.</p>
+<div class="rows" id="host-list"></div></section>
+
 <section class="sec" id="challenge"><div class="sec-head"><h2>An international challenge runs on this data</h2><span class="n">NIH-funded</span></div>
 <div class="chal" id="chal"></div></section>
 
@@ -414,6 +418,25 @@ const PREPRINTS = [
    inst:"Stanford University · Technical University of Denmark · Together AI · Washington University in St. Louis", geo:"United States / Denmark",
    cites:"Human Sleep Project", how:"HSP was one of four cohorts and the independent replication set (n = 17,810 and n = 16,973)",
    id:"arXiv:2607.25175", url:"https://arxiv.org/abs/2607.25175", posted:"28 Jul 2026", dep:true},
+];
+
+/* Where the datasets are hosted, curated and recognised outside the academic literature. */
+const HOSTING = [
+  {n:"AWS Registry of Open Data - Harvard EEG Database",
+   d:"Curated by Amazon on its public open-data registry, which hosts a selected set of high-value datasets.",
+   url:"https://registry.opendata.aws/bdsp-harvard-eeg/"},
+  {n:"AWS Registry of Open Data - Harvard-Emory ECG Database",
+   d:"A second of the databases listed on the same registry.",
+   url:"https://registry.opendata.aws/bdsp-heedb/"},
+  {n:"AWS Marketplace - Harvard EEG Database",
+   d:"Listed as a public dataset product, discoverable by any AWS customer.",
+   url:"https://aws.amazon.com/marketplace/pp/prodview-wvzbqfhcrwpym"},
+  {n:"Epilepsy.Science",
+   d:"A joint open-science platform operated by BDSP with the University of Pennsylvania and supported by AWS Open Data, bringing 200,000+ EEG recordings to the epilepsy research community. I am listed as Key Staff; my role is the underlying data engineering.",
+   url:"https://epilepsy.science/about"},
+  {n:"AWS Public Sector Blog - Brain Data Science Platform",
+   d:"Amazon's own write-up of the platform and how open data and cloud infrastructure make the recordings accessible for research.",
+   url:"https://aws.amazon.com/blogs/publicsector/brain-data-science-platform-increases-eeg-accessibility-with-open-data-and-research-enabled-by-aws/"},
 ];
 
 /* The Challenge that runs on this data. */
@@ -710,6 +733,11 @@ const CITATIONS = [
           '<span class="row-d"><a href="https://doi.org/'+u.doi+'" target="_blank" rel="noopener">'+esc(u.doi)+'</a></span></div>'+
           '<div class="use-w">'+esc(u.what)+'</div><div class="use-v">'+esc(u.where)+'</div></div>'; }).join(''); }).join('');
   $('n-uses').textContent = USES.filter(function(u){return !u.dep;}).length+' independent · '+USES.filter(function(u){return u.dep;}).length+' shared authorship';
+
+  $('host-list').innerHTML = HOSTING.map(function(h){
+    return '<div class="row"><span><span class="row-t">'+esc(h.n)+'</span><span class="row-m">'+esc(h.d)+'</span></span>'+
+      '<span class="row-d"><a href="'+h.url+'" target="_blank" rel="noopener">open &rarr;</a></span></div>'; }).join('');
+  $('n-host').textContent = HOSTING.length+' listings';
 
   $('chal').innerHTML =
     '<h3>'+esc(CHALLENGE.name)+'</h3>'+
