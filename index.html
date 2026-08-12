@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--paper:#F5F6F8;--card:#fff;--ink:#14171E;--indigo:#2B3A8F;--rust:#A14A2A;--grey:#6B7280;
---rule:#E1E4E9;--rule2:#C9CED6;--hover:#FAFBFC;--shade:var(--shade);--sans:'IBM Plex Sans',system-ui,sans-serif;
+--rule:#E1E4E9;--rule2:#C9CED6;--hover:#FAFBFC;--shade:rgba(43,58,143,.28);--sans:'IBM Plex Sans',system-ui,sans-serif;
 --cond:'IBM Plex Sans Condensed',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--wrap:1180px}
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){--paper:#0F1116;--card:#171A21;--ink:#E7E9ED;--indigo:#93A2E8;
@@ -82,6 +82,9 @@ tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:var(--hover)}
 figure.map{margin:0 0 22px;padding:0}
 figure.map img{width:100%;height:auto;display:block;border:1px solid var(--rule2);background:var(--card)}
 figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-width:none}
+figure.map{margin:0 0 22px;background:var(--card);border:1px solid var(--rule2);padding:18px}
+figure.map img{width:100%;height:auto;display:block}
+figure.map figcaption{font-family:var(--mono);font-size:10.5px;color:var(--grey);margin-top:12px;letter-spacing:.04em}
 .regions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--rule2);background:var(--card)}
 .region{padding:18px 20px;border-right:1px solid var(--rule)}
 .region:last-child{border-right:0}
