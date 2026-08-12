@@ -147,6 +147,19 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="datasets"><div class="sec-head"><h2>Open datasets</h2><span class="n" id="n-data"></span></div>
 <p class="lede">Each is a DOI-registered release on the <a href="https://bdsp.io/content/" target="_blank" rel="noopener">Brain Data Science Platform</a>, distributed under credentialed access and a signed data-use agreement. My name appears in the citation string of each.</p>
 <div class="rows" id="datasets-list"></div></section>
+<section class="sec" id="pipeline"><div class="sec-head"><h2>What building these involves</h2><span class="n">The engineering</span></div>
+<div class="note">
+<h3>A dataset listing shows the output. These are the stages that produce it.</h3>
+<p><b>Ingestion and indexing.</b> Raw studies sit in hospital systems in proprietary vendor formats, spread across archives that were never built to be queried as a corpus. The first task is knowing what exists: cataloguing every recording, reconciling it against the clinical record, and pulling it on a schedule. I run the complete daily electroencephalography pipeline for Beth Israel Deaconess from indexing through archiving.</p>
+<p><b>Patient matching.</b> A physiological recording is only useful if it can be tied to the right patient across systems that identify people differently. Getting this wrong is worse than useless, because it silently corrupts every downstream analysis.</p>
+<p><b>Format conversion and annotation.</b> Vendor formats differ by manufacturer and by decade. Each recording is converted to the <a href="https://bids.neuroimaging.io/" target="_blank" rel="noopener">Brain Imaging Data Structure</a> standard, and I generate the BIDS-compliant annotation files for every electroencephalogram in the platform.</p>
+<p><b>Electronic health record extraction and linkage.</b> A waveform without clinical context answers few questions. I built the daily extraction of Epic-sourced record data through an enterprise data warehouse, and the linkage of that clinical data to the corresponding physiological recordings.</p>
+<p><b>De-identification.</b> Clinical recordings are protected health information. Studying records from Mass General, Beth Israel Deaconess, Brigham and Women's, Boston Children's, Emory and Stanford together would in principle require separate review-board approvals and data-use agreements from each &mdash; a barrier heavy enough to foreclose the multi-site studies clinical AI depends on. Once data is de-identified to the HIPAA Safe Harbor standard that barrier falls away. I extended <a href="https://github.com/BCHSI/philter-ucsf" target="_blank" rel="noopener">Philter</a>, the UCSF natural-language de-identification tool, with a cross-institutional abstraction layer, and applied it to millions of clinical notes, imaging reports and neurology reports.</p>
+<p><b>Harmonisation.</b> Each contributing site records under its own equipment, conventions and documentation practices. Making fourteen institutions' data comparable &mdash; rather than merely co-located &mdash; is done across institutional boundaries by definition.</p>
+<p><b>Release and governed access.</b> Each resource is registered under a DOI, versioned, and distributed through a credentialed-access layer that enforces every contributing institution's terms through signed data-use agreements. As of July 2026, 931 researchers had been approved from 1,516 applications.</p>
+<p>I am one of three engineers on the platform, and a named Data Coordinator on the Mass General Brigham institutional review board protocols under which this work is conducted.</p>
+</div></section>
+
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
 <p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets — as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
 <div class="rows" id="uses-list"></div></section>
@@ -329,22 +342,22 @@ const EDITORIALS = [
 
 const DATASETS = [
   {name:"Harvard Electroencephalography Database", ver:"v4.1",
-   meta:"280,000+ recordings from 108,000+ patients across four Harvard-affiliated Boston hospitals",
+   meta:"Massachusetts General Hospital, Beth Israel Deaconess, Brigham and Women\u2019s and Boston Children\u2019s. The peer-reviewed descriptor in <em>Epilepsia</em> reports more than 280,000 recordings from over 108,000 patients.",
    doi:"10.60508/k85b-fc87", bdsp:"https://bdsp.io/content/harvard-eeg-db/4.1/"},
   {name:"Harvard–Emory ECG Database", ver:"v5.0",
-   meta:"10.7 million 12-lead ECGs from two U.S. health systems",
+   meta:"Mass General Brigham (Massachusetts) and Emory University (Georgia). The descriptor in <em>Scientific Data</em> reports 10,771,552 twelve-lead electrocardiograms.",
    doi:"10.60508/rv6h-7d10", bdsp:"https://bdsp.io/content/heedb/5.0/"},
   {name:"Human Sleep Project", ver:"v3.0",
-   meta:"119,234 overnight recordings (115,129 PSGs + 4,105 home sleep apnea tests) from 90,000+ patients across Stanford, Mass General Brigham, Emory, BIDMC and Boston Children's",
+   meta:"Stanford, Mass General Brigham, Emory, Beth Israel Deaconess and Boston Children\u2019s. The descriptor in <em>Sleep</em> reports 119,234 overnight recordings from more than 90,000 patients.",
    doi:"10.60508/m3sw-rz13", bdsp:"https://bdsp.io/content/hsp/3.0/"},
   {name:"Boston Children's Hospital Sleep Corpus", ver:"v1.0.1",
-   meta:"15,695 annotated pediatric polysomnograms, 139,208 hours of EEG — the largest pediatric PSG dataset available",
+   meta:"Boston Children\u2019s Hospital. The descriptor in <em>Sleep</em> calls it \u201cthe largest pediatric PSG dataset available\u201d: 15,695 overnight recordings from 12,640 patients, 16.7 million annotated sleep stages and 2.25 million annotated respiratory events.",
    doi:"10.60508/hjdt-fz71", bdsp:"https://bdsp.io/content/l8c86mgywuneuy74ae71/1.0.1/"},
   {name:"Brain Imaging and Neurophysiology Database (BIND)", ver:"v1.0",
-   meta:"1,723,699 MRI, 54,137 CT, 5,093 PET and 526 SPECT scans from 38,942 patients across MGH, Brigham and Women's and Stanford — newborn to 106 years; over 80% also appear in the Harvard EEG Database or the Human Sleep Project",
+   meta:"Massachusetts General Hospital, Brigham and Women\u2019s and Stanford. The descriptor in <em>Scientific Data</em> calls it \u201cone of the largest multi-institutional, multimodal, clinical neuroimaging repositories\u201d: 1.8 million scans from 38,942 patients \u2014 1,723,699 MRI, 54,137 CT, 5,093 PET, 526 SPECT \u2014 linked to 84,960 clinical reports.",
    doi:"10.60508/mby8-3a26", bdsp:"https://bdsp.io/content/n1vba1x5qt62frfjem65/1.0/"},
   {name:"PROPHET", ver:"v1.0",
-   meta:"17 neurological phenotypes, 18,282 patients, 34,162 annotated visits, six U.S. health systems",
+   meta:"Six U.S. health systems including Kaiser Permanente. 17 neurological phenotypes, 18,282 patients and 34,162 annotated visits.",
    doi:"10.60508/zkvt-gt36", bdsp:"https://bdsp.io/content/480zbyvqxlq0agc6myih/1.0/"},
 ];
 
@@ -753,7 +766,7 @@ const CITATIONS = [
     var links = (d.doi ? '<a href="https://doi.org/'+d.doi+'" target="_blank" rel="noopener">'+esc(d.doi)+'</a><br>' : '')+
       '<a href="'+d.bdsp+'" target="_blank" rel="noopener">bdsp.io</a>';
     return '<div class="row"><span><span class="row-t">'+esc(d.name)+' <em style="font-style:normal;color:var(--grey);font-weight:400">'+esc(d.ver)+'</em></span>'+
-      '<span class="row-m">'+esc(d.meta)+'</span></span>'+
+      '<span class="row-m">'+d.meta+'</span></span>'+
       '<span class="row-d" style="text-align:right;line-height:1.9">'+links+'</span></div>'; }).join('');
   $('n-data').textContent = DATASETS.length+' releases';
 
