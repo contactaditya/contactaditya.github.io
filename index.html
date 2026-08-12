@@ -79,6 +79,9 @@ tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:var(--hover)}
 .c-doi a{font-family:var(--mono);font-size:11.5px;text-decoration:none;border-bottom:1px solid var(--shade);white-space:nowrap}
 .c-doi a:hover{border-bottom-color:var(--indigo)}
 .count{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin-top:10px}
+figure.map{margin:0 0 22px;padding:0}
+figure.map img{width:100%;height:auto;display:block;border:1px solid var(--rule2);background:var(--card)}
+figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-width:none}
 .regions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--rule2);background:var(--card)}
 .region{padding:18px 20px;border-right:1px solid var(--rule)}
 .region:last-child{border-right:0}
@@ -145,6 +148,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets — as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
 <div class="rows" id="uses-list"></div></section>
 
+<section class="sec" id="funding"><div class="sec-head"><h2>Federally funded research this infrastructure supports</h2><span class="n" id="n-fund"></span></div>
+<p class="lede"><strong>These awards are not mine.</strong> They are National Institutes of Health grants held by principal investigators at Massachusetts General Hospital and elsewhere, listed here because the data infrastructure I engineer is a precondition for the work they fund. Each award number resolves to its entry on NIH RePORTER, where the principal investigator is named. The platform is separately listed by the National Library of Medicine among <a href="https://www.nlm.nih.gov/NIHbmic/domain_specific_repositories.html" target="_blank" rel="noopener">NIH-supported data-sharing resources</a> (search "BDSP" on that page), and receives National Science Foundation support.</p>
+<div class="rows" id="fund-list"></div></section>
+
 <section class="sec" id="hosting"><div class="sec-head"><h2>Hosting and external curation</h2><span class="n" id="n-host"></span></div>
 <p class="lede">Beyond the academic literature, the datasets are curated and distributed by Amazon Web Services and carried on a joint open-science platform with the University of Pennsylvania.</p>
 <div class="rows" id="host-list"></div></section>
@@ -152,7 +159,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="challenge"><div class="sec-head"><h2>An international challenge runs on this data</h2><span class="n">NIH-funded</span></div>
 <div class="chal" id="chal"></div></section>
 
-<section class="sec" id="citations"><div class="sec-head"><h2>Independent published citations</h2><span class="n" id="n-cit"></span></div>
+<section class="sec" id="citations"><div class="sec-head"><h2>Independent peer-reviewed citations</h2><span class="n" id="n-cit"></span></div>
 <p class="lede">Peer-reviewed publications by groups that share no author with me, citing work I co-authored. This is not a total citation count - it is the subset that is both independent and peer-reviewed. Filter by which of my works is cited; every identifier resolves to the source.</p>
 <div class="filters" id="filters"></div>
 <div class="tbl-wrap"><table><thead><tr><th>Citing institution</th><th>Country</th><th>Cites</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
@@ -171,6 +178,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
 <section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
 <p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint — including Germany and India — are listed in the next section and marked as such.</p>
+<figure class="map">
+  <img src="citation_map_verified.png" alt="World map with twenty-four countries shaded, marking the location of independent peer-reviewed citing groups across five continents.">
+  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.</figcaption>
+</figure>
 <div class="regions" id="regions"></div></section>
 <section class="sec" id="journals"><div class="sec-head"><h2>Journals that have published a citation</h2><span class="n" id="n-jrn"></span></div>
 <p class="lede" id="jrn-lede"></p>
@@ -244,10 +255,10 @@ const MODELS = [
    model:"CELM", murl:"https://arxiv.org/abs/2601.22197",
    by:"University of Illinois Urbana-Champaign", venue:"Preprint, arXiv",
    note:"Clinical EEG-to-language foundation model", shared:false},
-  {data:"BIND", scale:"External-validation benchmark",
+  {data:"BIND", scale:"One of three principal evaluation cohorts",
    model:"Neuro-JEPA", murl:"https://arxiv.org/abs/2606.14957",
    by:"NYU Langone Health", venue:"Preprint, arXiv",
-   note:"Multimodal neuroimaging foundation model", shared:false},
+   note:"45 task and modality combinations drawn from BIND alone", shared:false},
   // shared authorship — groups I have co-authored with
   {data:"Harvard–Emory ECG Database", scale:"All 10,771,552 ECGs",
    model:"ECGFounder", murl:"https://doi.org/10.1056/AIoa2401033",
@@ -337,6 +348,12 @@ const DATASETS = [
 /* Documented substantial uses — a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
+  {ds:"Brain Imaging and Neurophysiology Database (BIND)", by:"Neuro-JEPA - NYU Langone Health",
+   what:"Used as one of three principal evaluation cohorts, reported separately from the public datasets. Clinical tasks derived from it span glioblastoma, gliosis, haematoma, multiple sclerosis, atrophy and cancer; performance is reported across 45 task and modality combinations from this cohort alone. The paper's data-availability statement links directly to the BDSP release page.",
+   where:"Preprint, arXiv (NYU Langone Health)", doi:"", url:"https://arxiv.org/abs/2606.14957", dep:false},
+  {ds:"Brain Imaging and Neurophysiology Database (BIND)", by:"Alex et al., GS-BrainText - University of Edinburgh, NHS Lothian",
+   what:"Positioned as one of two major recent resources in the area, described as \u201capprox. 85K radiology reports from over 1.8M neuroimaging scans across three US academic medical centres.\u201d",
+   where:"Preprint, arXiv (University of Edinburgh)", doi:"", url:"https://arxiv.org/abs/2603.26235", dep:false},
   {ds:"Boston Children's Hospital Sleep Corpus", by:"Bashir et al. — Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
    what:"Used as an out-of-distribution external validation cohort. Trained on the Nationwide Children's Hospital Sleep DataBank, then tested against this corpus \u201con an independent external cohort ... to examine cross cohort generalizability\u201d.",
    where:"Applied Soft Computing, 2026;202:115590", doi:"10.1016/j.asoc.2026.115590", dep:false},
@@ -380,7 +397,7 @@ const PREPRINTS = [
    id:"medRxiv 10.64898/2026.07.10.26357749", url:"https://doi.org/10.64898/2026.07.10.26357749", posted:"10 Jul 2026", dep:false},
   {d:20260612, w:"Neuro-JEPA — Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
    inst:"NYU Langone Health", geo:"United States",
-   cites:"BIND", how:"Used as an external-validation benchmark (\u201cBIND-MGH\u201d) among 12 public cohorts",
+   cites:"BIND", how:"One of three principal evaluation cohorts; 45 task/modality combinations; clinical tasks incl. glioblastoma, multiple sclerosis, atrophy",
    id:"arXiv:2606.14957", url:"https://arxiv.org/abs/2606.14957", posted:"12 Jun 2026", dep:false},
   {d:20260515, w:"NeuralBench — EEG foundation model benchmark",
    inst:"Meta FAIR (Brain & AI) · École Normale Supérieure / CNRS · Inria · Fondation Rothschild", geo:"France",
@@ -418,6 +435,18 @@ const PREPRINTS = [
    inst:"Stanford University · Technical University of Denmark · Together AI · Washington University in St. Louis", geo:"United States / Denmark",
    cites:"Human Sleep Project", how:"HSP was one of four cohorts and the independent replication set (n = 17,810 and n = 16,973)",
    id:"arXiv:2607.25175", url:"https://arxiv.org/abs/2607.25175", posted:"28 Jul 2026", dep:true},
+];
+
+/* Federal awards for which this infrastructure is a precondition.
+   Each number is verifiable on NIH RePORTER. */
+const FUNDING = [
+  {id:"R01NS126282", inst:"NINDS", pi:"M. B. Westover (PI)", what:"ABIEE - acute brain injury outcome prediction; MGH is the primary site of my pipeline work"},
+  {id:"R01NS131347", inst:"NINDS", pi:"S. Zafar (PI)", what:"EEG-guided anti-seizure treatment"},
+  {id:"R21NS137117", inst:"NINDS", pi:"S. Zafar (co-lead)", what:"Status epilepticus phenotyping"},
+  {id:"R01HL161253", inst:"NHLBI", pi:"M. B. Westover (PI)", what:"CAISR - automated sleep analysis"},
+  {id:"R01NS130119", inst:"NINDS", pi:"M. B. Westover (PI)", what:"Late-onset epilepsy and dementia"},
+  {id:"RF1NS120947", inst:"NINDS", pi:"M. B. Westover (PI)", what:"Brain health index"},
+  {id:"R01EB030362", inst:"NIBIB", pi:"PhysioNet / MIT", what:"George B. Moody PhysioNet Challenge 2026, which runs on Human Sleep Project data"},
 ];
 
 /* Where the datasets are hosted, curated and recognised outside the academic literature. */
@@ -662,13 +691,14 @@ const CITATIONS = [
 
   var countries = REGIONS.reduce(function(a,r){ return a.concat(r.countries); },[]);
   $('reach').innerHTML =
-    '<div><b>'+CITATIONS.length+'</b><span>Independent published citations</span></div>'+
+    '<div><b>'+CITATIONS.length+'</b><span>Independent peer-reviewed citations</span></div>'+
     '<div><b>'+EDITORIALS.length+'</b><span>Editorials</span></div>'+
     '<div><b>'+VENUES+'</b><span>Distinct journals</span></div>'+
     '<div><b>'+FIELDS.length+'</b><span>Fields</span></div>'+
     '<div><b>'+countries.length+'</b><span>Countries</span></div>'+
     '<div><b>'+INSTITUTIONS.length+'</b><span>Institutions</span></div>'+
     '<div><b>'+DATASETS.length+'</b><span>Open datasets</span></div>'+
+    
     '<div><b>'+PUBS.length+'</b><span>Publications</span></div>';
 
   $('traces').innerHTML = MODELS.map(function(m){
@@ -730,9 +760,15 @@ const CITATIONS = [
       byDs[ds].map(function(u){
         var tag = u.dep ? ' <span class="tdep" style="display:inline;margin-left:8px">shared authorship</span>' : '';
         return '<div class="use"><div class="use-h"><span class="use-b">'+esc(u.by)+tag+'</span>'+
-          '<span class="row-d"><a href="https://doi.org/'+u.doi+'" target="_blank" rel="noopener">'+esc(u.doi)+'</a></span></div>'+
+          '<span class="row-d"><a href="'+(u.url||('https://doi.org/'+u.doi))+'" target="_blank" rel="noopener">'+esc(u.doi||'open \u2192')+'</a></span></div>'+
           '<div class="use-w">'+esc(u.what)+'</div><div class="use-v">'+esc(u.where)+'</div></div>'; }).join(''); }).join('');
   $('n-uses').textContent = USES.filter(function(u){return !u.dep;}).length+' independent · '+USES.filter(function(u){return u.dep;}).length+' shared authorship';
+
+  $('fund-list').innerHTML = FUNDING.map(function(f){
+    return '<div class="row"><span><span class="row-t">'+esc(f.inst)+' &middot; '+esc(f.what)+'</span>'+
+      '<span class="row-m">Award held by '+esc(f.pi)+'</span></span>'+
+      '<span class="row-d"><a href="https://reporter.nih.gov/quickSearch/'+f.id+'" target="_blank" rel="noopener">'+esc(f.id)+'</a></span></div>'; }).join('');
+  $('n-fund').textContent = FUNDING.length+' awards held by others';
 
   $('host-list').innerHTML = HOSTING.map(function(h){
     return '<div class="row"><span><span class="row-t">'+esc(h.n)+'</span><span class="row-m">'+esc(h.d)+'</span></span>'+
