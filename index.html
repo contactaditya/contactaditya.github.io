@@ -172,7 +172,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="nature-list"></div></section>
 
 <section class="sec" id="editorials"><div class="sec-head"><h2>Invited editorials</h2><span class="n" id="n-ed"></span></div>
-<p class="lede">Journals do not commission a companion editorial for routine work. Three separate editorial boards independently invited specialists to assess studies I co-authored. These are separate from, and additional to, the citations above.</p>
+<p class="lede">Three separate journal editorial boards invited specialists to discuss studies I co-authored. One was formally designated by <em>Sleep</em> as the Companion Article to the study it assessed. These are separate from, and additional to, the citations above.</p>
 <div class="rows" id="ed-list"></div></section>
 
 <section class="sec" id="preprints"><div class="sec-head"><h2>Preprints citing or using the work</h2><span class="n" id="n-pre"></span></div>
@@ -351,6 +351,42 @@ const DATASETS = [
 /* Documented substantial uses — a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
+  {ds:"Harvard\u2013Emory ECG Database", by:"CAMEL - University of Pennsylvania",
+   what:"Approximately 20 million samples from this database formed the entirety of the model's Stage-2 instruction tuning; the database also served as the evaluation benchmark across seven diagnostic tasks.",
+   where:"ICLR 2026 (accepted January 2026)", doi:"", url:"https://arxiv.org/abs/2602.15677", dep:false},
+  {ds:"Harvard\u2013Emory ECG Database", by:"ECG-LFM - Sun Yat-Sen University",
+   what:"Pre-trained on a corpus of 11,571,587 records, of which 10,608,417 - approximately 92 per cent - were drawn from this database.",
+   where:"Nature Communications, 2026", doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", dep:false},
+  {ds:"Harvard\u2013Emory ECG Database", by:"ECG-CPC - AI4Health, University of Oldenburg",
+   what:"Pretrained on the full 10.7-million-record corpus. In a benchmark of eight ECG foundation models the authors report it as the strongest overall performer, at 3 million parameters matching or exceeding models an order of magnitude larger.",
+   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2509.25095", dep:false},
+  {ds:"Harvard\u2013Emory ECG Database", by:"DeepECG-Tok - Montreal Heart Institute, Mila, Toronto, Ottawa",
+   what:"5,100 ECGs from 5,100 patients used as one of four external validation cohorts; macro-AUROC 0.90 reported on it.",
+   where:"Preprint, medRxiv", doi:"", url:"https://doi.org/10.64898/2026.07.22.26358591", dep:false},
+  {ds:"Harvard\u2013Emory ECG Database", by:"ECGFounder",
+   what:"Trained on all 10,771,552 electrocardiograms in the database, with the resulting model weights released publicly for use by any party.",
+   where:"NEJM AI, 2025", doi:"10.1056/AIoa2401033", url:"https://doi.org/10.1056/AIoa2401033", dep:true},
+  {ds:"Harvard Electroencephalography Database", by:"NeuroLex - Korea University",
+   what:"Trained exclusively on report text from this database - approximately 70,000 EEG reports and 800,000 paragraphs - to build a domain language model for clinical EEG reporting.",
+   where:"IEEE, 2026", doi:"", url:"https://ieeexplore.ieee.org/document/11435041", dep:false},
+  {ds:"Harvard Electroencephalography Database", by:"NeuralBench - Meta FAIR, ENS/CNRS, Inria",
+   what:"In a benchmark study surveying 94 public electroencephalography datasets, this database was named one of only five landmark public datasets in the field.",
+   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2605.08495", dep:false},
+  {ds:"Harvard Electroencephalography Database", by:"CELM - University of Illinois Urbana-Champaign",
+   what:"12,290 curated clinical EEG reports from 10,886 patients used to build an EEG-to-language foundation model; the repository is acknowledged by name in the project's own materials.",
+   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2601.22197", dep:false},
+  {ds:"Harvard Electroencephalography Database", by:"Cadena-Flores et al. - INAOE, Mexico",
+   what:"A PRISMA systematic review identified the 26 EEG databases in use for epilepsy research worldwide. This database is one of the 26, catalogued alongside the Temple University Hospital corpus and the European EPILEPSIAE database.",
+   where:"Archives of Computational Methods in Engineering, 2026", doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x", dep:false},
+  {ds:"Harvard Electroencephalography Database", by:"MORGOTH 1.0",
+   what:"An EEG foundation model pre-trained on 14,500 patients from v4.1. The platform records the derivation structurally: the release page carries a Parent Projects field stating the model was derived from this database.",
+   where:"The Lancet Digital Health, in press 2026", doi:"10.60508/v7ky-5g40", url:"https://doi.org/10.60508/v7ky-5g40", dep:true},
+  {ds:"Human Sleep Project", by:"George B. Moody PhysioNet Challenge 2026",
+   what:"The training data for this NIH-funded international competition is drawn from the Human Sleep Project, and entries are scored against algorithmic annotations generated by CAISR.",
+   where:"NIBIB grant R01EB030362; opened February 2026", doi:"", url:"https://moody-challenge.physionet.org/2026/", dep:false},
+  {ds:"Human Sleep Project", by:"AI Sleep Co-Scientist - Stanford, DTU, Together AI, WashU",
+   what:"Used as one of four cohorts and as the independent replication set (n = 17,810 and n = 16,973).",
+   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2607.25175", dep:true},
   {ds:"Brain Imaging and Neurophysiology Database (BIND)", by:"Neuro-JEPA - NYU Langone Health",
    what:"Used as one of three principal evaluation cohorts, reported separately from the public datasets. Clinical tasks derived from it span glioblastoma, gliosis, haematoma, multiple sclerosis, atrophy and cancer; performance is reported across 45 task and modality combinations from this cohort alone. The paper's data-availability statement links directly to the BDSP release page.",
    where:"Preprint, arXiv (NYU Langone Health)", doi:"", url:"https://arxiv.org/abs/2606.14957", dep:false},
