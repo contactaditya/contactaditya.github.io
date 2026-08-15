@@ -82,6 +82,20 @@ tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:var(--hover)}
 figure.map{margin:0 0 22px;padding:0}
 figure.map img{width:100%;height:auto;display:block;border:1px solid var(--rule2);background:var(--card)}
 figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-width:none}
+table.mtab{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+table.mtab th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);font-weight:600;padding:0 12px 8px 0;border-bottom:1px solid var(--rule2);white-space:nowrap}
+table.mtab td{padding:11px 12px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
+table.mtab tr:last-child td{border-bottom:none}
+table.mtab .m-model{font-weight:600}
+table.mtab .m-sub{display:block;color:var(--grey);font-size:11.5px;margin-top:2px}
+table.mtab .m-ind{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--accent)}
+table.mtab .m-shd{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--grey)}
+@media(max-width:720px){table.mtab thead{display:none}
+table.mtab,table.mtab tbody,table.mtab tr,table.mtab td{display:block;width:100%}
+table.mtab tr{border-bottom:1px solid var(--rule2);padding:12px 0}
+table.mtab tr:last-child{border-bottom:none}
+table.mtab td{border:none;padding:2px 0}
+table.mtab td:before{content:attr(data-l);display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);margin-bottom:1px}}
 figure.map{margin:0 0 22px;background:var(--card);border:1px solid var(--rule2);padding:18px}
 figure.map img{width:100%;height:auto;display:block}
 figure.map figcaption{font-family:var(--mono);font-size:10.5px;color:var(--grey);margin-top:12px;letter-spacing:.04em}
@@ -143,7 +157,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <main class="wrap">
 <section class="sec" id="models"><div class="sec-head"><h2>Models built on these datasets</h2><span class="n" id="n-models"></span></div>
 <p class="lede">The clearest evidence that infrastructure matters is what other people build with it. Each row runs from a dataset I co-engineered, through the model trained on it, to where that model was published. Rows marked <em>shared authorship</em> come from groups I have co-authored with; the rest are independent.</p>
-<div class="traces" id="traces"></div></section>
+<div id="traces"></div></section>
 <section class="sec" id="datasets"><div class="sec-head"><h2>Open datasets</h2><span class="n" id="n-data"></span></div>
 <p class="lede">Each is a DOI-registered release on the <a href="https://bdsp.io/content/" target="_blank" rel="noopener">Brain Data Science Platform</a>, distributed under credentialed access and a signed data-use agreement. My name appears in the citation string of each.</p>
 <div class="rows" id="datasets-list"></div></section>
@@ -346,7 +360,7 @@ const DATASETS = [
    doi:"10.60508/k85b-fc87", bdsp:"https://bdsp.io/content/harvard-eeg-db/4.1/"},
   {name:"Harvard–Emory ECG Database", ver:"v5.0",
    meta:"Mass General Brigham (Massachusetts) and Emory University (Georgia). The descriptor in <em>Scientific Data</em> reports 10,771,552 twelve-lead electrocardiograms.",
-   doi:"10.60508/rv6h-7d10", bdsp:"https://bdsp.io/content/heedb/5.0/"},
+   doi:"10.60508/rv6h-7d10", doiurl:"https://bdsp.io/content/heedb/5.0/", bdsp:"https://bdsp.io/content/heedb/5.0/"},
   {name:"Human Sleep Project", ver:"v3.0",
    meta:"Stanford, Mass General Brigham, Emory, Beth Israel Deaconess and Boston Children\u2019s. The descriptor in <em>Sleep</em> reports 119,234 overnight recordings from more than 90,000 patients.",
    doi:"10.60508/m3sw-rz13", bdsp:"https://bdsp.io/content/hsp/3.0/"},
@@ -753,17 +767,25 @@ const CITATIONS = [
     
     '<div><b>'+PUBS.length+'</b><span>Publications</span></div>';
 
-  $('traces').innerHTML = MODELS.map(function(m){
-    return '<div class="trace">'+
-      '<div class="tcell"><span class="tlab">Dataset</span><span class="tname">'+esc(m.data)+'</span><span class="tmeta">'+esc(m.scale)+'</span></div>'+
-      '<div class="tcell"><span class="tlab">Model</span><span class="tname"><a href="'+m.murl+'" target="_blank" rel="noopener">'+esc(m.model)+'</a></span>'+
-        '<span class="tmeta">'+esc(m.by)+'</span>'+(m.shared?'<span class="tdep">Shared authorship</span>':'')+'</div>'+
-      '<div class="tcell"><span class="tlab">Published</span><span class="tvenue">'+esc(m.venue)+'</span>'+
-        (m.note?'<span class="tmeta">'+esc(m.note)+'</span>':'')+'</div></div>'; }).join('');
+  $('traces').innerHTML =
+    '<table class="mtab"><thead><tr>'+
+      '<th>Dataset</th><th>Used</th><th>Model</th><th>Group</th><th>Published in</th><th>Basis</th>'+
+    '</tr></thead><tbody>'+
+    MODELS.map(function(m){
+      return '<tr>'+
+        '<td data-l="Dataset">'+esc(m.data)+'</td>'+
+        '<td data-l="Used">'+esc(m.scale)+'</td>'+
+        '<td data-l="Model"><span class="m-model"><a href="'+m.murl+'" target="_blank" rel="noopener">'+esc(m.model)+'</a></span>'+
+          (m.note?'<span class="m-sub">'+esc(m.note)+'</span>':'')+'</td>'+
+        '<td data-l="Group">'+esc(m.by)+'</td>'+
+        '<td data-l="Published in">'+esc(m.venue)+'</td>'+
+        '<td data-l="Basis">'+(m.shared?'<span class="m-shd">shared authorship</span>':'<span class="m-ind">independent</span>')+'</td>'+
+      '</tr>'; }).join('')+
+    '</tbody></table>';
   $('n-models').textContent = MODELS.length+' shown';
 
   $('datasets-list').innerHTML = DATASETS.map(function(d){
-    var links = (d.doi ? '<a href="https://doi.org/'+d.doi+'" target="_blank" rel="noopener">'+esc(d.doi)+'</a><br>' : '')+
+    var links = (d.doi ? '<a href="'+(d.doiurl||("https://doi.org/"+d.doi))+'" target="_blank" rel="noopener">'+esc(d.doi)+'</a><br>' : '')+
       '<a href="'+d.bdsp+'" target="_blank" rel="noopener">bdsp.io</a>';
     return '<div class="row"><span><span class="row-t">'+esc(d.name)+' <em style="font-style:normal;color:var(--grey);font-weight:400">'+esc(d.ver)+'</em></span>'+
       '<span class="row-m">'+d.meta+'</span></span>'+
