@@ -213,7 +213,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint — including Germany and India — are listed in the next section and marked as such.</p>
 <figure class="map">
   <img src="citation_map_verified.png" alt="World map with twenty-four countries shaded, marking the location of independent peer-reviewed citing groups across five continents.">
-  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.</figcaption>
+  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.</figcaption>
 </figure>
 <div class="regions" id="regions"></div></section>
 <section class="sec" id="journals"><div class="sec-head"><h2>Journals that have published a citation</h2><span class="n" id="n-jrn"></span></div>
@@ -699,7 +699,6 @@ const INSTITUTIONS = [
   {n:"Johns Hopkins University / APL", c:"United States", d:"cited", src:"10.1038/s41746-026-02970-2"},
   {n:"UCLA", c:"United States", d:"cited"},
   {n:"Morehouse School of Medicine", c:"United States", d:"cited", src:"10.1212/CONT.0000000000001734"},
-  {n:"Grady Memorial Hospital", c:"United States", d:"cited"},
   {n:"University of Chicago", c:"United States", d:"cited", p:1},
   {n:"Carnegie Mellon University", c:"United States", d:"cited", p:1},
   {n:"University of Pittsburgh", c:"United States", d:"cited", p:1},
@@ -733,7 +732,6 @@ const INSTITUTIONS = [
   {n:"Pirogov Russian National Research Medical University", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Hospices Civils de Lyon", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
   {n:"Collège de France", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
-  {n:"Zhejiang University School of Medicine", c:"China", d:"cited"},
   {n:"Beijing University of Technology", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Huazhong University of Science & Technology", c:"China", d:"cited", src:"10.2147/IJN.S618081"},
   {n:"Jilin University", c:"China", d:"cited", src:"10.2147/CIA.S607232"},
