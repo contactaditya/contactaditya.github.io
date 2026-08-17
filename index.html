@@ -917,7 +917,8 @@ const CITATIONS = [
             : x.dep===null ? ' <span class="tdep" style="display:inline;margin:0 0 0 8px;color:var(--grey)">my own paper</span>' : '';
     return '<div class="row"><span><span class="row-t"><em>'+esc(x.j)+'</em> — '+esc(x.w)+tag+'</span>'+
       '<span class="row-m">'+esc(x.by)+(x.cites!=='—'?' · cites '+esc(x.cites):'')+'</span></span>'+
-      '<span class="row-d"><a href="https://doi.org/'+x.doi+'" target="_blank" rel="noopener">'+esc(x.doi)+'</a></span></div>'; }).join('');
+      '<span class="row-d"><a href="https://doi.org/'+x.doi+'" target="_blank" rel="noopener">'+esc(x.doi)+'</a>'+
+        (x.d?'<br><span class="c-date">'+fmtDate(x.d)+'</span>':'')+'</span></div>'; }).join('');
   var natInd = NATURE.filter(function(x){return x.dep===false;}).length;
   $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' my own';
 
@@ -925,7 +926,8 @@ const CITATIONS = [
     return '<div class="row"><span><span class="row-t">'+esc(e.who)+' — <em>'+esc(e.j)+'</em></span>'+
       '<span class="row-m">'+esc(e.where)+' · on '+esc(e.about)+'</span>'+
       '<span class="row-m" style="font-style:italic;margin-top:5px">&ldquo;'+esc(e.quote)+'&rdquo;</span></span>'+
-      '<span class="row-d"><a href="https://doi.org/'+e.doi+'" target="_blank" rel="noopener">'+esc(e.doi)+'</a></span></div>'; }).join('');
+      '<span class="row-d"><a href="https://doi.org/'+e.doi+'" target="_blank" rel="noopener">'+esc(e.doi)+'</a>'+
+        (e.d?'<br><span class="c-date">'+fmtDate(e.d)+'</span>':'')+'</span></div>'; }).join('');
   $('n-ed').textContent = EDITORIALS.length+' commissioned';
 
   var usList = INSTITUTIONS.filter(function(i){ return i.c==='United States'; })
