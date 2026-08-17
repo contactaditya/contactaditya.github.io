@@ -838,11 +838,17 @@ const CITATIONS = [
   $('n-data').textContent = DATASETS.length+' releases';
 
   var pubsSorted = PUBS.slice().sort(function(a,b){ return b.d-a.d; });
-  $('pubs-list').innerHTML = pubsSorted.map(function(p){
-    var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
-                      : '<span class="nodoi">see ORCID</span>';
-    return '<div class="row"><span><span class="row-t">'+esc(p.t)+'</span><span class="row-m">'+esc(p.v)+'</span></span>'+
-      '<span class="row-d">'+right+'</span></div>'; }).join('');
+  $('pubs-list').innerHTML =
+    '<table class="mtab"><thead><tr><th>Publication</th><th>Venue</th><th>Published</th><th>DOI</th></tr></thead><tbody>'+
+    pubsSorted.map(function(p){
+      var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
+                        : '<span class="nodoi">see ORCID</span>';
+      return '<tr>'+
+        '<td data-l="Publication"><span class="m-model">'+esc(p.t)+'</span></td>'+
+        '<td data-l="Venue">'+esc(p.v)+'</td>'+
+        '<td data-l="Published" class="c-date">'+fmtDate(String(p.d))+'</td>'+
+        '<td data-l="DOI" class="c-doi">'+right+'</td>'+
+      '</tr>'; }).join('')+'</tbody></table>';
   $('n-pubs').textContent = PUBS.length+' works';
 
   $('regions').innerHTML = REGIONS.map(function(r){
