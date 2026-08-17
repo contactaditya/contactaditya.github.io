@@ -912,14 +912,20 @@ const CITATIONS = [
       '<td class="c-doi"><a href="'+x.url+'" target="_blank" rel="noopener">'+esc(x.id)+'</a></td></tr>'; }).join('');
   $('n-pre').textContent = PREPRINTS.filter(function(x){return !x.dep;}).length+' independent · '+PREPRINTS.filter(function(x){return x.dep;}).length+' shared authorship';
 
-  $('nature-list').innerHTML = NATURE.map(function(x){
-    var tag = x.dep===true ? ' <span class="tdep" style="display:inline;margin:0 0 0 8px">shared authorship</span>'
-            : x.dep===null ? ' <span class="tdep" style="display:inline;margin:0 0 0 8px;color:var(--grey)">my own paper</span>' : '';
-    return '<div class="row"><span><span class="row-t"><em>'+esc(x.j)+'</em> — '+esc(x.w)+tag+'</span>'+
-      '<span class="row-m">'+esc(x.by)+(x.cites!=='—'?' · cites '+esc(x.cites):'')+'</span></span>'+
-      '<span class="row-d"><a href="https://doi.org/'+x.doi+'" target="_blank" rel="noopener">'+esc(x.doi)+'</a>'+
-        (x.d?'<br><span class="c-date">'+fmtDate(x.d)+'</span>':'')+'</span></div>'; }).join('');
-  var natInd = NATURE.filter(function(x){return x.dep===false;}).length;
+  var natInd = NATURE.filter(function(x){ return x.dep===false; }).length;
+  $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th>Journal</th><th>Work</th><th>Group</th><th>Cites</th><th>Published</th><th>DOI</th></tr></thead><tbody>'+
+    NATURE.map(function(x){
+      var basis = x.dep===true ? '<span class="m-shd">shared authorship</span>'
+                : x.dep===null ? '<span class="m-shd">my own paper</span>'
+                : '<span class="m-ind">independent</span>';
+      return '<tr>'+
+        '<td data-l="Journal"><em>'+esc(x.j)+'</em></td>'+
+        '<td data-l="Work"><span class="m-model">'+esc(x.w)+'</span><span class="m-sub">'+basis+'</span></td>'+
+        '<td data-l="Group">'+esc(x.by)+'</td>'+
+        '<td data-l="Cites">'+(x.cites!=='\u2014'?esc(x.cites):'')+'</td>'+
+        '<td data-l="Published" class="c-date">'+fmtDate(x.d)+'</td>'+
+        '<td data-l="DOI" class="c-doi"><a href="https://doi.org/'+x.doi+'" target="_blank" rel="noopener">'+esc(x.doi)+'</a></td>'+
+      '</tr>'; }).join('')+'</tbody></table>';
   $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' my own';
 
   $('ed-list').innerHTML = EDITORIALS.map(function(e){
