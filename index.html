@@ -346,13 +346,13 @@ const NATURE = [
 ];
 
 const EDITORIALS = [
-  {who:"Cesari, Brink-Kjaer & Rechichi", where:"Medical University of Innsbruck · Technical University of Denmark · Politecnico di Torino",
+  {who:"Cesari, Brink-Kjaer & Rechichi", where:"Medical University of Innsbruck · Technical University of Denmark · Politecnico di Torino", geo:"Austria · Denmark · Italy",
    j:"Sleep, 2025", about:"CAISR", doi:"10.1093/sleep/zsaf147",
    quote:"the excellent methodology and results make CAISR a milestone toward full automation of PSG analysis", d:"20250619"},
-  {who:"Raphaelson", where:"American Academy of Neurology journal, United States",
+  {who:"Raphaelson", where:"Martinsburg VA Medical Center · private practice, Leesburg VA", geo:"United States",
    j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG health-outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
    quote:"a more intuitive view of future risks — high, intermediate, or low — for a larger range of unwanted outcomes", d:"20231208"},
-  {who:"Schütz & Goldstein", where:"University of Michigan, United States",
+  {who:"Schütz & Goldstein", where:"University of Michigan", geo:"United States",
    j:"Sleep, 2026", about:"Health-Oriented Sleep States, designated Companion Article", doi:"10.1093/sleep/zsaf292",
    quote:"applauded the authors for their use of novel data science techniques", d:"20250923"},
 ];
@@ -928,12 +928,18 @@ const CITATIONS = [
       '</tr>'; }).join('')+'</tbody></table>';
   $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' my own';
 
-  $('ed-list').innerHTML = EDITORIALS.map(function(e){
-    return '<div class="row"><span><span class="row-t">'+esc(e.who)+' — <em>'+esc(e.j)+'</em></span>'+
-      '<span class="row-m">'+esc(e.where)+' · on '+esc(e.about)+'</span>'+
-      '<span class="row-m" style="font-style:italic;margin-top:5px">&ldquo;'+esc(e.quote)+'&rdquo;</span></span>'+
-      '<span class="row-d"><a href="https://doi.org/'+e.doi+'" target="_blank" rel="noopener">'+esc(e.doi)+'</a>'+
-        (e.d?'<br><span class="c-date">'+fmtDate(e.d)+'</span>':'')+'</span></div>'; }).join('');
+  $('ed-list').innerHTML =
+    '<table class="mtab"><thead><tr><th>Editorial</th><th>Journal</th><th>Institution</th><th>Country</th><th>On</th><th>Published</th><th>DOI</th></tr></thead><tbody>'+
+    EDITORIALS.map(function(e){
+      return '<tr>'+
+        '<td data-l="Editorial"><span class="m-model">'+esc(e.who)+'</span><span class="m-sub" style="font-style:italic">&ldquo;'+esc(e.quote)+'&rdquo;</span></td>'+
+        '<td data-l="Journal"><em>'+esc(e.j)+'</em></td>'+
+        '<td data-l="Institution">'+esc(e.where)+'</td>'+
+        '<td data-l="Country">'+esc(e.geo||'')+'</td>'+
+        '<td data-l="On">'+esc(e.about)+'</td>'+
+        '<td data-l="Published" class="c-date">'+fmtDate(e.d)+'</td>'+
+        '<td data-l="DOI" class="c-doi"><a href="https://doi.org/'+e.doi+'" target="_blank" rel="noopener">'+esc(e.doi)+'</a></td>'+
+      '</tr>'; }).join('')+'</tbody></table>';
   $('n-ed').textContent = EDITORIALS.length+' commissioned';
 
   var usList = INSTITUTIONS.filter(function(i){ return i.c==='United States'; })
