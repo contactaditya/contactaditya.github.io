@@ -82,6 +82,8 @@ tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:var(--hover)}
 figure.map{margin:0 0 22px;padding:0}
 figure.map img{width:100%;height:auto;display:block;border:1px solid var(--rule2);background:var(--card)}
 figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-width:none}
+.isrc{font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.5;margin-left:6px;white-space:nowrap}
+.isrc:hover{opacity:1}
 .c-date{font-family:var(--mono);font-size:11px;white-space:nowrap}
 table.mtab{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
 table.mtab th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);font-weight:600;padding:0 12px 8px 0;border-bottom:1px solid var(--rule2);white-space:nowrap}
@@ -331,28 +333,28 @@ const FIELDS = [
 ];
 
 const NATURE = [
-  {j:"Nature Communications", w:"ECG-LFM", by:"Sun Yat-Sen University, China", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41467-026-72436-2", dep:false},
-  {j:"npj Digital Medicine", w:"Review of open foundation models and datasets for ECG and PPG", by:"MIT Lab for Computational Physiology; Seoul National; Yonsei; IUHW", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-03101-7", dep:false},
-  {j:"npj Digital Medicine", w:"CODE-II", by:"UFMG / Uppsala / Glasgow", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-02704-4", dep:false},
-  {j:"npj Digital Medicine", w:"Coon & Ogg", by:"Johns Hopkins Applied Physics Laboratory", cites:"Brain Health Score (NEJM AI)", doi:"10.1038/s41746-026-02970-2", dep:false},
-  {j:"Scientific Reports", w:"Sleep-staging evaluation", by:"General Hospital of Ningxia Medical University", cites:"CAISR", doi:"10.1038/s41598-026-63589-7", dep:false},
-  {j:"Nature Communications", w:"ABED", by:"DTU / Danish Center for Sleep Medicine / Stanford", cites:"CAISR", doi:"10.1038/s41467-026-69163-z", dep:true},
-  {j:"npj Digital Medicine", w:"PANDA", by:"Pediatric sleep staging", cites:"BCH Sleep Corpus", doi:"10.1038/s41746-026-02967-x", dep:true},
-  {j:"npj Digital Medicine", w:"BCGNet", by:"Contactless sleep monitoring; deployed device", cites:"Human Sleep Project", doi:"10.1038/s41746-026-02885-y", dep:true},
-  {j:"Scientific Data", w:"The Harvard–Emory ECG Database", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-06861-9", dep:null},
-  {j:"Scientific Data", w:"BIND", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-07421-x", dep:null},
+  {j:"Nature Communications", w:"ECG-LFM", by:"Sun Yat-Sen University, China", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41467-026-72436-2", dep:false, d:"20260427"},
+  {j:"npj Digital Medicine", w:"Review of open foundation models and datasets for ECG and PPG", by:"MIT Lab for Computational Physiology; Seoul National; Yonsei; IUHW", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-03101-7", dep:false, d:"20260807"},
+  {j:"npj Digital Medicine", w:"CODE-II", by:"UFMG / Uppsala / Glasgow", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-02704-4", dep:false, d:"20260526"},
+  {j:"npj Digital Medicine", w:"Coon & Ogg", by:"Johns Hopkins Applied Physics Laboratory", cites:"Brain Health Score (NEJM AI)", doi:"10.1038/s41746-026-02970-2", dep:false, d:"20260709"},
+  {j:"Scientific Reports", w:"Sleep-staging evaluation", by:"General Hospital of Ningxia Medical University", cites:"CAISR", doi:"10.1038/s41598-026-63589-7", dep:false, d:"20260724"},
+  {j:"Nature Communications", w:"ABED", by:"DTU / Danish Center for Sleep Medicine / Stanford", cites:"CAISR", doi:"10.1038/s41467-026-69163-z", dep:true, d:"20260209"},
+  {j:"npj Digital Medicine", w:"PANDA", by:"Pediatric sleep staging", cites:"BCH Sleep Corpus", doi:"10.1038/s41746-026-02967-x", dep:true, d:"20260707"},
+  {j:"npj Digital Medicine", w:"BCGNet", by:"Contactless sleep monitoring; deployed device", cites:"Human Sleep Project", doi:"10.1038/s41746-026-02885-y", dep:true, d:"20260703"},
+  {j:"Scientific Data", w:"The Harvard–Emory ECG Database", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-06861-9", dep:null, d:"20260225"},
+  {j:"Scientific Data", w:"BIND", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-07421-x", dep:null, d:"20260521"},
 ];
 
 const EDITORIALS = [
   {who:"Cesari, Brink-Kjaer & Rechichi", where:"Medical University of Innsbruck · Technical University of Denmark · Politecnico di Torino",
    j:"Sleep, 2025", about:"CAISR", doi:"10.1093/sleep/zsaf147",
-   quote:"the excellent methodology and results make CAISR a milestone toward full automation of PSG analysis"},
+   quote:"the excellent methodology and results make CAISR a milestone toward full automation of PSG analysis", d:"20250619"},
   {who:"Raphaelson", where:"American Academy of Neurology journal, United States",
    j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG health-outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
-   quote:"a more intuitive view of future risks — high, intermediate, or low — for a larger range of unwanted outcomes"},
+   quote:"a more intuitive view of future risks — high, intermediate, or low — for a larger range of unwanted outcomes", d:"20231208"},
   {who:"Schütz & Goldstein", where:"University of Michigan, United States",
    j:"Sleep, 2026", about:"Health-Oriented Sleep States, designated Companion Article", doi:"10.1093/sleep/zsaf292",
-   quote:"applauded the authors for their use of novel data science techniques"},
+   quote:"applauded the authors for their use of novel data science techniques", d:"20250923"},
 ];
 
 const DATASETS = [
@@ -867,7 +869,9 @@ const CITATIONS = [
   var order = {trained:0, landmark:1, editorial:2, cited:3};
   $('inst-grid').innerHTML = INSTITUTIONS.slice().sort(function(a,b){
       return (order[a.d]-order[b.d]) || a.n.localeCompare(b.n); })
-    .map(function(i){ return '<div class="inst"><i class="dot '+i.d+'"></i><span>'+esc(i.n)+' <em>'+esc(i.c)+(i.p?' · preprint':'')+'</em></span></div>'; }).join('');
+    .map(function(i){
+      var src = i.src ? ' <a class="isrc" href="https://doi.org/'+i.src+'" target="_blank" rel="noopener" title="Added from '+esc(i.src)+'">source</a>' : '';
+      return '<div class="inst"><i class="dot '+i.d+'"></i><span>'+esc(i.n)+' <em>'+esc(i.c)+(i.p?' · preprint':'')+'</em>'+src+'</span></div>'; }).join('');
   $('n-inst').textContent = INSTITUTIONS.length+' institutions';
 
   var byDs = {};
