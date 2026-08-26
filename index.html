@@ -462,8 +462,10 @@ const USES = [
 ];
 
 /* Preprints that cite or use the work. Not peer-reviewed; kept separate from
-   CITATIONS on purpose. Move a row into CITATIONS when it publishes, and record
-   the acceptance date, not the publication date. */
+   CITATIONS on purpose. Move a row into CITATIONS when it publishes. The `d` field there is the
+   ONLINE PUBLICATION date: not the acceptance date, not the issue date. It is the date a reader
+   could first see the work, which is what the Published column displays. Where acceptance
+   pre-dates the filing but publication follows, note the acceptance separately, not in `d`. */
 const PREPRINTS = [
   {d:20260706, w:"ImputeECG, Deep Learning Reconstruction of Complete 12-Lead Electrocardiograms",
    inst:"Peking University and collaborators", geo:"China",
