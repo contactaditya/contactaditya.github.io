@@ -195,7 +195,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="uses-list"></div></section>
 
 <section class="sec" id="funding"><div class="sec-head"><h2>Federally funded research this infrastructure supports</h2><span class="n" id="n-fund"></span></div>
-<p class="lede"><strong>These awards are not mine.</strong> They are National Institutes of Health grants held by principal investigators at Massachusetts General Hospital and elsewhere, listed here because the data infrastructure I engineer is a precondition for the work they fund. Each award number resolves to its entry on NIH RePORTER, where the principal investigator is named. The platform is separately listed by the National Library of Medicine among <a href="https://www.nlm.nih.gov/NIHbmic/domain_specific_repositories.html" target="_blank" rel="noopener">NIH-supported data-sharing resources</a> (search "BDSP" on that page), and receives National Science Foundation support.</p>
+<p class="lede"><strong>These awards are not mine.</strong> They are National Institutes of Health grants held by principal investigators at Massachusetts General Hospital and elsewhere, listed here because the data infrastructure I engineer supports the work they fund. Each award number resolves to its entry on NIH RePORTER, where the principal investigator is named. The platform is separately listed by the National Library of Medicine among <a href="https://www.nlm.nih.gov/NIHbmic/domain_specific_repositories.html" target="_blank" rel="noopener">NIH-supported data-sharing resources</a> (search "BDSP" on that page), and receives National Science Foundation support.</p>
 <div class="rows" id="fund-list"></div></section>
 
 <section class="sec" id="hosting"><div class="sec-head"><h2>Hosting and external listings</h2><span class="n" id="n-host"></span></div>
@@ -527,7 +527,7 @@ const PREPRINTS = [
    id:"arXiv:2607.25175", url:"https://arxiv.org/abs/2607.25175", posted:"28 Jul 2026", dep:true},
 ];
 
-/* Federal awards for which this infrastructure is a precondition.
+/* Federal awards whose funded work this infrastructure supports.
    Each number is verifiable on NIH RePORTER. */
 const FUNDING = [
   {id:"R01NS126282", inst:"NINDS", pi:"M. B. Westover (PI)", what:"ABIEE - acute brain injury outcome prediction; MGH is the primary site of my pipeline work"},
@@ -937,8 +937,8 @@ const CITATIONS = [
     'general-science titles such as <em>Nature Communications</em> and <em>Scientific Reports</em>, through clinical journals '+
     'including <em>Epilepsia</em>, <em>Sleep</em>, <em>Clinical Neurophysiology</em> and the American Academy of Neurology\'s '+
     '<em>Continuum</em>, to engineering and machine-learning venues such as <em>IEEE JBHI</em>, <em>ICASSP</em> and <em>ACM SenSys</em>. '+
-    'Three are in <em>npj Digital Medicine</em> and two each in <em>Epilepsia</em> and <em>Technologies</em>; the rest are single citations, '+
-    'which is what breadth rather than concentration looks like.';
+    'Three are in <em>npj Digital Medicine</em> and two each in <em>Epilepsia</em> and <em>Technologies</em>, '+
+    'with the remaining citations distributed across distinct venues.';
 
   $('fields-list').innerHTML = FIELDS.map(function(f){
     return '<div class="row"><span><span class="row-t">'+esc(f.n)+'</span><span class="row-m">'+esc(f.e)+'</span></span></div>'; }).join('');
