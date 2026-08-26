@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aditya Gupta — Research Data Infrastructure</title>
+<title>Aditya Gupta: Research Data Infrastructure</title>
 <meta name="description" content="Open clinical datasets, publications, and independently verifiable external citations. Every identifier resolves to its source.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -38,6 +38,10 @@ h1{font-family:var(--cond);font-weight:700;color:var(--ink);font-size:clamp(38px
 .idlinks a{font-family:var(--mono);font-size:12px;text-decoration:none;color:var(--ink);border:1px solid var(--rule2);border-radius:2px;padding:6px 11px;background:var(--paper);transition:.15s}
 .idlinks a:hover{border-color:var(--indigo);color:var(--indigo)}
 .reach{display:grid;grid-template-columns:repeat(8,1fr);border-top:1px solid var(--rule);margin-top:28px;padding-top:22px;gap:14px 8px}
+.reach a{text-decoration:none;color:inherit;display:block;border-radius:2px;transition:.12s}
+.reach a:hover{background:var(--paper)}
+.reach a:hover b{color:var(--indigo)}
+html{scroll-behavior:smooth}
 .reach div{padding:0 4px}
 .reach b{font-family:var(--cond);font-size:30px;font-weight:700;display:block;line-height:1}
 .reach span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);display:block;min-height:2.6em;line-height:1.3}
@@ -177,14 +181,14 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p><b>Patient matching.</b> A physiological recording is only useful if it can be tied to the right patient across systems that identify people differently. Getting this wrong is worse than useless, because it silently corrupts every downstream analysis.</p>
 <p><b>Format conversion and annotation.</b> Vendor formats differ by manufacturer and by decade. Each recording is converted to the <a href="https://bids.neuroimaging.io/" target="_blank" rel="noopener">Brain Imaging Data Structure</a> standard, and I generate the BIDS-compliant annotation files for every electroencephalogram in the platform.</p>
 <p><b>Electronic health record extraction and linkage.</b> A waveform without clinical context answers few questions. I built the daily extraction of Epic-sourced record data through an enterprise data warehouse, and the linkage of that clinical data to the corresponding physiological recordings.</p>
-<p><b>De-identification.</b> Clinical recordings are protected health information. Studying records from Mass General, Beth Israel Deaconess, Brigham and Women's, Boston Children's, Emory and Stanford together would in principle require separate review-board approvals and data-use agreements from each &mdash; a barrier heavy enough to foreclose the multi-site studies clinical AI depends on. Once data is de-identified to the HIPAA Safe Harbor standard, that barrier is substantially reduced: a single harmonised resource can be shared under one governed access process rather than renegotiated at every hospital. I extended <a href="https://github.com/BCHSI/philter-ucsf" target="_blank" rel="noopener">Philter</a>, the UCSF natural-language de-identification tool, with a cross-institutional abstraction layer, and applied it to millions of clinical notes, imaging reports and neurology reports.</p>
-<p><b>Harmonisation.</b> Each contributing site records under its own equipment, conventions and documentation practices. Making fourteen institutions' data comparable &mdash; rather than merely co-located &mdash; is done across institutional boundaries by definition.</p>
+<p><b>De-identification.</b> Clinical recordings are protected health information. Studying records from Mass General, Beth Israel Deaconess, Brigham and Women's, Boston Children's, Emory and Stanford together would in principle require separate review-board approvals and data-use agreements from each, a barrier heavy enough to foreclose the multi-site studies clinical AI depends on. Once data is de-identified to the HIPAA Safe Harbor standard, that barrier is substantially reduced: a single harmonised resource can be shared under one governed access process rather than renegotiated at every hospital. I extended <a href="https://github.com/BCHSI/philter-ucsf" target="_blank" rel="noopener">Philter</a>, the UCSF natural-language de-identification tool, with a cross-institutional abstraction layer, and applied it to millions of clinical notes, imaging reports and neurology reports.</p>
+<p><b>Harmonisation.</b> Each contributing site records under its own equipment, conventions and documentation practices. Making fourteen institutions' data comparable, rather than merely co-located, is done across institutional boundaries by definition.</p>
 <p><b>Release and governed access.</b> Each resource is registered under a DOI, versioned, and distributed through a credentialed-access layer that enforces every contributing institution's terms through signed data-use agreements. As of July 2026, 931 researchers had been approved from 1,516 applications.</p>
 <p>I am one of three engineers on the platform, and a named Data Coordinator on the Mass General Brigham institutional review board protocols under which this work is conducted.</p>
 </div></section>
 
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
-<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets — as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
+<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets, as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
 <div class="filters" id="uses-filters"></div>
 <div class="rows" id="uses-list"></div></section>
 
@@ -205,7 +209,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="tbl-wrap"><table><thead><tr><th class="sortable" data-k="inst">Citing institution</th><th class="sortable" data-k="geo">Country</th><th class="sortable" data-k="cites">Cites <span class="sarr">▾</span></th><th class="sortable" data-k="d">Published</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
 <section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
-<p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with — they are shown for completeness, not counted as independent.</p>
+<p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
 <div class="rows" id="nature-list"></div></section>
 
 <section class="sec" id="editorials"><div class="sec-head"><h2>Invited editorials</h2><span class="n" id="n-ed"></span></div>
@@ -213,11 +217,11 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="ed-list"></div></section>
 
 <section class="sec" id="preprints"><div class="sec-head"><h2>Preprints citing or using the work</h2><span class="n" id="n-pre"></span></div>
-<p class="lede">Not peer-reviewed, and kept separate from the citations table for that reason. Several are substantial uses rather than citations — noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
+<p class="lede">Not peer-reviewed, and kept separate from the citations table for that reason. Several are substantial uses rather than citations, noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
 <div class="tbl-wrap"><table><thead><tr><th>Preprint</th><th>Authors' institutions</th><th>Cites / uses</th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
 
 <section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
-<p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint — including Germany and India — are listed in the next section and marked as such.</p>
+<p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint, including Germany and India, are listed in the next section and marked as such.</p>
 <figure class="map">
   <img src="citation_map_verified.png" alt="World map with twenty-four countries shaded, marking the location of independent peer-reviewed citing groups across five continents.">
   <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.<br><br>Hong Kong and Macau are special administrative regions of China and are counted separately from the country total, not as countries.</figcaption>
@@ -228,7 +232,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="inst-grid" id="jrn-grid"></div></section>
 
 <section class="sec" id="fields"><div class="sec-head"><h2>Fields of medicine</h2><span class="n" id="n-fields"></span></div>
-<p class="lede">Clinical specialties in which independent groups have cited this work. The count is a floor, not a ceiling — neuroimaging is a plausible eighth via BIND.</p>
+<p class="lede">Clinical specialties in which independent groups have cited this work. The count is a floor, not a ceiling: neuroimaging is a plausible ninth via BIND.</p>
 <div class="rows" id="fields-list"></div></section>
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions citing the work independently</h2><span class="n" id="n-inst"></span></div>
@@ -245,9 +249,9 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="method"><div class="sec-head"><h2>How this page defines independence</h2><span class="n">Method</span></div>
 <div class="note">
 <h3>A citation counts as independent only if the citing paper shares no author with me.</h3>
-<p>That is a stricter test than it sounds. Large clinical datasets are built by large teams, and papers using them often carry an author in common. Every citation in the table above was checked, individually, against the full list of everyone I have co-authored with — 121 people across 19 papers and dataset releases.</p>
+<p>That is a stricter test than it sounds. Large clinical datasets are built by large teams, and papers using them often carry an author in common. Every citation in the table above was checked, individually, against the full list of everyone I have co-authored with: 121 people across 19 papers and dataset releases.</p>
 <p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://arxiv.org/abs/2509.25095" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
-<p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later — status shown is current, not permanent.</p>
+<p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
 <div class="contact"><p>If you would like to collaborate, or to learn more about this work, you can reach me at <a class="mail" href="mailto:contactadityag@gmail.com">contactadityag@gmail.com</a>.</p></div></section>
@@ -274,7 +278,7 @@ const PROFILES = [
 ];
 
 const MODELS = [
-  // independent — no shared authorship
+  // independent, no shared authorship
   {data:"Harvard–Emory ECG Database", scale:"Full corpus, 10.7 million recordings",
    model:"ECG-CPC", murl:"https://arxiv.org/abs/2509.25095",
    by:"AI4Health, University of Oldenburg, Germany", venue:"Preprint, arXiv",
@@ -299,7 +303,7 @@ const MODELS = [
    model:"Neuro-JEPA", murl:"https://arxiv.org/abs/2606.14957",
    by:"NYU Langone Health", venue:"Preprint, arXiv",
    note:"45 task and modality combinations drawn from BIND alone", shared:false},
-  // shared authorship — groups I have co-authored with
+  // shared authorship, groups I have co-authored with
   {data:"Harvard–Emory ECG Database", scale:"All 10,771,552 ECGs",
    model:"ECGFounder", murl:"https://doi.org/10.1056/AIoa2401033",
    by:"Weights publicly released", venue:"NEJM AI, 2025", note:"", shared:true},
@@ -349,8 +353,8 @@ const NATURE = [
   {j:"Nature Communications", w:"ABED", by:"DTU / Danish Center for Sleep Medicine / Stanford", cites:"CAISR", doi:"10.1038/s41467-026-69163-z", dep:true, d:"20260209"},
   {j:"npj Digital Medicine", w:"PANDA", by:"Pediatric sleep staging", cites:"BCH Sleep Corpus", doi:"10.1038/s41746-026-02967-x", dep:true, d:"20260707"},
   {j:"npj Digital Medicine", w:"BCGNet", by:"Contactless sleep monitoring; deployed device", cites:"Human Sleep Project", doi:"10.1038/s41746-026-02885-y", dep:true, d:"20260703"},
-  {j:"Scientific Data", w:"The Harvard–Emory ECG Database", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-06861-9", dep:null, d:"20260225"},
-  {j:"Scientific Data", w:"BIND", by:"My own dataset descriptor", cites:"—", doi:"10.1038/s41597-026-07421-x", dep:null, d:"20260521"},
+  {j:"Scientific Data", w:"The Harvard–Emory ECG Database", by:"My own dataset descriptor", cites:"-", doi:"10.1038/s41597-026-06861-9", dep:null, d:"20260225"},
+  {j:"Scientific Data", w:"BIND", by:"My own dataset descriptor", cites:"-", doi:"10.1038/s41597-026-07421-x", dep:null, d:"20260521"},
 ];
 
 const EDITORIALS = [
@@ -359,7 +363,7 @@ const EDITORIALS = [
    quote:"the excellent methodology and results make CAISR a milestone toward full automation of PSG analysis", d:"20250619"},
   {who:"Raphaelson", where:"Martinsburg VA Medical Center · private practice, Leesburg VA", geo:"United States",
    j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG health-outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
-   quote:"a more intuitive view of future risks — high, intermediate, or low — for a larger range of unwanted outcomes", d:"20231208"},
+   quote:"a more intuitive view of future risks, high, intermediate, or low, for a larger range of unwanted outcomes", d:"20231208"},
   {who:"Schütz & Goldstein", where:"University of Michigan", geo:"United States",
    j:"Sleep, 2026", about:"Health-Oriented Sleep States, designated Companion Article", doi:"10.1093/sleep/zsaf292",
    quote:"applauded the authors for their use of novel data science techniques", d:"20250923"},
@@ -379,17 +383,17 @@ const DATASETS = [
    meta:"Boston Children\u2019s Hospital. The descriptor in <em>Sleep</em> calls it \u201cthe largest pediatric PSG dataset available\u201d: 15,695 overnight recordings from 12,640 patients, 16.7 million annotated sleep stages and 2.25 million annotated respiratory events.",
    doi:"10.60508/hjdt-fz71", bdsp:"https://bdsp.io/content/l8c86mgywuneuy74ae71/1.0.1/", rel:"20250806", pdoi:"10.1093/sleep/zsaf273", pdate:"20250916", pven:"Sleep", pver:"v1.0.1"},
   {name:"Brain Imaging and Neurophysiology Database (BIND)", ver:"v1.0",
-   meta:"Massachusetts General Hospital, Brigham and Women\u2019s and Stanford. The descriptor in <em>Scientific Data</em> calls it \u201cone of the largest multi-institutional, multimodal, clinical neuroimaging repositories\u201d: 1.8 million scans from 38,942 patients \u2014 1,723,699 MRI, 54,137 CT, 5,093 PET, 526 SPECT \u2014 linked to 84,960 clinical reports.",
+   meta:"Massachusetts General Hospital, Brigham and Women\u2019s and Stanford. The descriptor in <em>Scientific Data</em> calls it \u201cone of the largest multi-institutional, multimodal, clinical neuroimaging repositories\u201d: 1.8 million scans from 38,942 patients: 1,723,699 MRI, 54,137 CT, 5,093 PET and 526 SPECT, linked to 84,960 clinical reports.",
    doi:"10.60508/mby8-3a26", bdsp:"https://bdsp.io/content/n1vba1x5qt62frfjem65/1.0/", rel:"20250909", pdoi:"10.1038/s41597-026-07421-x", pdate:"20260521", pven:"Scientific Data", pver:"v1.0"},
   {name:"PROPHET", ver:"v1.0",
    meta:"Six U.S. health systems including Kaiser Permanente. 17 neurological phenotypes, 18,282 patients and 34,162 annotated visits.",
    doi:"10.60508/zkvt-gt36", bdsp:"https://bdsp.io/content/480zbyvqxlq0agc6myih/1.0/", rel:"20260331", pdoi:"", pdate:"", pven:"", pver:""},
 ];
 
-/* Documented substantial uses — a group that trained on, validated against, or
+/* Documented substantial uses: a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
-  {ds:"Cardiac-arrest phenotyping study", by:"Zaidi, Dolatabadi, Tanuseputro, Khan & Seto \u2014 University of Toronto; York University; Vector Institute; The University of Hong Kong; University Health Network",
+  {ds:"Cardiac-arrest phenotyping study", by:"Zaidi, Dolatabadi, Tanuseputro, Khan & Seto, University of Toronto; York University; Vector Institute; The University of Hong Kong; University Health Network",
    what:"Scoping review of 121 machine-learning studies in palliative care, 2015\u20132026. Names the paper twice in the body and devotes a passage to it: the reviewers note that it modelled withdrawal of life-sustaining therapy as a clinician-driven end point distinct from biological death, and use the observed cross-site performance degradation to illustrate how site-specific documentation practices shape model transportability. The review draws a field-level recommendation from it.",
    where:"JMIR AI, 2026;5:e68317", doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", dep:false},
 
@@ -437,10 +441,10 @@ const USES = [
   {ds:"Brain Imaging and Neurophysiology Database (BIND)", by:"Alex et al., GS-BrainText - University of Edinburgh, NHS Lothian",
    what:"Positioned as one of two major recent resources in the area, described as \u201capprox. 85K radiology reports from over 1.8M neuroimaging scans across three US academic medical centres.\u201d",
    where:"Preprint, arXiv (University of Edinburgh)", doi:"", url:"https://arxiv.org/abs/2603.26235", dep:false},
-  {ds:"Boston Children's Hospital Sleep Corpus", by:"Bashir et al. — Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"Bashir et al., Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
    what:"Used as an out-of-distribution external validation cohort. Trained on the Nationwide Children's Hospital Sleep DataBank, then tested against this corpus \u201con an independent external cohort ... to examine cross cohort generalizability\u201d.",
    where:"Applied Soft Computing, 2026;202:115590", doi:"10.1016/j.asoc.2026.115590", dep:false},
-  {ds:"Boston Children's Hospital Sleep Corpus", by:"Andronache, Juvină & Neacsu Nicolae — Politehnica Bucharest, Romania",
+  {ds:"Boston Children's Hospital Sleep Corpus", by:"Andronache, Juvină & Neacsu Nicolae, Politehnica Bucharest, Romania",
    what:"Named as one of only two public pediatric PSG resources that \u201cmade large-scale pediatric studies more feasible\u201d, with the corpus figures reproduced in the paper's own words.",
    where:"Electronics, 2026;15(16):3537", doi:"10.3390/electronics15163537", dep:false},
   {ds:"Boston Children's Hospital Sleep Corpus", by:"Clínica Universidad de Navarra, Pamplona",
@@ -454,43 +458,43 @@ const USES = [
    where:"Sleep, 2026", doi:"10.1093/sleep/zsag064", dep:true},
 ];
 
-/* Preprints that cite or use the work. Not peer-reviewed — kept separate from
+/* Preprints that cite or use the work. Not peer-reviewed; kept separate from
    CITATIONS on purpose. Move a row into CITATIONS when it publishes, and record
    the acceptance date, not the publication date. */
 const PREPRINTS = [
-  {d:20260706, w:"ImputeECG — Deep Learning Reconstruction of Complete 12-Lead Electrocardiograms",
+  {d:20260706, w:"ImputeECG, Deep Learning Reconstruction of Complete 12-Lead Electrocardiograms",
    inst:"Peking University and collaborators", geo:"China",
    cites:"Harvard–Emory ECG Database", how:"Cites the database and ECGFounder as prior work",
    id:"arXiv:2607.05009", url:"https://arxiv.org/abs/2607.05009", posted:"6 Jul 2026", dep:true},
-  {d:20250929, w:"ECG-CPC — Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks",
+  {d:20250929, w:"ECG-CPC, Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks",
    inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany",
    cites:"Harvard–Emory ECG Database", how:"Pretrained ECG-CPC on the full 10.7-million-record corpus",
    id:"arXiv:2509.25095", url:"https://arxiv.org/abs/2509.25095", posted:"29 Sep 2025", dep:false},
-  {d:20260217, w:"CAMEL — An ECG Language Model for Forecasting Cardiac Events",
+  {d:20260217, w:"CAMEL, An ECG Language Model for Forecasting Cardiac Events",
    inst:"University of Pennsylvania", geo:"United States",
    cites:"Harvard–Emory ECG Database", how:"~20 million samples formed the entirety of Stage-2 instruction tuning; accepted at ICLR 2026",
    id:"arXiv:2602.15677", url:"https://arxiv.org/abs/2602.15677", posted:"17 Feb 2026", dep:false},
-  {d:20260722, w:"DeepECG-Tok — A unified 12-lead ECG-language model",
+  {d:20260722, w:"DeepECG-Tok, A unified 12-lead ECG-language model",
    inst:"Montreal Heart Institute · Mila–Québec AI Institute · Université de Montréal · University of Toronto · University of Ottawa", geo:"Canada",
    cites:"Harvard–Emory ECG Database", how:"5,100 ECGs used as one of four external validation cohorts; macro-AUROC 0.90",
    id:"medRxiv 10.64898/2026.07.22.26358591", url:"https://doi.org/10.64898/2026.07.22.26358591", posted:"24 Jul 2026", dep:false},
-  {d:20260710, w:"Nicolson et al. — cardiovascular risk validation",
+  {d:20260710, w:"Nicolson et al., cardiovascular risk validation",
    inst:"Medical University of Innsbruck · Eurac Research", geo:"Austria / Italy",
    cites:"Harvard–Emory ECG Database", how:"One of four external validation cohorts; HR 1.41, C-index 0.740",
    id:"medRxiv 10.64898/2026.07.10.26357749", url:"https://doi.org/10.64898/2026.07.10.26357749", posted:"10 Jul 2026", dep:false},
-  {d:20260612, w:"Neuro-JEPA — Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
+  {d:20260612, w:"Neuro-JEPA, Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
    inst:"NYU Langone Health", geo:"United States",
    cites:"BIND", how:"One of the principal evaluation cohorts; 45 task/modality combinations; clinical tasks incl. glioblastoma, multiple sclerosis, atrophy",
    id:"arXiv:2606.14957", url:"https://arxiv.org/abs/2606.14957", posted:"12 Jun 2026", dep:false},
-  {d:20260515, w:"NeuralBench — EEG foundation model benchmark",
+  {d:20260515, w:"NeuralBench, EEG foundation model benchmark",
    inst:"Meta FAIR (Brain & AI) · École Normale Supérieure / CNRS · Inria · Fondation Rothschild", geo:"France",
    cites:"Harvard EEG Database", how:"Named one of only five \u201clandmark public datasets\u201d across 94 surveyed",
    id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"May 2026", dep:false},
-  {d:20260129, w:"CELM — Neural Signals Generate Clinical Notes in the Wild",
+  {d:20260129, w:"CELM, Neural Signals Generate Clinical Notes in the Wild",
    inst:"University of Illinois Urbana-Champaign", geo:"United States",
    cites:"Harvard EEG Database", how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
    id:"arXiv:2601.22197", url:"https://arxiv.org/abs/2601.22197", posted:"29 Jan 2026", dep:false},
-  {d:20260513, w:"EpiGraph — epilepsy knowledge graph and benchmark",
+  {d:20260513, w:"EpiGraph, epilepsy knowledge graph and benchmark",
    inst:"University of Illinois Urbana-Champaign · Florida State University · University of Osaka", geo:"United States / Japan",
    cites:"Harvard EEG Database", how:"Used under the database's data-use agreement (v4.1)",
    id:"arXiv:2605.09505", url:"https://arxiv.org/abs/2605.09505", posted:"13 May 2026", dep:false},
@@ -498,7 +502,7 @@ const PREPRINTS = [
    inst:"Massachusetts Institute of Technology", geo:"United States",
    cites:"Harvard–Emory ECG Database", how:"Cited in a survey of ECG representation-learning benchmarks",
    id:"arXiv:2602.17531", url:"https://arxiv.org/abs/2602.17531", posted:"19 Feb 2026", dep:false},
-  {d:20251104, w:"DANIEL — A Distributed and Scalable Approach for Global Representation Learning with EHR Applications",
+  {d:20251104, w:"DANIEL, A Distributed and Scalable Approach for Global Representation Learning with EHR Applications",
    inst:"Harvard · University of Chicago · Carnegie Mellon University · University of Pittsburgh · Brigham and Women's Hospital", geo:"United States",
    cites:"MCI/ADRD phenotyping study", how:"Cited as prior work on EHR phenotyping; submitted to the Journal of Machine Learning Research",
    id:"arXiv:2511.02754", url:"https://arxiv.org/abs/2511.02754", posted:"4 Nov 2025", dep:false},
@@ -510,11 +514,11 @@ const PREPRINTS = [
    inst:"UTHealth Houston", geo:"United States",
    cites:"CAISR", how:"Cited as an inter-scorer agreement reference",
    id:"arXiv:2607.21331", url:"https://arxiv.org/abs/2607.21331", posted:"21 Jul 2026", dep:false},
-  {d:20260511, w:"CLEF — EEG Foundation Model for Learning Clinical Semantics",
+  {d:20260511, w:"CLEF, EEG Foundation Model for Learning Clinical Semantics",
    inst:"MIT CSAIL · Brigham and Women's Hospital · Massachusetts General Hospital", geo:"United States",
    cites:"Harvard EEG Database", how:"260,000+ EEG sessions from 108,000+ patients; outperformed prior models on 229 of 234 tasks",
    id:"arXiv:2605.10817", url:"https://arxiv.org/abs/2605.10817", posted:"11 May 2026", dep:true},
-  {d:20260728, w:"AI Sleep Co-Scientist — agentic discovery across large-scale sleep physiology",
+  {d:20260728, w:"AI Sleep Co-Scientist, agentic discovery across large-scale sleep physiology",
    inst:"Stanford University · Technical University of Denmark · Together AI · Washington University in St. Louis", geo:"United States / Denmark",
    cites:"Human Sleep Project", how:"HSP was one of four cohorts and the independent replication set (n = 17,810 and n = 16,973)",
    id:"arXiv:2607.25175", url:"https://arxiv.org/abs/2607.25175", posted:"28 Jul 2026", dep:true},
@@ -556,7 +560,7 @@ const CHALLENGE = {
   name:"George B. Moody PhysioNet Challenge 2026",
   url:"https://moody-challenge.physionet.org/2026/",
   opened:"Opened 10 February 2026",
-  funder:"NIH / National Institute of Biomedical Imaging and Bioengineering — grant R01EB030362",
+  funder:"NIH / National Institute of Biomedical Imaging and Bioengineering, grant R01EB030362",
   points:[
     "Runs on data from the <a href='https://doi.org/10.60508/m3sw-rz13' target='_blank' rel='noopener'>Human Sleep Project</a>, distributed through the <a href='https://bdsp.io/about/' target='_blank' rel='noopener'>Brain Data Science Platform</a>.",
     "<a href='https://doi.org/10.1093/sleep/zsaf134' target='_blank' rel='noopener'>CAISR</a>, which I co-authored, generated the algorithmic annotations the Challenge is scored against.",
@@ -567,12 +571,12 @@ const CHALLENGE = {
 
 
 
-/* Publications. `y` is the year — the page sorts by it, newest first,
+/* Publications. `y` is the year; the page sorts by it, newest first,
    keeping the order below within a year. Add a row anywhere; it will slot in. */
-/* Publications. `d` is the publication date as YYYYMMDD — the page sorts by it,
+/* Publications. `d` is the publication date as YYYYMMDD; the page sorts by it,
    newest first. Dates marked ✓ are taken from the article; those marked ~ are
    inferred from the issue number or venue date and are worth confirming. */
-/* Publications. `d` is the publication date as YYYYMMDD — the page sorts by it,
+/* Publications. `d` is the publication date as YYYYMMDD; the page sorts by it,
    newest first. All 17 verified. These are ONLINE publication dates where one exists;
    two works (BIND, Learning brain health) use the acceptance or issue date - see the
    trailing comments. */
@@ -592,8 +596,8 @@ const PUBS = [
   {d:20260401, y:2026, t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},  // ✓ Crit Care Explor 8(4):e1402, April 2026
   {d:20260323, y:2026, t:"Automated electronic health record phenotyping of acute and subacute subdural hematoma", v:"Algorithms, 2026;19(3):239", doi:"10.3390/a19030239"},  // ✓ published 23 March 2026
   {d:20250410, y:2025, t:"Identification of patients with congestive heart failure from the electronic health records of two hospitals", v:"JMIR Medical Informatics, 2025;13:e64113", doi:"10.2196/64113"},  // ✓ JMIR Med Inform, published 10 April 2025
-  {d:20251201, y:2025, t:"Artificial intelligence-enabled phenotyping of neurological disease from electronic health records", v:"Innovation in Aging, 2025;9(Suppl 1) — conference abstract", doi:"10.1093/geroni/igaf122.2241"},  // ✓ Innovation in Aging 9(Suppl 2), December 2025
-  {d:20260501, y:2026, t:"Learning brain health from sleep", v:"Sleep, 2026;49(Suppl 1) — conference abstract", doi:"10.1093/sleep/zsag091.0331"},  // ✓ Sleep 49(Suppl 1):A146, May 2026
+  {d:20251201, y:2025, t:"Artificial intelligence-enabled phenotyping of neurological disease from electronic health records", v:"Innovation in Aging, 2025;9(Suppl 1), conference abstract", doi:"10.1093/geroni/igaf122.2241"},  // ✓ Innovation in Aging 9(Suppl 2), December 2025
+  {d:20260501, y:2026, t:"Learning brain health from sleep", v:"Sleep, 2026;49(Suppl 1), conference abstract", doi:"10.1093/sleep/zsag091.0331"},  // ✓ Sleep 49(Suppl 1):A146, May 2026
 ];
 
 /* Journals and conference venues that have published an independent citation.
@@ -787,7 +791,7 @@ const CITATIONS = [
   {inst:"Dalian University of Technology; University of Jyv\u00e4skyl\u00e4; Tampere University", geo:"China / Finland", cites:"CAISR", doi:"10.1109/ICASSP55912.2026.11462444", url:"https://doi.org/10.1109/ICASSP55912.2026.11462444", d:"20260421"},
   {inst:"General Hospital of Ningxia Medical University", geo:"China", cites:"CAISR", doi:"10.1038/s41598-026-63589-7", url:"https://doi.org/10.1038/s41598-026-63589-7", d:"20260724"},
   {inst:"Seoul National University Hospital", geo:"South Korea", cites:"CAISR", doi:"10.14802/jmd.26098", url:"https://doi.org/10.14802/jmd.26098", d:"20260414"},
-  {inst:"Jilin University \u2014 Second Hospital and China-Japan Union Hospital", geo:"China", cites:"Cardiac-arrest phenotyping study", doi:"10.2147/CIA.S607232", url:"https://doi.org/10.2147/CIA.S607232", d:"20260617"},
+  {inst:"Jilin University, Second Hospital and China-Japan Union Hospital", geo:"China", cites:"Cardiac-arrest phenotyping study", doi:"10.2147/CIA.S607232", url:"https://doi.org/10.2147/CIA.S607232", d:"20260617"},
   {inst:"Guangdong Polytechnic Normal University; Nanjing University; University of Macau", geo:"China / Macau", cites:"Harvard EEG Database", doi:"10.3390/e27090919", url:"https://doi.org/10.3390/e27090919", d:"20250830"},
   {inst:"Huazhong University of Science and Technology, Wuhan", geo:"China", cites:"Harvard EEG Database", doi:"10.2147/IJN.S618081", url:"https://doi.org/10.2147/IJN.S618081", d:"20260608"},
   {inst:"Instituto Nacional de Astrof\u00edsica, \u00d3ptica y Electr\u00f3nica (INAOE)", geo:"Mexico", cites:"Harvard EEG Database", doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x", d:"20260226"},
@@ -824,15 +828,14 @@ const CITATIONS = [
 
   var countries = REGIONS.reduce(function(a,r){ return a.concat(r.countries); },[]);
   $('reach').innerHTML =
-    '<div><b>'+CITATIONS.length+'</b><span>Independent peer-reviewed citations</span></div>'+
-    '<div><b>'+EDITORIALS.length+'</b><span>Editorials</span></div>'+
-    '<div><b>'+VENUES+'</b><span>Distinct journals</span></div>'+
-    '<div><b>'+FIELDS.length+'</b><span>Fields</span></div>'+
-    '<div><b>'+countries.length+'</b><span>Countries</span></div>'+
-    '<div><b>'+INSTITUTIONS.length+'</b><span>Institutions</span></div>'+
-    '<div><b>'+DATASETS.length+'</b><span>Open datasets</span></div>'+
-    
-    '<div><b>'+PUBS.length+'</b><span>Publications</span></div>';
+    '<a href="#citations"><b>'+CITATIONS.length+'</b><span>Independent peer-reviewed citations</span></a>'+
+    '<a href="#editorials"><b>'+EDITORIALS.length+'</b><span>Editorials</span></a>'+
+    '<a href="#journals"><b>'+VENUES+'</b><span>Distinct journals</span></a>'+
+    '<a href="#fields"><b>'+FIELDS.length+'</b><span>Fields</span></a>'+
+    '<a href="#reach-detail"><b>'+countries.length+'</b><span>Countries</span></a>'+
+    '<a href="#institutions"><b>'+INSTITUTIONS.length+'</b><span>Institutions</span></a>'+
+    '<a href="#datasets"><b>'+DATASETS.length+'</b><span>Open datasets</span></a>'+
+    '<a href="#publications"><b>'+PUBS.length+'</b><span>Publications</span></a>';
 
   $('traces').innerHTML =
     '<table class="mtab"><thead><tr>'+
@@ -1133,7 +1136,7 @@ const CITATIONS = [
       });
     });
   })();
-  var btns = Array.prototype.slice.call(document.querySelectorAll('.filt'));
+  var btns = Array.prototype.slice.call($('filters').querySelectorAll('.filt'));
   var curFilter='ALL';
   function apply(f){
     curFilter=f;
