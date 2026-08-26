@@ -381,6 +381,10 @@ const DATASETS = [
 /* Documented substantial uses — a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
+  {ds:"Harvard Electroencephalography Database", by:"MORGOTH 1.0 \u2014 66-author multi-center consortium",
+   what:"EEG foundation model pre-trained on 14,500 HEEDB patients, fine-tuned on 10,851 and internally validated on 8,527. BDSP records the release as derived from Harvard Electroencephalography Database v4.1. AUC-ROC 0.86\u20130.98 across 17 EEG findings; externally validated on 1,573 patients across 48 institutions.",
+   where:"The Lancet Digital Health, 2026", doi:"10.1016/j.landig.2026.101039", url:"https://www.thelancet.com/journals/landig/article/PIIS2589-7500(26)00062-2/fulltext", dep:true},
+
   {ds:"Harvard\u2013Emory ECG Database", by:"CAMEL - University of Pennsylvania",
    what:"Approximately 20 million samples from this database formed the entirety of the model's Stage-2 instruction tuning; the database also served as the evaluation benchmark across seven diagnostic tasks.",
    where:"ICLR 2026 (accepted January 2026)", doi:"", url:"https://arxiv.org/abs/2602.15677", dep:false},
