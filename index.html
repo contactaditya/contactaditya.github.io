@@ -84,7 +84,10 @@ figure.map img{width:100%;height:auto;display:block;border:1px solid var(--rule2
 figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-width:none}
 .isrc{font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.5;margin-left:6px;white-space:nowrap}
 .isrc:hover{opacity:1}
-th.sortable{cursor:pointer;user-select:none}
+th.sortable,th.nsort,th.psort,th.dsort{cursor:pointer;user-select:none}
+th.dsort:hover{opacity:.7}
+th.psort:hover{opacity:.7}
+th.nsort:hover{opacity:.7}
 th.sortable:hover{opacity:.7}
 .sarr{font-size:9px;opacity:.55}
 .c-date{font-family:var(--mono);font-size:11px;white-space:nowrap}
@@ -182,6 +185,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
 <p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets — as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
+<div class="filters" id="uses-filters"></div>
 <div class="rows" id="uses-list"></div></section>
 
 <section class="sec" id="funding"><div class="sec-head"><h2>Federally funded research this infrastructure supports</h2><span class="n" id="n-fund"></span></div>
@@ -333,6 +337,7 @@ const FIELDS = [
   {n:"Emergency & resuscitation medicine", e:"cardiac-arrest phenotyping, post-arrest outcomes"},
   {n:"Neurosurgery", e:"subdural haematoma, epilepsy-surgery evaluation"},
   {n:"Geriatric medicine & cognitive aging", e:"dementia, mild cognitive impairment, brain-health prediction"},
+  {n:"Palliative care", e:"end-of-life decision-making, withdrawal of life-sustaining therapy"},
 ];
 
 const NATURE = [
@@ -640,6 +645,11 @@ const REGIONS = [
 ];
 
 const INSTITUTIONS = [
+  {n:"Privolzhsky Research Medical University",   c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
+  {n:"Veltischev Research and Clinical Institute", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
+  {n:"Genomed Ltd",                               c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
+  {n:"Federal Center of Brain Research and Neurotechnologies", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
+  {n:"Institute of Theoretical and Experimental Biophysics, RAS", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"University of Toronto",                     c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"York University",                           c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"Vector Institute",                          c:"Canada", d:"cited", src:"10.2196/68317"},
@@ -783,7 +793,7 @@ const CITATIONS = [
   {inst:"Instituto Nacional de Astrof\u00edsica, \u00d3ptica y Electr\u00f3nica (INAOE)", geo:"Mexico", cites:"Harvard EEG Database", doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x", d:"20260226"},
   {inst:"Korea University", geo:"South Korea", cites:"Harvard EEG Database", doi:"10.1109/BCI69045.2026.11435041", url:"https://ieeexplore.ieee.org/document/11435041", d:"20260319"},
   {inst:"108 Military Central Hospital, Hanoi (Medical Equipment Department)", geo:"Vietnam", cites:"Harvard EEG Database", doi:"10.56651/lqdtu.jst.v14.n02.1112.ict", url:"https://doi.org/10.56651/lqdtu.jst.v14.n02.1112.ict", d:"20251226"},
-  {inst:"Lobachevsky University; Pirogov Russian National Research Medical University; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies14070403", url:"https://doi.org/10.3390/technologies14070403", d:"20260701"},
+  {inst:"Lobachevsky State University of Nizhny Novgorod; Privolzhsky Research Medical University; Veltischev Research and Clinical Institute, Pirogov Russian National Research Medical University; Genomed Ltd; Federal Center of Brain Research and Neurotechnologies (FMBA); Institute of Theoretical and Experimental Biophysics, Russian Academy of Sciences; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies14070403", url:"https://doi.org/10.3390/technologies14070403", d:"20260701"},
   {inst:"Lobachevsky University; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies13110524", url:"https://doi.org/10.3390/technologies13110524", d:"20251113"},
   {inst:"University Hospital Bern; Aix-Marseille University / INSERM; Duke University Medical Center; University of Melbourne; University of California San Francisco", geo:"Switzerland / France / United States / Australia", cites:"Harvard EEG Database", doi:"10.1002/epi.70077", url:"https://doi.org/10.1002/epi.70077", d:"20260103"},
   {inst:"University of Pennsylvania; Vanderbilt University Medical Center; University of South Carolina; Masaryk University / St. Anne's University Hospital Brno; University of Science and Technology of China; Kyoto University; Alfred Health and Monash University; Thomas Jefferson University; University of California San Diego; Emory University; University of Queensland", geo:"United States / Czech Republic / China / Japan / Australia", cites:"Harvard EEG Database", doi:"10.1002/epi.70168", url:"https://doi.org/10.1002/epi.70168", d:"20260302"},
@@ -841,8 +851,23 @@ const CITATIONS = [
     '</tbody></table>';
   $('n-models').textContent = MODELS.length+' shown';
 
-  $('datasets-list').innerHTML = '<table class="mtab"><thead><tr><th>Dataset</th><th>Ver.</th><th>Released</th><th>Release DOI</th><th>Descriptor</th><th>Descriptor DOI</th></tr></thead><tbody>'+
-    DATASETS.map(function(d){
+  var dKey='rel', dDir=-1;
+  function dsSorted(){
+    return DATASETS.slice().sort(function(a,b){
+      var av=String(a[dKey]||''), bv=String(b[dKey]||'');
+      if(!av&&!bv) return String(a.name||'').localeCompare(String(b.name||''));
+      if(!av) return 1; if(!bv) return -1;
+      return dDir*(av<bv?-1:av>bv?1:0);
+    });
+  }
+  function arrFor(k){ return dKey===k ? '<span class="sarr">'+(dDir===1?'\u25be':'\u25b4')+'</span>' : ''; }
+  function paintDs(){
+   $('datasets-list').innerHTML = '<table class="mtab"><thead><tr>'+
+    '<th class="dsort" data-k="name">Dataset'+arrFor('name')+'</th><th>Ver.</th>'+
+    '<th class="dsort" data-k="rel">Released'+arrFor('rel')+'</th><th>Release DOI</th>'+
+    '<th class="dsort" data-k="pdate">Descriptor'+arrFor('pdate')+'</th><th>Descriptor DOI</th>'+
+    '</tr></thead><tbody>'+
+    dsSorted().map(function(d){
       return '<tr>'+
         '<td data-l="Dataset"><span class="m-model">'+esc(d.name)+'</span><span class="m-sub">'+d.meta+'</span></td>'+
         '<td data-l="Ver.">'+esc(d.ver)+'</td>'+
@@ -851,12 +876,27 @@ const CITATIONS = [
         '<td data-l="Descriptor" class="c-date">'+(d.pven?esc(d.pven)+(d.pdate?'<br>'+fmtDate(d.pdate):'')+(d.pver?'<br><span class="m-sub" style="display:inline">describes '+esc(d.pver)+'</span>':''):'')+'</td>'+
         '<td data-l="Descriptor DOI" class="c-doi">'+(d.pdoi?'<a href="https://doi.org/'+d.pdoi+'" target="_blank" rel="noopener">'+esc(d.pdoi)+'</a>':'')+'</td>'+
       '</tr>'; }).join('')+'</tbody></table>';
+  }
+  paintDs();
+  $('datasets-list').addEventListener('click', function(ev){
+    var th = ev.target.closest ? ev.target.closest('th.dsort') : null;
+    if(!th) return;
+    var k=th.getAttribute('data-k');
+    if(dKey===k){ dDir=-dDir; } else { dKey=k; dDir=1; }
+    paintDs();
+  });
   $('n-data').textContent = DATASETS.length+' releases';
 
-  var pubsSorted = PUBS.slice().sort(function(a,b){ return b.d-a.d; });
-  $('pubs-list').innerHTML =
-    '<table class="mtab"><thead><tr><th>Publication</th><th>Venue</th><th>Published</th><th>DOI</th></tr></thead><tbody>'+
-    pubsSorted.map(function(p){
+  var pKey='d', pDir=-1;
+  function pubsSortedFn(){
+    return PUBS.slice().sort(function(a,b){
+      if(pKey==='d') return pDir*((a.d||0)-(b.d||0));
+      return pDir*(String(a[pKey]||'').localeCompare(String(b[pKey]||'')));
+    });
+  }
+  function paintPubs(){ $('pubs-list').innerHTML =
+    '<table class="mtab"><thead><tr><th class="psort" data-k="t">Publication'+(pKey==='t'?'<span class="sarr">'+(pDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="psort" data-k="v">Venue'+(pKey==='v'?'<span class="sarr">'+(pDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="psort" data-k="d">Published'+(pKey==='d'?'<span class="sarr">'+(pDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th>DOI</th></tr></thead><tbody>'+
+    pubsSortedFn().map(function(p){
       var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
                         : '<span class="nodoi">see ORCID</span>';
       return '<tr>'+
@@ -865,6 +905,15 @@ const CITATIONS = [
         '<td data-l="Published" class="c-date">'+fmtDate(String(p.d))+'</td>'+
         '<td data-l="DOI" class="c-doi">'+right+'</td>'+
       '</tr>'; }).join('')+'</tbody></table>';
+  }
+  paintPubs();
+  $('pubs-list').addEventListener('click', function(ev){
+    var th = ev.target.closest ? ev.target.closest('th.psort') : null;
+    if(!th) return;
+    var k=th.getAttribute('data-k');
+    if(pKey===k){ pDir=-pDir; } else { pKey=k; pDir=1; }
+    paintPubs();
+  });
   $('n-pubs').textContent = PUBS.length+' works';
 
   $('regions').innerHTML = REGIONS.map(function(r){
@@ -899,13 +948,34 @@ const CITATIONS = [
 
   var byDs = {};
   USES.forEach(function(u){ (byDs[u.ds] = byDs[u.ds] || []).push(u); });
-  $('uses-list').innerHTML = Object.keys(byDs).map(function(ds){
-    return '<div class="use" style="background:var(--paper)"><span class="use-b" style="font-family:var(--cond);font-size:16px">'+esc(ds)+'</span></div>'+
+  var DS_ORDER = ["Harvard Electroencephalography Database","Harvard\u2013Emory ECG Database",
+    "Human Sleep Project","Boston Children's Hospital Sleep Corpus",
+    "Brain Imaging and Neurophysiology Database (BIND)","PROPHET"];
+  function dsRank(n){ var i = DS_ORDER.indexOf(n); return i<0 ? 99 : i; }
+  var dsKeys = Object.keys(byDs).sort(function(a,b){
+    return (dsRank(a)-dsRank(b)) || (byDs[b].length-byDs[a].length) || a.localeCompare(b); });
+  $('uses-filters').innerHTML = '<button class="filt" data-u="ALL" aria-pressed="true">ALL</button>'+
+    dsKeys.map(function(d){ return '<button class="filt" data-u="'+esc(d)+'">'+esc(d)+'</button>'; }).join('');
+  $('uses-list').innerHTML = dsKeys.map(function(ds){
+    return '<div class="use ds-blk" data-ds="'+esc(ds)+'" style="background:var(--paper)"><span class="use-b" style="font-family:var(--cond);font-size:16px">'+esc(ds)+'</span></div>'+
       byDs[ds].map(function(u){
         var tag = u.dep ? ' <span class="tdep" style="display:inline;margin-left:8px">shared authorship</span>' : '';
-        return '<div class="use"><div class="use-h"><span class="use-b">'+esc(u.by)+tag+'</span>'+
+        return '<div class="use ds-blk" data-ds="'+esc(ds)+'"><div class="use-h"><span class="use-b">'+esc(u.by)+tag+'</span>'+
           '<span class="row-d"><a href="'+(u.url||('https://doi.org/'+u.doi))+'" target="_blank" rel="noopener">'+esc(u.doi||'open \u2192')+'</a></span></div>'+
           '<div class="use-w">'+esc(u.what)+'</div><div class="use-v">'+esc(u.where)+'</div></div>'; }).join(''); }).join('');
+  (function(){
+    var ub = Array.prototype.slice.call($('uses-filters').querySelectorAll('.filt'));
+    var blocks = Array.prototype.slice.call($('uses-list').querySelectorAll('.ds-blk'));
+    ub.forEach(function(b){
+      b.addEventListener('click', function(){
+        var f = b.getAttribute('data-u');
+        blocks.forEach(function(el){
+          el.style.display = (f==='ALL' || el.getAttribute('data-ds')===f) ? '' : 'none';
+        });
+        ub.forEach(function(o){ o.setAttribute('aria-pressed', String(o===b)); });
+      });
+    });
+  })();
   $('n-uses').textContent = USES.filter(function(u){return !u.dep;}).length+' independent · '+USES.filter(function(u){return u.dep;}).length+' shared authorship';
 
   $('fund-list').innerHTML = FUNDING.map(function(f){
@@ -936,8 +1006,20 @@ const CITATIONS = [
   $('n-pre').textContent = PREPRINTS.filter(function(x){return !x.dep;}).length+' independent · '+PREPRINTS.filter(function(x){return x.dep;}).length+' shared authorship';
 
   var natInd = NATURE.filter(function(x){ return x.dep===false; }).length;
-  $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th>Journal</th><th>Work</th><th>Group</th><th>Cites</th><th>Published</th><th>DOI</th></tr></thead><tbody>'+
-    NATURE.map(function(x){
+  var natKey='d', natDir=-1;
+  function natSorted(){
+    return NATURE.slice().sort(function(a,b){
+      if(natKey==='d'){
+        var av=a.d||'', bv=b.d||'';
+        if(!av&&!bv) return (a.j||'').localeCompare(b.j||'');
+        if(!av) return 1; if(!bv) return -1;
+        return natDir*(av<bv?-1:av>bv?1:0);
+      }
+      return natDir*((a[natKey]||'').localeCompare(b[natKey]||''));
+    });
+  }
+  function paintNature(){ $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th class="nsort" data-k="j">Journal'+(natKey==='j'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" data-k="w">Work'+(natKey==='w'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" data-k="by">Group'+(natKey==='by'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" data-k="cites">Cites'+(natKey==='cites'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" data-k="d">Published '+(natKey==='d'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th>DOI</th></tr></thead><tbody>'+
+    natSorted().map(function(x){
       var basis = x.dep===true ? '<span class="m-shd">shared authorship</span>'
                 : x.dep===null ? '<span class="m-shd">my own paper</span>'
                 : '<span class="m-ind">independent</span>';
@@ -949,6 +1031,15 @@ const CITATIONS = [
         '<td data-l="Published" class="c-date">'+fmtDate(x.d)+'</td>'+
         '<td data-l="DOI" class="c-doi"><a href="https://doi.org/'+x.doi+'" target="_blank" rel="noopener">'+esc(x.doi)+'</a></td>'+
       '</tr>'; }).join('')+'</tbody></table>';
+  }
+  paintNature();
+  $('nature-list').addEventListener('click', function(ev){
+    var th = ev.target.closest ? ev.target.closest('th.nsort') : null;
+    if(!th) return;
+    var k = th.getAttribute('data-k');
+    if(natKey===k){ natDir=-natDir; } else { natKey=k; natDir=1; }
+    paintNature();
+  });
   $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' my own';
 
   $('ed-list').innerHTML =
