@@ -216,7 +216,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. Institutions whose work is still in preprint — including Germany and India — are listed in the next section and marked as such.</p>
 <figure class="map">
   <img src="citation_map_verified.png" alt="World map with twenty-four countries shaded, marking the location of independent peer-reviewed citing groups across five continents.">
-  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.</figcaption>
+  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.<br><br>Hong Kong and Macau are special administrative regions of China and are counted separately from the country total, not as countries.</figcaption>
 </figure>
 <div class="regions" id="regions"></div></section>
 <section class="sec" id="journals"><div class="sec-head"><h2>Journals that have published a citation</h2><span class="n" id="n-jrn"></span></div>
@@ -323,7 +323,7 @@ const MODELS = [
    Update this number when a citation appears in a journal not already represented.
    29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
    (npj Digital Medicine was already represented, so the review did not add one.) */
-const VENUES = 33;
+const VENUES = 34;
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -384,6 +384,10 @@ const DATASETS = [
 /* Documented substantial uses — a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
+  {ds:"Cardiac-arrest phenotyping study", by:"Zaidi, Dolatabadi, Tanuseputro, Khan & Seto \u2014 University of Toronto; York University; Vector Institute; The University of Hong Kong; University Health Network",
+   what:"Scoping review of 121 machine-learning studies in palliative care, 2015\u20132026. Names the paper twice in the body and devotes a passage to it: the reviewers note that it modelled withdrawal of life-sustaining therapy as a clinician-driven end point distinct from biological death, and use the observed cross-site performance degradation to illustrate how site-specific documentation practices shape model transportability. The review draws a field-level recommendation from it.",
+   where:"JMIR AI, 2026;5:e68317", doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", dep:false},
+
   
 
   {ds:"Harvard\u2013Emory ECG Database", by:"CAMEL - University of Pennsylvania",
@@ -590,6 +594,8 @@ const PUBS = [
 /* Journals and conference venues that have published an independent citation.
    `n` is the name, `c` the count of citations from that venue. */
 const JOURNALS = [
+  {n:"JMIR AI", c:1},
+
   {n:"Machine Learning and Knowledge Extraction", c:1},
   {n:"npj Digital Medicine", c:3},
   {n:"Epilepsia", c:2},
@@ -627,13 +633,18 @@ const JOURNALS = [
 
 const REGIONS = [
   {name:"Europe",        countries:["Austria","Czech Republic","Denmark","Finland","France","Italy","Romania","Russia","Spain","Sweden","Switzerland","United Kingdom"]},
-  {name:"Asia",          countries:["China","Japan","Macau","Saudi Arabia","South Korea","Vietnam"]},
+  {name:"Asia",          countries:["China","Japan","Saudi Arabia","South Korea","Vietnam"]},
   {name:"North America", countries:["Canada","Mexico","United States"]},
   {name:"South America", countries:["Brazil","Peru"]},
   {name:"Oceania",       countries:["Australia"]},
 ];
 
 const INSTITUTIONS = [
+  {n:"University of Toronto",                     c:"Canada", d:"cited", src:"10.2196/68317"},
+  {n:"York University",                           c:"Canada", d:"cited", src:"10.2196/68317"},
+  {n:"Vector Institute",                          c:"Canada", d:"cited", src:"10.2196/68317"},
+  {n:"The University of Hong Kong",               c:"Hong Kong", d:"cited", src:"10.2196/68317"},
+  {n:"University Health Network (Toronto General)", c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"University Hospital Bern", c:"Switzerland", d:"cited", src:"10.1002/epi.70077"},
   {n:"Aix-Marseille University / INSERM", c:"France", d:"cited", src:"10.1002/epi.70077"},
   {n:"Duke University Medical Center", c:"United States", d:"cited", src:"10.1002/epi.70077"},
@@ -752,6 +763,8 @@ const INSTITUTIONS = [
   {n:"Le Quy Don Technical University", c:"Vietnam", d:"cited"},
 ];
 const CITATIONS = [
+  {inst:"University of Toronto (Dalla Lana School of Public Health); York University; Vector Institute; The University of Hong Kong; University Health Network (Toronto General Hospital Research Institute)", geo:"Canada / Hong Kong", cites:"Cardiac-arrest phenotyping study", doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", d:"20260821"},
+
   {inst:"University of Geneva; Geneva University Hospitals; Kantonsspital Winterthur", geo:"Switzerland", cites:"Post-stroke outcomes study", doi:"10.3390/make8080248", url:"https://doi.org/10.3390/make8080248", d:"20260816"},
   {inst:"VA Boston Healthcare System; Boston University; Mayo Clinic; University of California San Francisco; Indiana University; Barrow Neurological Institute; Eli Lilly and Company", geo:"United States", cites:"MCI/ADRD phenotyping study", doi:"10.3389/fneur.2026.1863897", url:"https://doi.org/10.3389/fneur.2026.1863897", d:"20260810"},
   {inst:"Clínica Universidad de Navarra (Pamplona)", geo:"Spain", cites:"BCH Sleep Corpus", doi:"10.1016/j.clinph.2026.2111977", url:"https://doi.org/10.1016/j.clinph.2026.2111977", d:"20260612"},
@@ -856,7 +869,8 @@ const CITATIONS = [
 
   $('regions').innerHTML = REGIONS.map(function(r){
     return '<div class="region"><h4>'+esc(r.name)+' · '+r.countries.length+'</h4><ul>'+
-      r.countries.map(function(c){ return '<li>'+esc(c)+'</li>'; }).join('')+'</ul></div>'; }).join('');
+      r.countries.map(function(c){ return '<li>'+esc(c)+'</li>'; }).join('')+'</ul></div>'; }).join('')
+    + '<div class="region"><h4>Special administrative regions \u00b7 2</h4><ul><li>Hong Kong</li><li>Macau</li></ul></div>';
   $('n-geo').textContent = countries.length+' countries · '+REGIONS.length+' regions';
 
   $('jrn-grid').innerHTML = JOURNALS.slice().sort(function(a,b){ return (b.c-a.c)||a.n.localeCompare(b.n); })
