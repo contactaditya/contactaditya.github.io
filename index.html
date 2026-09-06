@@ -334,7 +334,7 @@ const MODELS = [
    Update this number when a citation appears in a journal not already represented.
    29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
    (npj Digital Medicine was already represented, so the review did not add one.) */
-const VENUES = 34;
+const VENUES = 36;
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -631,21 +631,21 @@ const JOURNALS = [
   {n:"IEEE Journal of Biomedical and Health Informatics", c:1},
   {n:"IEEE International Conference on Bioinformatics and Biomedicine", c:1},
   {n:"IEEE ICASSP", c:1},
-  {n:"IEEE (Access / conference proceedings)", c:1},
+  {n:"International Winter Conference on Brain-Computer Interface (IEEE)", c:1},
   {n:"ACM SenSys", c:1},
   {n:"Applied Soft Computing", c:1},
   {n:"Electronics", c:1},
   {n:"Entropy", c:1},
   {n:"Archives of Computational Methods in Engineering", c:1},
   {n:"BMC Medical Informatics and Decision Making", c:1},
-  {n:"Sleep Medicine", c:1},
+  {n:"Workshop on Clinical Natural Language Processing (LREC)", c:1},
   {n:"Sleep Medicine: X", c:1},
   {n:"Journal of Movement Disorders", c:1},
   {n:"Clinical Interventions in Aging", c:1},
   {n:"International Journal of Nanomedicine", c:1},
   {n:"Informatica", c:1},
   {n:"Journal of Science and Technique (Le Quy Don)", c:1},
-  {n:"Sleep Epidemiology / other", c:1},
+  {n:"Brain-Apparatus Communication: A Journal of Bacomics", c:1},
 ];
 
 const REGIONS = [
@@ -657,6 +657,7 @@ const REGIONS = [
 ];
 
 const INSTITUTIONS = [
+  {n:"University of Edinburgh", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"NHS Lothian", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"Heriot-Watt University", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"},
   {n:"QIMR Berghofer Medical Research Institute", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"Queensland Children's Hospital", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"St Vincent's Hospital, Melbourne", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"BABA Center, Helsinki University Hospital and University of Helsinki", c:"Finland", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"University of Freiburg", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"},
   {n:"Privolzhsky Research Medical University",   c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Veltischev Research and Clinical Institute", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
@@ -688,9 +689,6 @@ const INSTITUTIONS = [
   {n:"University of Ottawa Heart Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"The Ottawa Hospital", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"Beijing Tiantan Hospital, Capital Medical University", c:"China", d:"cited", src:"10.1109/JBHI.2026.3691375"},
-  {n:"Université Lyon 1", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
-  {n:"Inserm U1028 / CNRS UMR5292", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
-  {n:"Université PSL", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
   {n:"Shandong Jianzhu University", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Beijing Normal University", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Zhejiang Lab", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
@@ -764,8 +762,6 @@ const INSTITUTIONS = [
   {n:"University of Glasgow", c:"United Kingdom", d:"cited", src:"10.1038/s41746-026-02704-4"},
   {n:"Lobachevsky University", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Pirogov Russian National Research Medical University", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
-  {n:"Hospices Civils de Lyon", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
-  {n:"Collège de France", c:"France", d:"cited", src:"10.1016/j.msom.2025.01.219"},
   {n:"Beijing University of Technology", c:"China", d:"cited", src:"10.1109/JBHI.2026.3691375"},
   {n:"Huazhong University of Science & Technology", c:"China", d:"cited", src:"10.2147/IJN.S618081"},
   {n:"Jilin University", c:"China", d:"cited", src:"10.2147/CIA.S607232"},
@@ -780,6 +776,7 @@ const INSTITUTIONS = [
   {n:"International University of Health and Welfare", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
 ];
 const CITATIONS = [
+  {inst:"University of Edinburgh; NHS Lothian; Heriot-Watt University", geo:"United Kingdom", cites:"BIND", doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", d:"20260516", t:"Paper"},
   {inst:"QIMR Berghofer Medical Research Institute; The University of Queensland; Queensland Children's Hospital; St Vincent's Hospital, Melbourne; BABA Center, Children's Hospital, Helsinki University Hospital and University of Helsinki", geo:"Australia / Finland", cites:"Harvard EEG Database", doi:"10.1016/j.ebiom.2024.105061", url:"https://doi.org/10.1016/j.ebiom.2024.105061", d:"20240327", t:"Dataset"}, {inst:"University of Freiburg (Medical Center, Dept. of Psychiatry and Psychotherapy; Faculty of Medicine); German Sleep Society (DGSM e.V.), Jena", geo:"Germany", cites:"Brain health from sleep EEG", doi:"10.1007/s40675-026-00396-6", url:"https://doi.org/10.1007/s40675-026-00396-6", d:"20260828", t:"Paper"},
   {inst:"University of Toronto (Dalla Lana School of Public Health); York University; Vector Institute; The University of Hong Kong; University Health Network (Toronto General Hospital Research Institute)", geo:"Canada / Hong Kong", cites:"Cardiac-arrest phenotyping study", doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", d:"20260821", t:"Paper"},
 
@@ -816,7 +813,6 @@ const CITATIONS = [
   {inst:"University of Calgary (Hotchkiss Brain Institute); Foothills Medical Centre; McGill University; University of Campinas (UNICAMP); Huazhong University of Science and Technology", geo:"Canada / Brazil / China", cites:"Post-stroke outcomes study", doi:"10.1161/SVIN.125.002261", url:"https://doi.org/10.1161/SVIN.125.002261", d:"20260505", t:"Paper"},
   {inst:"Universidade de S\u00e3o Paulo", geo:"Brazil", cites:"Post-stroke outcomes study", doi:"10.1186/s12911-025-03178-2", url:"https://doi.org/10.1186/s12911-025-03178-2", d:"20250926", t:"Paper"},
   {inst:"Beijing University of Technology; Beijing Tiantan Hospital, Capital Medical University", geo:"China", cites:"Sleep-EEG outcomes cohort study", doi:"10.1109/JBHI.2026.3691375", url:"https://doi.org/10.1109/JBHI.2026.3691375", d:"20260507", t:"Paper"},
-  {inst:"Hospices Civils de Lyon (Hôpital de la Croix-Rousse); Université Lyon 1; Inserm U1028 / CNRS UMR5292; Collège de France (CIRB); Université PSL", geo:"France", cites:"Sleep-EEG outcomes cohort study", doi:"10.1016/j.msom.2025.01.219", url:"https://doi.org/10.1016/j.msom.2025.01.219", d:"20250122", t:"Paper"},
   {inst:"Morehouse School of Medicine", geo:"United States", cites:"Sleep-EEG outcomes cohort study", doi:"10.1212/CONT.0000000000001734", url:"https://doi.org/10.1212/CONT.0000000000001734", d:"20260803", t:"Paper"},
   {inst:"Universidad Cient\u00edfica del Sur", geo:"Peru", cites:"Sleep-EEG outcomes cohort study", doi:"10.1016/j.sleepx.2026.100177", url:"https://doi.org/10.1016/j.sleepx.2026.100177", d:"20260212", t:"Paper"},
   {inst:"University of Ottawa; Ottawa Hospital Research Institute; University of Ottawa Heart Institute; The Ottawa Hospital; University of Calgary", geo:"Canada", cites:"Sleep-EEG outcomes cohort study", doi:"10.1161/JAHA.125.046964", url:"https://doi.org/10.1161/JAHA.125.046964", d:"20260529", t:"Paper"},
