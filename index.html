@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+.sec-head.sub{margin-top:26px}
+.sec-head.sub h3{font-size:1.05rem;margin:0}
+
 :root{--paper:#F5F6F8;--card:#fff;--ink:#14171E;--indigo:#2B3A8F;--rust:#A14A2A;--grey:#6B7280;
 --rule:#E1E4E9;--rule2:#C9CED6;--hover:#FAFBFC;--shade:rgba(43,58,143,.28);--sans:'IBM Plex Sans',system-ui,sans-serif;
 --cond:'IBM Plex Sans Condensed',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--wrap:1180px}
@@ -241,9 +244,14 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions citing the work independently</h2><span class="n" id="n-inst"></span></div>
 <p class="lede">Named institutions with no shared authorship. Depth of engagement is marked: some trained or validated models on the data, some named it among the field's key resources, and some cite it as prior work.</p>
 <div class="legend"><span><i class="dot trained"></i>Trained or validated a model on the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = work not yet peer-reviewed</span></div>
-<div class="inst-grid" id="inst-grid"></div></section>
-<section class="sec" id="us"><div class="sec-head"><h2>U.S. institutions citing the work</h2><span class="n" id="n-us"></span></div>
-<p class="lede">The domestic subset, drawn from the same list. Institutions marked <em>preprint</em> engage the work in papers not yet peer-reviewed.</p>
+<div class="inst-grid" id="inst-grid"></div>
+
+<div class="sec-head sub"><h3 id="industry">Industry</h3><span class="n" id="n-ind"></span></div>
+<p class="lede">Companies and corporate research laboratories, drawn from the same list above and counted in the same total.</p>
+<div class="inst-grid" id="ind-grid"></div>
+
+<div class="sec-head sub"><h3 id="us">U.S. institutions</h3><span class="n" id="n-us"></span></div>
+<p class="lede">The domestic subset, drawn from the same list above and counted in the same total. Institutions marked <em>preprint</em> engage the work in papers not yet peer-reviewed.</p>
 <div class="inst-grid" id="us-grid"></div></section>
 
 <section class="sec" id="publications"><div class="sec-head"><h2>Publications</h2><span class="n" id="n-pubs"></span></div>
@@ -334,7 +342,7 @@ const MODELS = [
    Update this number when a citation appears in a journal not already represented.
    29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
    (npj Digital Medicine was already represented, so the review did not add one.) */
-const VENUES = 36;
+const VENUES = 37;
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -368,7 +376,7 @@ const EDITORIALS = [
    j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG health-outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
    quote:"a more intuitive view of future risks, high, intermediate, or low, for a larger range of unwanted outcomes", d:"20231208"},
   {who:"Schütz & Goldstein", where:"University of Michigan", geo:"United States",
-   j:"Sleep, 2026", about:"Health-Oriented Sleep States, designated Companion Article", doi:"10.1093/sleep/zsaf292",
+   j:"Sleep, 2026", about:["Health-Oriented Sleep States (designated Companion Article)", "Sleep-EEG outcomes cohort study"], doi:"10.1093/sleep/zsaf292",
    quote:"applauded the authors for their use of novel data science techniques", d:"20250923"},
 ];
 
@@ -541,9 +549,9 @@ const FUNDING = [
   {id:"R01NS126282", inst:"NINDS", pi:"M. B. Westover (PI)", what:"ABIEE - acute brain injury outcome prediction; MGH is the primary site of my pipeline work"},
   {id:"R01NS131347", inst:"NINDS", pi:"S. Zafar (PI)", what:"EEG-guided anti-seizure treatment"},
   {id:"R21NS137117", inst:"NINDS", pi:"S. Zafar (co-lead)", what:"Status epilepticus phenotyping"},
+  {id:"R01AG082693", inst:"NIA", pi:"S. Zafar (PI)", what:"Medicare anti-seizure prophylaxis"},
   {id:"R01HL161253", inst:"NHLBI", pi:"M. B. Westover (PI)", what:"CAISR - automated sleep analysis"},
-  {id:"R01NS130119", inst:"NINDS", pi:"M. B. Westover (PI)", what:"Late-onset epilepsy and dementia"},
-  {id:"RF1NS120947", inst:"NINDS", pi:"M. B. Westover (PI)", what:"Brain health index"},
+  {id:"R01NS120947", inst:"NINDS", pi:"M. B. Westover (PI)", what:"Brain health index; project period to 30 April 2027"},
   {id:"R01EB030362", inst:"NIBIB", pi:"PhysioNet / MIT", what:"George B. Moody PhysioNet Challenge 2026, which runs on Human Sleep Project data"},
 ];
 
@@ -614,6 +622,8 @@ const PUBS = [
 /* Journals and conference venues that have published an independent citation.
    `n` is the name, `c` the count of citations from that venue. */
 const JOURNALS = [
+  {n:"Neurologic Clinics", c:1},
+
   {n:"eBioMedicine", c:1}, {n:"Current Sleep Medicine Reports", c:1},
   {n:"JMIR AI", c:1},
 
@@ -626,7 +636,7 @@ const JOURNALS = [
   {n:"Sleep", c:1},
   {n:"SLEEP Advances", c:1},
   {n:"Continuum: Lifelong Learning in Neurology", c:1},
-  {n:"Frontiers in Neurology", c:1},
+  {n:"Frontiers in Neurology", c:2},
   {n:"Current Opinion in Neurology", c:1},
   {n:"Journal of the American Heart Association", c:1},
   {n:"Stroke: Vascular and Interventional Neurology", c:1},
@@ -665,7 +675,7 @@ const INSTITUTIONS = [
   {n:"QIMR Berghofer Medical Research Institute", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"Queensland Children's Hospital", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"St Vincent's Hospital, Melbourne", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"BABA Center, Helsinki University Hospital and University of Helsinki", c:"Finland", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"University of Freiburg", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"},
   {n:"Privolzhsky Research Medical University",   c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Veltischev Research and Clinical Institute", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
-  {n:"Genomed Ltd",                               c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
+  {n:"Genomed Ltd",                               c:"Russia", d:"cited", src:"10.3390/technologies14070403", k:"industry"},
   {n:"Federal Center of Brain Research and Neurotechnologies", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Institute of Theoretical and Experimental Biophysics, RAS", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"University of Toronto",                     c:"Canada", d:"cited", src:"10.2196/68317"},
@@ -683,8 +693,8 @@ const INSTITUTIONS = [
   {n:"Alfred Health and Monash University", c:"Australia", d:"cited", src:"10.1002/epi.70168"},
   {n:"University of California San Diego", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of Queensland", c:"Australia", d:"cited", src:"10.1002/epi.70168"},
-  {n:"Nokia Bell Labs", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787"},
-  {n:"Brave Software", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787"},
+  {n:"Nokia Bell Labs", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
+  {n:"Brave Software", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
   {n:"University of Cambridge", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787"},
   {n:"Seoul National University College of Medicine", c:"South Korea", d:"cited", src:"10.1038/s41746-026-03101-7"},
   {n:"Yonsei University College of Medicine", c:"South Korea", d:"cited", src:"10.1038/s41746-026-03101-7"},
@@ -700,14 +710,14 @@ const INSTITUTIONS = [
   {n:"Shenzhen MSU-BIT University", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Beijing University of Posts and Telecommunications", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Institute of Computing Technology, CAS", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
-  {n:"FUXI AI Lab", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
+  {n:"FUXI AI Lab", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744", k:"industry"},
   {n:"Foothills Medical Centre", c:"Canada", d:"cited", src:"10.1161/SVIN.125.002261"},
   {n:"Hospital das Clínicas UFMG (Telehealth Center)", c:"Brazil", d:"cited", src:"10.1038/s41746-026-02704-4"},
   {n:"University of Geneva", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Geneva University Hospitals", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Kantonsspital Winterthur", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"University of Pennsylvania", c:"United States", d:"trained", src:["10.1002/epi.70168", "10.1088/1741-2552/ae805d"]},
-  {n:"Brigham and Women's Hospital", c:"United States", d:"cited", p:1}, {n:"Stanford University", c:"United States", d:"cited", p:1}, {n:"Graeme Clark Institute", c:"Australia", d:"cited", p:1}, {n:"Grenoble Institut des Neurosciences / INSERM", c:"France", d:"cited", p:1}, {n:"NYU Langone Health", c:"United States", d:"trained", p:1},
+  {n:"Brigham and Women's Hospital", c:"United States", d:"cited", p:1}, {n:"Stanford University School of Medicine", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015"}, {n:"Google for Health, Alphabet Inc.", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"Platforms and Devices, Alphabet Inc.", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"Graeme Clark Institute", c:"Australia", d:"cited", p:1}, {n:"Grenoble Institut des Neurosciences / INSERM", c:"France", d:"cited", p:1}, {n:"NYU Langone Health", c:"United States", d:"trained", p:1},
   {n:"Korea University", c:"South Korea", d:"trained", src:"10.1109/BCI69045.2026.11435041"},
   {n:"Sun Yat-Sen University", c:"China", d:"trained", src:"10.1038/s41467-026-72436-2"},
   {n:"Carl von Ossietzky Universität Oldenburg", c:"Germany", d:"trained", p:1},
@@ -717,7 +727,7 @@ const INSTITUTIONS = [
   {n:"Eurac Research", c:"Italy", d:"trained", p:1},
   {n:"IIT Kharagpur", c:"India", d:"trained", p:1},
   {n:"University of Illinois Urbana-Champaign", c:"United States", d:"trained", p:1},
-  {n:"Meta FAIR (Brain & AI)", c:"France", d:"landmark", p:1},
+  {n:"Meta FAIR (Brain & AI)", c:"France", d:"landmark", p:1, k:"industry"},
   {n:"École Normale Supérieure / CNRS", c:"France", d:"landmark", p:1},
   {n:"Inria", c:"France", d:"landmark", p:1},
   {n:"Massachusetts Institute of Technology", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"},
@@ -734,7 +744,7 @@ const INSTITUTIONS = [
   {n:"Tsinghua University", c:"China", d:"landmark", p:1},
   {n:"VinUniversity", c:"Vietnam", d:"landmark", p:1},
   {n:"INAOE", c:"Mexico", d:"landmark", src:"10.1007/s11831-026-10521-x"},
-  {n:"ACCELStars, Inc.", c:"Japan", d:"landmark", src:"10.1093/sleepadvances/zpag054"},
+  {n:"ACCELStars, Inc.", c:"Japan", d:"landmark", src:"10.1093/sleepadvances/zpag054", k:"industry"},
   {n:"Johns Hopkins University / APL", c:"United States", d:"cited", src:"10.1038/s41746-026-02970-2"},
   {n:"UCLA", c:"United States", d:"cited", src:"10.1088/1741-2552/ae805d"},
   {n:"Morehouse School of Medicine", c:"United States", d:"cited", src:"10.1212/CONT.0000000000001734"},
@@ -749,7 +759,7 @@ const INSTITUTIONS = [
   {n:"Barrow Neurological Institute", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
   {n:"Hoag Medical Group", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
   {n:"Memorial Healthcare (Michigan)", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
-  {n:"Eli Lilly and Company", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
+  {n:"Eli Lilly and Company", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897", k:"industry"},
   {n:"Seoul National University Hospital", c:"South Korea", d:"cited", src:["10.14802/jmd.26098", "10.1038/s41746-026-03101-7"]}, {n:"Gangneung Asan Hospital, University of Ulsan College of Medicine", c:"South Korea", d:"cited", src:"10.14802/jmd.26098"},
   {n:"Politehnica Bucharest", c:"Romania", d:"cited", src:"10.3390/electronics15163537"},
   {n:"Clínica Universidad de Navarra", c:"Spain", d:"cited", src:"10.1016/j.clinph.2026.2111977"},
@@ -771,7 +781,7 @@ const INSTITUTIONS = [
   {n:"Jilin University", c:"China", d:"cited", src:"10.2147/CIA.S607232"},
   {n:"Hebei North University", c:"China", d:"cited", src:"10.31449/inf.v50i11.12596"},
   {n:"Ningxia Medical University", c:"China", d:"cited", src:"10.1038/s41598-026-63589-7"},
-  {n:"Guangdong Polytechnic Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Shenzhen Bay Laboratory", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen People’s Hospital", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Harbin Institute of Technology, Shenzhen", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University of Advanced Technology", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"},
+  {n:"Guangdong Polytechnic Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Dazhou Integrated TCM & Western Medicine Hospital", c:"China", d:"cited", src:"10.3389/fneur.2026.1929036"}, {n:"Chengdu Medical College", c:"China", d:"cited", src:"10.3389/fneur.2026.1929036"}, {n:"Shenzhen Bay Laboratory", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen People’s Hospital", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Harbin Institute of Technology, Shenzhen", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University of Advanced Technology", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"},
   {n:"University of Macau", c:"Macau", d:"cited", src:"10.3390/e27090919"},
   {n:"Dalian University of Technology", c:"China", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"University of Jyväskylä", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
@@ -780,46 +790,50 @@ const INSTITUTIONS = [
   {n:"International University of Health and Welfare", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
 ];
 const CITATIONS = [
-  {inst:"University of Edinburgh; NHS Lothian; Heriot-Watt University", geo:"United Kingdom", cites:"BIND", doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", d:"20260516", t:"Paper"},
-  {inst:"QIMR Berghofer Medical Research Institute; The University of Queensland; Queensland Children's Hospital; St Vincent's Hospital, Melbourne; BABA Center, Children's Hospital, Helsinki University Hospital and University of Helsinki", geo:"Australia / Finland", cites:"Harvard EEG Database", doi:"10.1016/j.ebiom.2024.105061", url:"https://doi.org/10.1016/j.ebiom.2024.105061", d:"20240327", t:"Dataset"}, {inst:"University of Freiburg (Medical Center, Dept. of Psychiatry and Psychotherapy; Faculty of Medicine); German Sleep Society (DGSM e.V.), Jena", geo:"Germany", cites:"Brain health from sleep EEG", doi:"10.1007/s40675-026-00396-6", url:"https://doi.org/10.1007/s40675-026-00396-6", d:"20260828", t:"Paper"},
-  {inst:"University of Toronto (Dalla Lana School of Public Health); York University; Vector Institute; The University of Hong Kong; University Health Network (Toronto General Hospital Research Institute)", geo:"Canada / Hong Kong", cites:"Cardiac-arrest phenotyping study", doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", d:"20260821", t:"Paper"},
+  {inst:"Stanford University School of Medicine (Stanford Sleep Center, Dept. of Psychiatry and Behavioral Sciences); Google for Health, Alphabet Inc., Mountain View; Platforms and Devices, Alphabet Inc.", geo:"United States", cites:["CAISR"], doi:"10.1016/j.ncl.2026.07.015", url:"https://doi.org/10.1016/j.ncl.2026.07.015", d:"20260903", t:"Paper"},
 
-  {inst:"University of Geneva; Geneva University Hospitals; Kantonsspital Winterthur", geo:"Switzerland", cites:"Post-stroke outcomes study", doi:"10.3390/make8080248", url:"https://doi.org/10.3390/make8080248", d:"20260816", t:"Paper"},
-  {inst:"VA Boston Healthcare System; Boston University; Mayo Clinic; University of California San Francisco; Indiana University; Barrow Neurological Institute; Eli Lilly and Company; Hoag Medical Group; Memorial Healthcare", geo:"United States", cites:"MCI/ADRD phenotyping study", doi:"10.3389/fneur.2026.1863897", url:"https://doi.org/10.3389/fneur.2026.1863897", d:"20260810", t:"Paper"},
-  {inst:"Clínica Universidad de Navarra (Pamplona)", geo:"Spain", cites:"BCH Sleep Corpus", doi:"10.1016/j.clinph.2026.2111977", url:"https://doi.org/10.1016/j.clinph.2026.2111977", d:"20260612", t:"Paper"},
-  {inst:"National University of Science and Technology Politehnica Bucharest (CAMPUS Research Institute)", geo:"Romania", cites:"BCH Sleep Corpus", doi:"10.3390/electronics15163537", url:"https://doi.org/10.3390/electronics15163537", d:"20260810", t:"Paper"},
-  {inst:"Sungkyunkwan University; Sejong University; Prince Sattam bin Abdulaziz University", geo:"South Korea / Saudi Arabia", cites:"BCH Sleep Corpus", doi:"10.1016/j.asoc.2026.115590", url:"https://doi.org/10.1016/j.asoc.2026.115590", d:"20260603", t:"Paper"},
-  {inst:"UCL Great Ormond Street Institute of Child Health, University College London; King's College London; Great Ormond Street Hospital for Children", geo:"United Kingdom", cites:"BIND", doi:"10.1097/WCO.0000000000001465", url:"https://doi.org/10.1097/WCO.0000000000001465", d:"20260219", t:"Paper"},
-  {inst:"Flinders University", geo:"Australia", cites:"Brain health from sleep EEG", doi:"10.1093/sleep/zsag152", url:"https://doi.org/10.1093/sleep/zsag152", d:"20260601", t:"Paper"},
-  {inst:"Johns Hopkins University Applied Physics Laboratory; Johns Hopkins University", geo:"United States", cites:"Brain health from sleep EEG", doi:"10.1038/s41746-026-02970-2", url:"https://doi.org/10.1038/s41746-026-02970-2", d:"20260709", t:"Paper"},
-  {inst:"ACCELStars, Inc.; Toranomon Hospital; International University of Health and Welfare", geo:"Japan", cites:"CAISR", doi:"10.1093/sleepadvances/zpag054", url:"https://doi.org/10.1093/sleepadvances/zpag054", d:"20260512", t:"Paper"},
-  {inst:"Dalian University of Technology; University of Jyv\u00e4skyl\u00e4; Tampere University", geo:"China / Finland", cites:"CAISR", doi:"10.1109/ICASSP55912.2026.11462444", url:"https://doi.org/10.1109/ICASSP55912.2026.11462444", d:"20260407", t:"Paper"},
-  {inst:"General Hospital of Ningxia Medical University", geo:"China", cites:"CAISR", doi:"10.1038/s41598-026-63589-7", url:"https://doi.org/10.1038/s41598-026-63589-7", d:"20260724", t:"Paper"},
-  {inst:"Gangneung Asan Hospital, University of Ulsan College of Medicine; Seoul National University Hospital, Seoul National University", geo:"South Korea", cites:"CAISR", doi:"10.14802/jmd.26098", url:"https://doi.org/10.14802/jmd.26098", d:"20260414", t:"Paper"},
-  {inst:"Jilin University, Second Hospital and China-Japan Union Hospital", geo:"China", cites:"Cardiac-arrest phenotyping study", doi:"10.2147/CIA.S607232", url:"https://doi.org/10.2147/CIA.S607232", d:"20260617", t:"Paper"},
-  {inst:"Guangdong Polytechnic Normal University; Nanjing University; University of Macau", geo:"China / Macau", cites:"Harvard EEG Database", doi:"10.3390/e27090919", url:"https://doi.org/10.3390/e27090919", d:"20250830", t:"Paper"},
-  {inst:"Huazhong University of Science and Technology, Wuhan", geo:"China", cites:"Harvard EEG Database", doi:"10.2147/IJN.S618081", url:"https://doi.org/10.2147/IJN.S618081", d:"20260608", t:"Paper"},
-  {inst:"Instituto Nacional de Astrof\u00edsica, \u00d3ptica y Electr\u00f3nica (INAOE)", geo:"Mexico", cites:"Harvard EEG Database", doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x", d:"20260226", t:"Paper"},
-  {inst:"Korea University", geo:"South Korea", cites:"Harvard EEG Database", doi:"10.1109/BCI69045.2026.11435041", url:"https://ieeexplore.ieee.org/document/11435041", d:"20260319", t:"Paper"},
-  {inst:"108 Military Central Hospital, Hanoi (Medical Equipment Department)", geo:"Vietnam", cites:"Harvard EEG Database", doi:"10.56651/lqdtu.jst.v14.n02.1112.ict", url:"https://doi.org/10.56651/lqdtu.jst.v14.n02.1112.ict", d:"20260112", t:"Paper"},
-  {inst:"Lobachevsky State University of Nizhny Novgorod; Privolzhsky Research Medical University; Veltischev Research and Clinical Institute, Pirogov Russian National Research Medical University; Genomed Ltd; Federal Center of Brain Research and Neurotechnologies (FMBA); Institute of Theoretical and Experimental Biophysics, Russian Academy of Sciences; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies14070403", url:"https://doi.org/10.3390/technologies14070403", d:"20260701", t:"Paper"},
-  {inst:"Lobachevsky University; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:"Harvard EEG Database", doi:"10.3390/technologies13110524", url:"https://doi.org/10.3390/technologies13110524", d:"20251113", t:"Paper"},
-  {inst:"University Hospital Bern; Aix-Marseille University / INSERM; Duke University Medical Center; University of Melbourne; University of California San Francisco", geo:"Switzerland / France / United States / Australia", cites:"Harvard EEG Database", doi:"10.1002/epi.70077", url:"https://doi.org/10.1002/epi.70077", d:"20260103", t:"Paper"},
-  {inst:"University of Pennsylvania; Vanderbilt University Medical Center; University of South Carolina; Masaryk University / St. Anne's University Hospital Brno; University of Science and Technology of China; Kyoto University; Alfred Health and Monash University; Thomas Jefferson University; University of California San Diego; Emory University; University of Queensland", geo:"United States / Czech Republic / China / Japan / Australia", cites:"Harvard EEG Database", doi:"10.1002/epi.70168", url:"https://doi.org/10.1002/epi.70168", d:"20260302", t:"Paper"},
-  {inst:"University of Pennsylvania; University of California, Los Angeles", geo:"United States", cites:"Harvard EEG Database", doi:"10.1088/1741-2552/ae805d", url:"https://doi.org/10.1088/1741-2552/ae805d", d:"20260710", t:"Paper"},
-  {inst:"Shenzhen Bay Laboratory; Shenzhen People’s Hospital (First Affiliated Hospital, Southern University of Science and Technology); Harbin Institute of Technology, Shenzhen; Shenzhen University of Advanced Technology; Southern University of Science and Technology; Shenzhen University", geo:"China", cites:"Harvard EEG Database", doi:"10.1080/27706710.2025.2585594", url:"https://doi.org/10.1080/27706710.2025.2585594", d:"20251126", t:"Paper"},
-  {inst:"Imperial College London; Nokia Bell Labs; Brave Software; University of Cambridge", geo:"United Kingdom", cites:"Harvard–Emory ECG Database", doi:"10.1145/3774906.3802787", url:"https://doi.org/10.1145/3774906.3802787", d:"20260510", t:"Paper"},
-  {inst:"MIT Laboratory for Computational Physiology; Seoul National University Hospital; Seoul National University College of Medicine; Yonsei University College of Medicine; International University of Health and Welfare (Fukuoka); Harvard T.H. Chan School of Public Health; Beth Israel Deaconess Medical Center", geo:"United States / South Korea / Japan", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-03101-7", url:"https://doi.org/10.1038/s41746-026-03101-7", d:"20260807", t:"Paper"},
-  {inst:"Sun Yat-Sen University", geo:"China", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", d:"20260427", t:"Paper"},
-  {inst:"Universidade Federal de Minas Gerais; Hospital das Clínicas UFMG (Telehealth Center); Uppsala University; University of Glasgow", geo:"Brazil / Sweden / United Kingdom", cites:"Harvard–Emory ECG Database", doi:"10.1038/s41746-026-02704-4", url:"https://doi.org/10.1038/s41746-026-02704-4", d:"20260526", t:"Paper"},
-  {inst:"Shandong Jianzhu University; Beijing Normal University; Zhejiang Lab; Southern University of Science and Technology; Shenzhen MSU-BIT University; Beijing University of Posts and Telecommunications; Institute of Computing Technology, Chinese Academy of Sciences; FUXI AI Lab", geo:"China", cites:"Harvard–Emory ECG Database", doi:"10.1109/BIBM66473.2025.11356744", url:"https://doi.org/10.1109/BIBM66473.2025.11356744", d:"20260129", t:"Paper"},
-  {inst:"Hebei North University", geo:"China", cites:"Heart-failure phenotyping study", doi:"10.31449/inf.v50i11.12596", url:"https://doi.org/10.31449/inf.v50i11.12596", d:"20260423", t:"Paper"},
-  {inst:"University of Calgary (Hotchkiss Brain Institute); Foothills Medical Centre; McGill University; University of Campinas (UNICAMP); Huazhong University of Science and Technology", geo:"Canada / Brazil / China", cites:"Post-stroke outcomes study", doi:"10.1161/SVIN.125.002261", url:"https://doi.org/10.1161/SVIN.125.002261", d:"20260505", t:"Paper"},
-  {inst:"Universidade de S\u00e3o Paulo", geo:"Brazil", cites:"Post-stroke outcomes study", doi:"10.1186/s12911-025-03178-2", url:"https://doi.org/10.1186/s12911-025-03178-2", d:"20250926", t:"Paper"},
-  {inst:"Beijing University of Technology; Beijing Tiantan Hospital, Capital Medical University", geo:"China", cites:"Sleep-EEG outcomes cohort study", doi:"10.1109/JBHI.2026.3691375", url:"https://doi.org/10.1109/JBHI.2026.3691375", d:"20260507", t:"Paper"},
-  {inst:"Morehouse School of Medicine", geo:"United States", cites:"Sleep-EEG outcomes cohort study", doi:"10.1212/CONT.0000000000001734", url:"https://doi.org/10.1212/CONT.0000000000001734", d:"20260803", t:"Paper"},
-  {inst:"Universidad Cient\u00edfica del Sur (NEMECS), Lima; Universidad Privada de Tacna; Sociedad Cient\u00edfica de San Fernando, Lima; Universidad Nacional Mayor de San Marcos, Lima", geo:"Peru", cites:"Sleep-EEG outcomes cohort study", doi:"10.1016/j.sleepx.2026.100177", url:"https://doi.org/10.1016/j.sleepx.2026.100177", d:"20260212", t:"Paper"},
-  {inst:"University of Ottawa; Ottawa Hospital Research Institute; University of Ottawa Heart Institute; The Ottawa Hospital; University of Calgary", geo:"Canada", cites:"Sleep-EEG outcomes cohort study", doi:"10.1161/JAHA.125.046964", url:"https://doi.org/10.1161/JAHA.125.046964", d:"20260529", t:"Paper"},
+  {inst:"Dazhou Integrated TCM & Western Medicine Hospital, Dazhou; Chengdu Medical College, Chengdu", geo:"China", cites:["CAISR"], doi:"10.3389/fneur.2026.1929036", url:"https://doi.org/10.3389/fneur.2026.1929036", d:"20260908", t:"Paper"},
+
+  {inst:"University of Edinburgh; NHS Lothian; Heriot-Watt University", geo:"United Kingdom", cites:["BIND"], doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", d:"20260516", t:"Paper"},
+  {inst:"QIMR Berghofer Medical Research Institute; The University of Queensland; Queensland Children's Hospital; St Vincent's Hospital, Melbourne; BABA Center, Children's Hospital, Helsinki University Hospital and University of Helsinki", geo:"Australia / Finland", cites:["Harvard EEG Database"], doi:"10.1016/j.ebiom.2024.105061", url:"https://doi.org/10.1016/j.ebiom.2024.105061", d:"20240327", t:"Dataset"}, {inst:"University of Freiburg (Medical Center, Dept. of Psychiatry and Psychotherapy; Faculty of Medicine); German Sleep Society (DGSM e.V.), Jena", geo:"Germany", cites:["Brain health from sleep EEG"], doi:"10.1007/s40675-026-00396-6", url:"https://doi.org/10.1007/s40675-026-00396-6", d:"20260828", t:"Paper"},
+  {inst:"University of Toronto (Dalla Lana School of Public Health); York University; Vector Institute; The University of Hong Kong; University Health Network (Toronto General Hospital Research Institute)", geo:"Canada / Hong Kong", cites:["Cardiac-arrest phenotyping study"], doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", d:"20260821", t:"Paper"},
+
+  {inst:"University of Geneva; Geneva University Hospitals; Kantonsspital Winterthur", geo:"Switzerland", cites:["Post-stroke outcomes study"], doi:"10.3390/make8080248", url:"https://doi.org/10.3390/make8080248", d:"20260816", t:"Paper"},
+  {inst:"VA Boston Healthcare System; Boston University; Mayo Clinic; University of California San Francisco; Indiana University; Barrow Neurological Institute; Eli Lilly and Company; Hoag Medical Group; Memorial Healthcare", geo:"United States", cites:["MCI/ADRD phenotyping study"], doi:"10.3389/fneur.2026.1863897", url:"https://doi.org/10.3389/fneur.2026.1863897", d:"20260810", t:"Paper"},
+  {inst:"Clínica Universidad de Navarra (Pamplona)", geo:"Spain", cites:["BCH Sleep Corpus"], doi:"10.1016/j.clinph.2026.2111977", url:"https://doi.org/10.1016/j.clinph.2026.2111977", d:"20260612", t:"Paper"},
+  {inst:"National University of Science and Technology Politehnica Bucharest (CAMPUS Research Institute)", geo:"Romania", cites:["BCH Sleep Corpus"], doi:"10.3390/electronics15163537", url:"https://doi.org/10.3390/electronics15163537", d:"20260810", t:"Paper"},
+  {inst:"Sungkyunkwan University; Sejong University; Prince Sattam bin Abdulaziz University", geo:"South Korea / Saudi Arabia", cites:["BCH Sleep Corpus"], doi:"10.1016/j.asoc.2026.115590", url:"https://doi.org/10.1016/j.asoc.2026.115590", d:"20260603", t:"Paper"},
+  {inst:"UCL Great Ormond Street Institute of Child Health, University College London; King's College London; Great Ormond Street Hospital for Children", geo:"United Kingdom", cites:["BIND"], doi:"10.1097/WCO.0000000000001465", url:"https://doi.org/10.1097/WCO.0000000000001465", d:"20260219", t:"Paper"},
+  {inst:"Flinders University", geo:"Australia", cites:["Brain health from sleep EEG"], doi:"10.1093/sleep/zsag152", url:"https://doi.org/10.1093/sleep/zsag152", d:"20260601", t:"Paper"},
+  {inst:"Johns Hopkins University Applied Physics Laboratory; Johns Hopkins University", geo:"United States", cites:["Brain health from sleep EEG"], doi:"10.1038/s41746-026-02970-2", url:"https://doi.org/10.1038/s41746-026-02970-2", d:"20260709", t:"Paper"},
+  {inst:"ACCELStars, Inc.; Toranomon Hospital; International University of Health and Welfare", geo:"Japan", cites:["CAISR"], doi:"10.1093/sleepadvances/zpag054", url:"https://doi.org/10.1093/sleepadvances/zpag054", d:"20260512", t:"Paper"},
+  {inst:"Dalian University of Technology; University of Jyv\u00e4skyl\u00e4; Tampere University", geo:"China / Finland", cites:["CAISR"], doi:"10.1109/ICASSP55912.2026.11462444", url:"https://doi.org/10.1109/ICASSP55912.2026.11462444", d:"20260407", t:"Paper"},
+  {inst:"General Hospital of Ningxia Medical University", geo:"China", cites:["CAISR"], doi:"10.1038/s41598-026-63589-7", url:"https://doi.org/10.1038/s41598-026-63589-7", d:"20260724", t:"Paper"},
+  {inst:"Gangneung Asan Hospital, University of Ulsan College of Medicine; Seoul National University Hospital, Seoul National University", geo:"South Korea", cites:["CAISR"], doi:"10.14802/jmd.26098", url:"https://doi.org/10.14802/jmd.26098", d:"20260414", t:"Paper"},
+  {inst:"Jilin University, Second Hospital and China-Japan Union Hospital", geo:"China", cites:["Cardiac-arrest phenotyping study"], doi:"10.2147/CIA.S607232", url:"https://doi.org/10.2147/CIA.S607232", d:"20260617", t:"Paper"},
+  {inst:"Guangdong Polytechnic Normal University; Nanjing University; University of Macau", geo:"China / Macau", cites:["Harvard EEG Database"], doi:"10.3390/e27090919", url:"https://doi.org/10.3390/e27090919", d:"20250830", t:"Paper"},
+  {inst:"Huazhong University of Science and Technology, Wuhan", geo:"China", cites:["Harvard EEG Database"], doi:"10.2147/IJN.S618081", url:"https://doi.org/10.2147/IJN.S618081", d:"20260608", t:"Paper"},
+  {inst:"Instituto Nacional de Astrof\u00edsica, \u00d3ptica y Electr\u00f3nica (INAOE)", geo:"Mexico", cites:["Harvard EEG Database"], doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x", d:"20260226", t:"Paper"},
+  {inst:"Korea University", geo:"South Korea", cites:["Harvard EEG Database"], doi:"10.1109/BCI69045.2026.11435041", url:"https://ieeexplore.ieee.org/document/11435041", d:"20260319", t:"Paper"},
+  {inst:"108 Military Central Hospital, Hanoi (Medical Equipment Department)", geo:"Vietnam", cites:["Harvard EEG Database"], doi:"10.56651/lqdtu.jst.v14.n02.1112.ict", url:"https://doi.org/10.56651/lqdtu.jst.v14.n02.1112.ict", d:"20260112", t:"Paper"},
+  {inst:"Lobachevsky State University of Nizhny Novgorod; Privolzhsky Research Medical University; Veltischev Research and Clinical Institute, Pirogov Russian National Research Medical University; Genomed Ltd; Federal Center of Brain Research and Neurotechnologies (FMBA); Institute of Theoretical and Experimental Biophysics, Russian Academy of Sciences; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:["Harvard EEG Database"], doi:"10.3390/technologies14070403", url:"https://doi.org/10.3390/technologies14070403", d:"20260701", t:"Paper"},
+  {inst:"Lobachevsky University; Universidad Polit\u00e9cnica de Madrid", geo:"Russia / Spain", cites:["Harvard EEG Database"], doi:"10.3390/technologies13110524", url:"https://doi.org/10.3390/technologies13110524", d:"20251113", t:"Paper"},
+  {inst:"University Hospital Bern; Aix-Marseille University / INSERM; Duke University Medical Center; University of Melbourne; University of California San Francisco", geo:"Switzerland / France / United States / Australia", cites:["Harvard EEG Database"], doi:"10.1002/epi.70077", url:"https://doi.org/10.1002/epi.70077", d:"20260103", t:"Paper"},
+  {inst:"University of Pennsylvania; Vanderbilt University Medical Center; University of South Carolina; Masaryk University / St. Anne's University Hospital Brno; University of Science and Technology of China; Kyoto University; Alfred Health and Monash University; Thomas Jefferson University; University of California San Diego; Emory University; University of Queensland", geo:"United States / Czech Republic / China / Japan / Australia", cites:["Harvard EEG Database"], doi:"10.1002/epi.70168", url:"https://doi.org/10.1002/epi.70168", d:"20260302", t:"Paper"},
+  {inst:"University of Pennsylvania; University of California, Los Angeles", geo:"United States", cites:["Harvard EEG Database"], doi:"10.1088/1741-2552/ae805d", url:"https://doi.org/10.1088/1741-2552/ae805d", d:"20260710", t:"Paper"},
+  {inst:"Shenzhen Bay Laboratory; Shenzhen People’s Hospital (First Affiliated Hospital, Southern University of Science and Technology); Harbin Institute of Technology, Shenzhen; Shenzhen University of Advanced Technology; Southern University of Science and Technology; Shenzhen University", geo:"China", cites:["Harvard EEG Database"], doi:"10.1080/27706710.2025.2585594", url:"https://doi.org/10.1080/27706710.2025.2585594", d:"20251126", t:"Paper"},
+  {inst:"Imperial College London; Nokia Bell Labs; Brave Software; University of Cambridge", geo:"United Kingdom", cites:["Harvard–Emory ECG Database"], doi:"10.1145/3774906.3802787", url:"https://doi.org/10.1145/3774906.3802787", d:"20260510", t:"Paper"},
+  {inst:"MIT Laboratory for Computational Physiology; Seoul National University Hospital; Seoul National University College of Medicine; Yonsei University College of Medicine; International University of Health and Welfare (Fukuoka); Harvard T.H. Chan School of Public Health; Beth Israel Deaconess Medical Center", geo:"United States / South Korea / Japan", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-03101-7", url:"https://doi.org/10.1038/s41746-026-03101-7", d:"20260807", t:"Paper"},
+  {inst:"Sun Yat-Sen University", geo:"China", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", d:"20260427", t:"Paper"},
+  {inst:"Universidade Federal de Minas Gerais; Hospital das Clínicas UFMG (Telehealth Center); Uppsala University; University of Glasgow", geo:"Brazil / Sweden / United Kingdom", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-02704-4", url:"https://doi.org/10.1038/s41746-026-02704-4", d:"20260526", t:"Paper"},
+  {inst:"Shandong Jianzhu University; Beijing Normal University; Zhejiang Lab; Southern University of Science and Technology; Shenzhen MSU-BIT University; Beijing University of Posts and Telecommunications; Institute of Computing Technology, Chinese Academy of Sciences; FUXI AI Lab", geo:"China", cites:["Harvard–Emory ECG Database"], doi:"10.1109/BIBM66473.2025.11356744", url:"https://doi.org/10.1109/BIBM66473.2025.11356744", d:"20260129", t:"Paper"},
+  {inst:"Hebei North University", geo:"China", cites:["Heart-failure phenotyping study"], doi:"10.31449/inf.v50i11.12596", url:"https://doi.org/10.31449/inf.v50i11.12596", d:"20260423", t:"Paper"},
+  {inst:"University of Calgary (Hotchkiss Brain Institute); Foothills Medical Centre; McGill University; University of Campinas (UNICAMP); Huazhong University of Science and Technology", geo:"Canada / Brazil / China", cites:["Post-stroke outcomes study"], doi:"10.1161/SVIN.125.002261", url:"https://doi.org/10.1161/SVIN.125.002261", d:"20260505", t:"Paper"},
+  {inst:"Universidade de S\u00e3o Paulo", geo:"Brazil", cites:["Post-stroke outcomes study"], doi:"10.1186/s12911-025-03178-2", url:"https://doi.org/10.1186/s12911-025-03178-2", d:"20250926", t:"Paper"},
+  {inst:"Beijing University of Technology; Beijing Tiantan Hospital, Capital Medical University", geo:"China", cites:["Sleep-EEG outcomes cohort study"], doi:"10.1109/JBHI.2026.3691375", url:"https://doi.org/10.1109/JBHI.2026.3691375", d:"20260507", t:"Paper"},
+  {inst:"Morehouse School of Medicine", geo:"United States", cites:["Sleep-EEG outcomes cohort study"], doi:"10.1212/CONT.0000000000001734", url:"https://doi.org/10.1212/CONT.0000000000001734", d:"20260803", t:"Paper"},
+  {inst:"Universidad Cient\u00edfica del Sur (NEMECS), Lima; Universidad Privada de Tacna; Sociedad Cient\u00edfica de San Fernando, Lima; Universidad Nacional Mayor de San Marcos, Lima", geo:"Peru", cites:["Sleep-EEG outcomes cohort study"], doi:"10.1016/j.sleepx.2026.100177", url:"https://doi.org/10.1016/j.sleepx.2026.100177", d:"20260212", t:"Paper"},
+  {inst:"University of Ottawa; Ottawa Hospital Research Institute; University of Ottawa Heart Institute; The Ottawa Hospital; University of Calgary", geo:"Canada", cites:["Sleep-EEG outcomes cohort study"], doi:"10.1161/JAHA.125.046964", url:"https://doi.org/10.1161/JAHA.125.046964", d:"20260529", t:"Paper"},
 ];
 /* ── rendering: nothing below needs editing when you add data ───────── */
 (function(){
@@ -946,16 +960,23 @@ const CITATIONS = [
   $('n-fields').textContent = FIELDS.length+' fields';
 
   var order = {trained:0, landmark:1, editorial:2, cited:3};
-  $('inst-grid').innerHTML = INSTITUTIONS.slice().sort(function(a,b){
-      return (order[a.d]-order[b.d]) || a.n.localeCompare(b.n); })
-    .map(function(i){
+  function instCard(i){
       var ss = i.src ? [].concat(i.src) : [];
       var src = ss.length===1
         ? ' <a class="isrc" href="https://doi.org/'+ss[0]+'" target="_blank" rel="noopener" title="Added from '+esc(ss[0])+'">source</a>'
         : (ss.length>1
            ? ' <details class="isrcs"><summary>'+ss.length+' sources</summary><ul>'+ss.map(function(s){return '<li><a href="https://doi.org/'+esc(s)+'" target="_blank" rel="noopener">'+esc(s)+'</a></li>';}).join('')+'</ul></details>'
            : '');
-      return '<div class="inst"><i class="dot '+i.d+'"></i><span>'+esc(i.n)+' <em>'+esc(i.c)+(i.p?' · preprint':'')+'</em>'+src+'</span></div>'; }).join('');
+      return '<div class="inst"><i class="dot '+i.d+'"></i><span>'+esc(i.n)+' <em>'+esc(i.c)+(i.p?' · preprint':'')+'</em>'+src+'</span></div>'; }
+  (function(){
+    var all = INSTITUTIONS.slice().sort(function(a,b){
+      return (order[a.d]-order[b.d]) || a.n.localeCompare(b.n); });
+    var acad = all.filter(function(i){ return i.k!=='industry'; });
+    var ind  = all.filter(function(i){ return i.k==='industry'; });
+    $('inst-grid').innerHTML = acad.map(instCard).join('');
+    $('ind-grid').innerHTML  = ind.map(instCard).join('');
+    $('n-ind').textContent   = ind.length+(ind.length===1?' company':' companies');
+  })();
   $('n-inst').textContent = INSTITUTIONS.length+' institutions';
 
   var byDs = {};
@@ -1116,7 +1137,7 @@ const CITATIONS = [
         '<td data-l="Journal"><em>'+esc(e.j)+'</em></td>'+
         '<td data-l="Institution">'+esc(e.where)+'</td>'+
         '<td data-l="Country">'+esc(e.geo||'')+'</td>'+
-        '<td data-l="On">'+esc(e.about)+'</td>'+
+        '<td data-l="On">'+[].concat(e.about).map(function(w){ return '<span class="chip">'+esc(w)+'</span>'; }).join(' ')+'</td>'+
         '<td data-l="Published" class="c-date">'+fmtDate(e.d)+'</td>'+
         '<td data-l="DOI" class="c-doi"><a href="https://doi.org/'+e.doi+'" target="_blank" rel="noopener">'+esc(e.doi)+'</a></td>'+
       '</tr>'; }).join('')+'</tbody></table>';
@@ -1158,7 +1179,7 @@ const CITATIONS = [
     }
   })();
 
-  var works = CITATIONS.map(function(c){ return c.cites; })
+  var works = CITATIONS.reduce(function(acc,c){ return acc.concat(c.cites); }, [])
     .filter(function(v,i,a){ return a.indexOf(v)===i; }).sort();
   $('filters').innerHTML = '<button class="filt" data-f="ALL" aria-pressed="true">All</button>'+
     works.map(function(w){ return '<button class="filt" data-f="'+esc(w)+'">'+esc(w)+'</button>'; }).join('');
@@ -1178,13 +1199,15 @@ const CITATIONS = [
         if(!bv) return -1;
         return sortDir*(av<bv?-1:av>bv?1:0) || a.inst.localeCompare(b.inst);
       }
-      return sortDir*((a[sortKey]||'').localeCompare(b[sortKey]||'')) || a.inst.localeCompare(b.inst);
+      var sv=function(o){ var v=o[sortKey]; return Array.isArray(v) ? v.join('; ') : (v||''); };
+      return sortDir*(sv(a).localeCompare(sv(b))) || a.inst.localeCompare(b.inst);
     });
   }
   function paintTable(){ $('tbody').innerHTML = sortRows()
-    .map(function(c){ return '<tr data-work="'+esc(c.cites)+'">'+
+    .map(function(c){ var cw=[].concat(c.cites);
+      return '<tr data-work="'+esc(cw.join('|'))+'">'+
       '<td class="c-inst">'+esc(c.inst)+'</td><td class="c-geo">'+esc(c.geo)+'</td>'+
-      '<td><span class="chip">'+esc(c.cites)+'</span></td>'+'<td><span class="chip">'+esc(c.t||'\u2014')+'</span></td>'+
+      '<td>'+cw.map(function(w){ return '<span class="chip">'+esc(w)+'</span>'; }).join(' ')+'</td>'+'<td><span class="chip">'+esc(c.t||'\u2014')+'</span></td>'+
       '<td class="c-date">'+fmtDate(c.d)+'</td>'+
       '<td class="c-doi"><a href="'+c.url+'" target="_blank" rel="noopener">'+esc(c.doi)+'</a></td></tr>'; }).join('');
     rows = Array.prototype.slice.call($('tbody').querySelectorAll('tr'));
@@ -1214,7 +1237,7 @@ const CITATIONS = [
     curFilter=f;
     var n=0;
     rows.forEach(function(r){
-      var show = (f==='ALL') || (r.getAttribute('data-work')===f);
+      var show = (f==='ALL') || ((r.getAttribute('data-work')||'').split('|').indexOf(f)>=0);
       r.style.display = show ? '' : 'none'; if(show) n++; });
     $('count').textContent = n+(n===1?' citation shown':' citations shown');
     btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.f===f)); });
