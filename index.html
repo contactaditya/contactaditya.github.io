@@ -233,7 +233,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
   <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper. Drawn from Natural Earth 1:50m admin-0 countries. Hong Kong and Macau have their own polygons but are too small to distinguish at this scale.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.<br><br><strong>How the count is drawn.</strong> Countries follow the United Nations <a href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener">M49 standard</a>, the UN Statistics Division’s classification of countries and areas. The United Kingdom is counted once, and Hong Kong (M49 code 344) and Macau (446, listed there as Macao) are counted separately from China, as that standard lists them. Place names follow the affiliations printed on the citing papers, so this page writes Macau, as the University of Macau does. Using a published standard rather than a rule of this page’s own making means the count can be checked against something external to it. The standard is used because it is published and checkable, not to express a view: as M49 itself states, “the assignment of countries or areas to specific groupings is for statistical convenience and does not imply any assumption regarding political or other affiliation of countries or territories.”</figcaption>
 </figure>
 <div class="regions" id="regions"></div></section>
-<section class="sec" id="journals"><div class="sec-head"><h2>Journals that have published a citation</h2><span class="n" id="n-jrn"></span></div>
+<section class="sec" id="journals"><div class="sec-head"><h2>Venues that have published a citation</h2><span class="n" id="n-jrn"></span></div>
 <p class="lede" id="jrn-lede"></p>
 <div class="inst-grid" id="jrn-grid"></div></section>
 
@@ -844,7 +844,7 @@ const CITATIONS = [
   $('reach').innerHTML =
     '<a href="#citations"><b>'+CITATIONS.length+'</b><span>Independent peer-reviewed citations</span></a>'+
     '<a href="#editorials"><b>'+EDITORIALS.length+'</b><span>Editorials</span></a>'+
-    '<a href="#journals"><b>'+VENUES+'</b><span>Distinct journals</span></a>'+
+    '<a href="#journals"><b>'+VENUES+'</b><span>Peer-reviewed venues</span></a>'+
     '<a href="#fields"><b>'+FIELDS.length+'</b><span>Fields</span></a>'+
     '<a href="#reach-detail"><b>'+countries.length+'</b><span>Countries</span></a>'+
     '<a href="#institutions"><b>'+INSTITUTIONS.length+'</b><span>Institutions</span></a>'+
