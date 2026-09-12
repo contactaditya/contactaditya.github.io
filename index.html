@@ -168,7 +168,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="eyebrow">Research data infrastructure · Boston</p>
 <h1>Aditya Gupta</h1>
 <p class="role">Software and data engineer at <a href="https://www.massgeneral.org/" target="_blank" rel="noopener"><b>Massachusetts General Hospital</b></a>. One of three engineers on the <a href="https://bdsp.io/about/" target="_blank" rel="noopener">Brain Data Science Platform</a>, which distributes clinical EEG, ECG, sleep and electronic health record data drawn from multiple U.S. academic medical centers.</p>
-<p class="thesis">Everything here is checkable. Each dataset, publication and external citation carries an identifier that resolves to its source.</p>
+<p class="thesis">The datasets, publications, citations and external uses below are source-linked and independently checkable: each carries an identifier that resolves to its source.</p>
 <div class="idlinks" id="profiles"></div>
 <div class="reach" id="reach"></div>
 </div></header>
@@ -261,7 +261,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="note">
 <h3>A citation counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
 <p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list.</p>
-<p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://proceedings.iclr.cc/paper_files/paper/2026" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
+<p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
 <p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
@@ -302,6 +302,9 @@ const MODELS = [
    model:"CAMEL", murl:"https://arxiv.org/abs/2602.15677",
    by:"University of Pennsylvania", venue:"ICLR 2026",
    note:"Entire Stage-2 instruction tuning", shared:false},
+  {data:"Harvard–Emory ECG Database", scale:"10.7 million records", model:"ECG-CPC",
+   murl:"https://openreview.net/forum?id=xXRqWpt3Xr", by:"Carl von Ossietzky Universität Oldenburg",
+   venue:"ICLR 2026", note:"Strongest of eight ECG foundation models benchmarked, at 3.8M parameters", shared:false},
   {data:"Harvard EEG Database", scale:"12,290 reports from 10,886 patients",
    model:"CELM", murl:"https://arxiv.org/abs/2601.22197",
    by:"University of Illinois Urbana-Champaign", venue:"Preprint, arXiv",
@@ -381,7 +384,7 @@ const DATASETS = [
    meta:"Massachusetts General Hospital, Beth Israel Deaconess, Brigham and Women\u2019s and Boston Children\u2019s. The peer-reviewed descriptor in <em>Epilepsia</em> reports more than 280,000 recordings from over 108,000 patients.",
    doi:"10.60508/k85b-fc87", bdsp:"https://bdsp.io/content/harvard-eeg-db/4.1/", rel:"20250210", pdoi:"10.1111/epi.18487", pdate:"20250604", pven:"Epilepsia", pver:"v3.0"},
   {name:"Harvard–Emory ECG Database", ver:"v5.0",
-   meta:"Mass General Brigham (Massachusetts) and Emory University (Georgia). The descriptor in <em>Scientific Data</em> reports 10,771,552 twelve-lead electrocardiograms.",
+   meta:"Mass General Brigham (Massachusetts) and Emory University (Georgia). The descriptor in <em>Scientific Data</em> reports 10,608,417 recordings from 1,818,247 patients at Mass General Brigham and 998,844 from 349,548 patients at Emory, 11,607,261 in all.",
    doi:"10.60508/rv6h-7d10", doiurl:"https://bdsp.io/content/heedb/5.0/", bdsp:"https://bdsp.io/content/heedb/5.0/", rel:"20260225", pdoi:"10.1038/s41597-026-06861-9", pdate:"20260225", pven:"Scientific Data", pver:"current release"},
   {name:"Human Sleep Project", ver:"v3.0",
    meta:"Stanford, Mass General Brigham, Emory, Beth Israel Deaconess and Boston Children\u2019s. The descriptor in <em>Sleep</em> reports 119,234 overnight recordings from more than 90,000 patients.",
@@ -413,8 +416,8 @@ const USES = [
    what:"Pre-trained on a corpus of 11,571,587 records, of which 10,608,417 - approximately 92 per cent - were drawn from this database.",
    where:"Nature Communications, 2026", doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", dep:false},
   {ds:"Harvard\u2013Emory ECG Database", by:"ECG-CPC - AI4Health, University of Oldenburg",
-   what:"Pretrained on the full 11.6-million-record corpus. In a benchmark of eight ECG foundation models the authors report it as the strongest overall performer, at 3 million parameters matching or exceeding models an order of magnitude larger.",
-   where:"ICLR 2026 (Conference track)", doi:"", url:"https://proceedings.iclr.cc/paper_files/paper/2026", dep:false},
+   what:"Pretrained on 10.7 million records from this database, the figure the paper reports. In a benchmark of eight ECG foundation models the authors report it as the strongest overall performer, at 3 million parameters matching or exceeding models an order of magnitude larger.",
+   where:"ICLR 2026 (Conference track)", doi:"", url:"https://openreview.net/forum?id=xXRqWpt3Xr", dep:false},
   {ds:"Harvard\u2013Emory ECG Database", by:"DeepECG-Tok - Montreal Heart Institute, Mila, Toronto, Ottawa",
    what:"5,100 ECGs from 5,100 patients used as one of four external validation cohorts; macro-AUROC 0.90 reported on it.",
    where:"Preprint, medRxiv", doi:"", url:"https://doi.org/10.64898/2026.07.22.26358591", dep:false},
@@ -784,7 +787,7 @@ const INSTITUTIONS = [
   {n:"International University of Health and Welfare", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
 ];
 const CITATIONS = [
-  {inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:["Harvard–Emory ECG Database"], doi:"ICLR 2026 (Conference track)", url:"https://proceedings.iclr.cc/paper_files/paper/2026", d:"20260519", t:"Paper"},
+  {inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:["Harvard–Emory ECG Database"], doi:"ICLR 2026 (Poster), OpenReview xXRqWpt3Xr", url:"https://openreview.net/forum?id=xXRqWpt3Xr", d:"20260126", t:"Paper"},
 
   {inst:"Stanford University School of Medicine (Stanford Sleep Center, Dept. of Psychiatry and Behavioral Sciences); Google for Health, Alphabet Inc., Mountain View; Platforms and Devices, Alphabet Inc.", geo:"United States", cites:["CAISR"], doi:"10.1016/j.ncl.2026.07.015", url:"https://doi.org/10.1016/j.ncl.2026.07.015", d:"20260903", t:"Paper"},
 
