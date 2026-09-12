@@ -290,10 +290,6 @@ const PROFILES = [
 
 const MODELS = [
   // independent, no shared authorship
-  {data:"Harvard–Emory ECG Database", scale:"Full corpus, 10.7 million recordings",
-   model:"ECG-CPC", murl:"https://arxiv.org/abs/2509.25095",
-   by:"AI4Health, University of Oldenburg, Germany", venue:"Preprint, arXiv",
-   note:"Top-3 of eight foundation models benchmarked", shared:false},
   {data:"Harvard–Emory ECG Database", scale:"~92% of the pre-training corpus",
    model:"ECG-LFM", murl:"https://doi.org/10.1038/s41467-026-72436-2",
    by:"Sun Yat-Sen University, China", venue:"Nature Communications, 2026",
@@ -342,7 +338,7 @@ const MODELS = [
    Update this number when a citation appears in a journal not already represented.
    29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
    (npj Digital Medicine was already represented, so the review did not add one.) */
-const VENUES = 37;
+const VENUES = 38;
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -485,10 +481,6 @@ const PREPRINTS = [
    inst:"Peking University and collaborators", geo:"China",
    cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"Cites the database and ECGFounder as prior work",
    id:"arXiv:2607.05009", url:"https://arxiv.org/abs/2607.05009", posted:"6 Jul 2026", dep:true},
-  {d:20250929, w:"ECG-CPC, Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks",
-   inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany",
-   cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"Pretrained ECG-CPC on the full 10.7-million-record corpus",
-   id:"arXiv:2509.25095", url:"https://arxiv.org/abs/2509.25095", posted:"29 Sep 2025", dep:false},
   {d:20260217, w:"CAMEL, An ECG Language Model for Forecasting Cardiac Events",
    inst:"University of Pennsylvania", geo:"United States",
    cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"~20 million samples formed the entirety of Stage-2 instruction tuning; accepted at ICLR 2026",
@@ -622,6 +614,8 @@ const PUBS = [
 /* Journals and conference venues that have published an independent citation.
    `n` is the name, `c` the count of citations from that venue. */
 const JOURNALS = [
+  {n:"International Conference on Learning Representations (ICLR)", c:1},
+
   {n:"Neurologic Clinics", c:1},
 
   {n:"eBioMedicine", c:1}, {n:"Current Sleep Medicine Reports", c:1},
@@ -790,6 +784,8 @@ const INSTITUTIONS = [
   {n:"International University of Health and Welfare", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
 ];
 const CITATIONS = [
+  {inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:["Harvard–Emory ECG Database"], doi:"ICLR 2026 (OpenReview)", url:"https://openreview.net/forum?id=", d:"20260423", t:"Paper"},
+
   {inst:"Stanford University School of Medicine (Stanford Sleep Center, Dept. of Psychiatry and Behavioral Sciences); Google for Health, Alphabet Inc., Mountain View; Platforms and Devices, Alphabet Inc.", geo:"United States", cites:["CAISR"], doi:"10.1016/j.ncl.2026.07.015", url:"https://doi.org/10.1016/j.ncl.2026.07.015", d:"20260903", t:"Paper"},
 
   {inst:"Dazhou Integrated TCM & Western Medicine Hospital, Dazhou; Chengdu Medical College, Chengdu", geo:"China", cites:["CAISR"], doi:"10.3389/fneur.2026.1929036", url:"https://doi.org/10.3389/fneur.2026.1929036", d:"20260908", t:"Paper"},
