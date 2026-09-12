@@ -261,7 +261,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="note">
 <h3>A citation counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
 <p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list.</p>
-<p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://arxiv.org/abs/2509.25095" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
+<p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://proceedings.iclr.cc/paper_files/paper/2026" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
 <p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
@@ -414,7 +414,7 @@ const USES = [
    where:"Nature Communications, 2026", doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", dep:false},
   {ds:"Harvard\u2013Emory ECG Database", by:"ECG-CPC - AI4Health, University of Oldenburg",
    what:"Pretrained on the full 11.6-million-record corpus. In a benchmark of eight ECG foundation models the authors report it as the strongest overall performer, at 3 million parameters matching or exceeding models an order of magnitude larger.",
-   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2509.25095", dep:false},
+   where:"ICLR 2026 (Conference track)", doi:"", url:"https://proceedings.iclr.cc/paper_files/paper/2026", dep:false},
   {ds:"Harvard\u2013Emory ECG Database", by:"DeepECG-Tok - Montreal Heart Institute, Mila, Toronto, Ottawa",
    what:"5,100 ECGs from 5,100 patients used as one of four external validation cohorts; macro-AUROC 0.90 reported on it.",
    where:"Preprint, medRxiv", doi:"", url:"https://doi.org/10.64898/2026.07.22.26358591", dep:false},
@@ -447,7 +447,7 @@ const USES = [
    where:"Preprint, arXiv (NYU Langone Health)", doi:"", url:"https://arxiv.org/abs/2606.14957", dep:false},
   {ds:"Brain Imaging and Neurophysiology Database (BIND)", by:"Alex et al., GS-BrainText - University of Edinburgh, NHS Lothian",
    what:"Positioned as one of two major recent resources in the area, described as \u201capprox. 85K radiology reports from over 1.8M neuroimaging scans across three US academic medical centres.\u201d",
-   where:"Preprint, arXiv (University of Edinburgh)", doi:"", url:"https://arxiv.org/abs/2603.26235", dep:false},
+   where:"Workshop on Clinical NLP, LREC 2026", doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", dep:false},
   {ds:"Boston Children's Hospital Sleep Corpus", by:"Bashir et al., Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
    what:"Used as an out-of-distribution external validation cohort. Trained on the Nationwide Children's Hospital Sleep DataBank, then tested against this corpus \u201con an independent external cohort ... to examine cross cohort generalizability\u201d.",
    where:"Applied Soft Computing, 2026;202:115590", doi:"10.1016/j.asoc.2026.115590", dep:false},
