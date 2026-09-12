@@ -229,8 +229,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
 <p class="lede">Countries with at least one <strong>published</strong> independent citing group, grouped by region. This count is drawn from the independent peer-reviewed citations alone. The three invited editorials add a further three countries, Austria, Denmark and Italy, and are listed separately below. Institutions whose work is still in preprint, including India, are listed in the next section and marked as such.</p>
 <figure class="map">
-  <img src="citation_map_verified.png" alt="World map with twenty-one countries shaded, marking the location of independent peer-reviewed citing groups across five continents.">
-  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper; Macau is plotted within China, as the map geometry has no separate polygon at this scale.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.<br><br>Hong Kong and Macau are special administrative regions of China and are counted separately from the country total, not as countries.</figcaption>
+  <img src="citation_map_verified.png" alt="World map with the countries of independent peer-reviewed citing groups shaded, across five continents.">
+  <figcaption>Countries of independent peer-reviewed citing groups. Shaded countries are those with at least one identified citing paper. Two are plotted within a larger shape because the map geometry has no separate polygon at this scale: Macau within China, and England and Scotland within the United Kingdom.<br><br>Countries are determined from institutional affiliations associated with the qualifying publication, not an author’s nationality, residence, or current location.<br><br>Hong Kong and Macau are special administrative regions of China and are counted separately from the country total, not as countries.</figcaption>
 </figure>
 <div class="regions" id="regions"></div></section>
 <section class="sec" id="journals"><div class="sec-head"><h2>Journals that have published a citation</h2><span class="n" id="n-jrn"></span></div>
@@ -471,7 +471,7 @@ const USES = [
    could first see the work, which is what the Published column displays. Where acceptance
    pre-dates the filing but publication follows, note the acceptance separately, not in `d`. */
 const PREPRINTS = [
-  {d:20260501, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"—"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
+  {d:20260501, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"England / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"—"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
 
   {d:20260512, w:"Pretraining Strategies and Scaling for ECG Foundation Models", inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"9,922,934 HEEDB + 950,441 HEEDB-Emory samples, ~97% of the 11M pre-training corpus", id:"arXiv:2605.12241", url:"https://arxiv.org/abs/2605.12241", posted:"12 May 2026", dep:false},
 
@@ -657,7 +657,7 @@ const JOURNALS = [
 ];
 
 const REGIONS = [
-  {name:"Europe",        countries:["Czech Republic","Finland","France","Germany","Romania","Russia","Spain","Sweden","Switzerland","United Kingdom"]},
+  {name:"Europe",        countries:["Czech Republic", "England", "Finland", "France", "Germany", "Romania", "Russia", "Scotland", "Spain", "Sweden", "Switzerland"]},
   {name:"Asia",          countries:["China","Japan","Saudi Arabia","South Korea","Vietnam"]},
   {name:"North America", countries:["Canada","Mexico","United States"]},
   {name:"South America", countries:["Brazil","Peru"]},
@@ -665,7 +665,7 @@ const REGIONS = [
 ];
 
 const INSTITUTIONS = [
-  {n:"University of Edinburgh", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"NHS Lothian", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"Heriot-Watt University", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"},
+  {n:"University of Edinburgh", c:"Scotland", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"NHS Lothian", c:"Scotland", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"Heriot-Watt University", c:"Scotland", d:"landmark", src:"10.63317/45m3apdidcpj"},
   {n:"QIMR Berghofer Medical Research Institute", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"Queensland Children's Hospital", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"St Vincent's Hospital, Melbourne", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"BABA Center, Helsinki University Hospital and University of Helsinki", c:"Finland", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"University of Freiburg", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"},
   {n:"Privolzhsky Research Medical University",   c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Veltischev Research and Clinical Institute", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
@@ -687,9 +687,9 @@ const INSTITUTIONS = [
   {n:"Alfred Health and Monash University", c:"Australia", d:"cited", src:"10.1002/epi.70168"},
   {n:"University of California San Diego", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of Queensland", c:"Australia", d:"cited", src:"10.1002/epi.70168"},
-  {n:"Nokia Bell Labs", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
-  {n:"Brave Software", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
-  {n:"University of Cambridge", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787"},
+  {n:"Nokia Bell Labs", c:"England", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
+  {n:"Brave Software", c:"England", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
+  {n:"University of Cambridge", c:"England", d:"cited", src:"10.1145/3774906.3802787"},
   {n:"Seoul National University College of Medicine", c:"South Korea", d:"cited", src:"10.1038/s41746-026-03101-7"},
   {n:"Yonsei University College of Medicine", c:"South Korea", d:"cited", src:"10.1038/s41746-026-03101-7"},
   {n:"Harvard T.H. Chan School of Public Health", c:"United States", d:"cited", src:"10.1038/s41746-026-03101-7"},
@@ -731,10 +731,10 @@ const INSTITUTIONS = [
   {n:"Thomas Jefferson University", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of South Carolina", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"UTHealth Houston", c:"United States", d:"landmark", p:1},
-  {n:"King's College London", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
-  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:"10.1145/3774906.3802787"},
-  {n:"University College London", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
-  {n:"Great Ormond Street Institute of Child Health", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"}, {n:"Great Ormond Street Hospital for Children", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
+  {n:"King's College London", c:"England", d:"landmark", src:"10.1097/WCO.0000000000001465"},
+  {n:"Imperial College London", c:"England", d:"landmark", src:"10.1145/3774906.3802787"},
+  {n:"University College London", c:"England", d:"landmark", src:"10.1097/WCO.0000000000001465"},
+  {n:"Great Ormond Street Institute of Child Health", c:"England", d:"landmark", src:"10.1097/WCO.0000000000001465"}, {n:"Great Ormond Street Hospital for Children", c:"England", d:"landmark", src:"10.1097/WCO.0000000000001465"},
   {n:"Tsinghua University", c:"China", d:"landmark", p:1},
   {n:"VinUniversity", c:"Vietnam", d:"landmark", p:1},
   {n:"INAOE", c:"Mexico", d:"landmark", src:"10.1007/s11831-026-10521-x"},
@@ -767,7 +767,7 @@ const INSTITUTIONS = [
   {n:"UNICAMP", c:"Brazil", d:"cited", src:"10.1161/SVIN.125.002261"},
   {n:"Universidad Científica del Sur", c:"Peru", d:"cited", src:"10.1016/j.sleepx.2026.100177"}, {n:"Universidad Privada de Tacna", c:"Peru", d:"cited", src:"10.1016/j.sleepx.2026.100177"}, {n:"Sociedad Científica de San Fernando", c:"Peru", d:"cited", src:"10.1016/j.sleepx.2026.100177"}, {n:"Universidad Nacional Mayor de San Marcos", c:"Peru", d:"cited", src:"10.1016/j.sleepx.2026.100177"},
   {n:"Uppsala University", c:"Sweden", d:"cited", src:"10.1038/s41746-026-02704-4"},
-  {n:"University of Glasgow", c:"United Kingdom", d:"cited", src:"10.1038/s41746-026-02704-4"},
+  {n:"University of Glasgow", c:"Scotland", d:"cited", src:"10.1038/s41746-026-02704-4"},
   {n:"Lobachevsky University", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Pirogov Russian National Research Medical University", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Beijing University of Technology", c:"China", d:"cited", src:"10.1109/JBHI.2026.3691375"},
@@ -790,7 +790,7 @@ const CITATIONS = [
 
   {inst:"Dazhou Integrated TCM & Western Medicine Hospital, Dazhou; Chengdu Medical College, Chengdu", geo:"China", cites:["CAISR"], doi:"10.3389/fneur.2026.1929036", url:"https://doi.org/10.3389/fneur.2026.1929036", d:"20260908", t:"Paper"},
 
-  {inst:"University of Edinburgh; NHS Lothian; Heriot-Watt University", geo:"United Kingdom", cites:["BIND"], doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", d:"20260516", t:"Paper"},
+  {inst:"University of Edinburgh; NHS Lothian; Heriot-Watt University", geo:"Scotland", cites:["BIND"], doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", d:"20260516", t:"Paper"},
   {inst:"QIMR Berghofer Medical Research Institute; The University of Queensland; Queensland Children's Hospital; St Vincent's Hospital, Melbourne; BABA Center, Children's Hospital, Helsinki University Hospital and University of Helsinki", geo:"Australia / Finland", cites:["Harvard EEG Database"], doi:"10.1016/j.ebiom.2024.105061", url:"https://doi.org/10.1016/j.ebiom.2024.105061", d:"20240327", t:"Dataset"}, {inst:"University of Freiburg (Medical Center, Dept. of Psychiatry and Psychotherapy; Faculty of Medicine); German Sleep Society (DGSM e.V.), Jena", geo:"Germany", cites:["Brain health from sleep EEG"], doi:"10.1007/s40675-026-00396-6", url:"https://doi.org/10.1007/s40675-026-00396-6", d:"20260828", t:"Paper"},
   {inst:"University of Toronto (Dalla Lana School of Public Health); York University; Vector Institute; The University of Hong Kong; University Health Network (Toronto General Hospital Research Institute)", geo:"Canada / Hong Kong", cites:["Cardiac-arrest phenotyping study"], doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", d:"20260821", t:"Paper"},
 
@@ -799,7 +799,7 @@ const CITATIONS = [
   {inst:"Clínica Universidad de Navarra (Pamplona)", geo:"Spain", cites:["BCH Sleep Corpus"], doi:"10.1016/j.clinph.2026.2111977", url:"https://doi.org/10.1016/j.clinph.2026.2111977", d:"20260612", t:"Paper"},
   {inst:"National University of Science and Technology Politehnica Bucharest (CAMPUS Research Institute)", geo:"Romania", cites:["BCH Sleep Corpus"], doi:"10.3390/electronics15163537", url:"https://doi.org/10.3390/electronics15163537", d:"20260810", t:"Paper"},
   {inst:"Sungkyunkwan University; Sejong University; Prince Sattam bin Abdulaziz University", geo:"South Korea / Saudi Arabia", cites:["BCH Sleep Corpus"], doi:"10.1016/j.asoc.2026.115590", url:"https://doi.org/10.1016/j.asoc.2026.115590", d:"20260603", t:"Paper"},
-  {inst:"UCL Great Ormond Street Institute of Child Health, University College London; King's College London; Great Ormond Street Hospital for Children", geo:"United Kingdom", cites:["BIND"], doi:"10.1097/WCO.0000000000001465", url:"https://doi.org/10.1097/WCO.0000000000001465", d:"20260219", t:"Paper"},
+  {inst:"UCL Great Ormond Street Institute of Child Health, University College London; King's College London; Great Ormond Street Hospital for Children", geo:"England", cites:["BIND"], doi:"10.1097/WCO.0000000000001465", url:"https://doi.org/10.1097/WCO.0000000000001465", d:"20260219", t:"Paper"},
   {inst:"Flinders University", geo:"Australia", cites:["Brain health from sleep EEG"], doi:"10.1093/sleep/zsag152", url:"https://doi.org/10.1093/sleep/zsag152", d:"20260601", t:"Paper"},
   {inst:"Johns Hopkins University Applied Physics Laboratory; Johns Hopkins University", geo:"United States", cites:["Brain health from sleep EEG"], doi:"10.1038/s41746-026-02970-2", url:"https://doi.org/10.1038/s41746-026-02970-2", d:"20260709", t:"Paper"},
   {inst:"ACCELStars, Inc.; Toranomon Hospital; International University of Health and Welfare", geo:"Japan", cites:["CAISR"], doi:"10.1093/sleepadvances/zpag054", url:"https://doi.org/10.1093/sleepadvances/zpag054", d:"20260512", t:"Paper"},
@@ -818,10 +818,10 @@ const CITATIONS = [
   {inst:"University of Pennsylvania; Vanderbilt University Medical Center; University of South Carolina; Masaryk University / St. Anne's University Hospital Brno; University of Science and Technology of China; Kyoto University; Alfred Health and Monash University; Thomas Jefferson University; University of California San Diego; Emory University; University of Queensland", geo:"United States / Czech Republic / China / Japan / Australia", cites:["Harvard EEG Database"], doi:"10.1002/epi.70168", url:"https://doi.org/10.1002/epi.70168", d:"20260302", t:"Paper"},
   {inst:"University of Pennsylvania; University of California, Los Angeles", geo:"United States", cites:["Harvard EEG Database"], doi:"10.1088/1741-2552/ae805d", url:"https://doi.org/10.1088/1741-2552/ae805d", d:"20260710", t:"Paper"},
   {inst:"Shenzhen Bay Laboratory; Shenzhen People’s Hospital (First Affiliated Hospital, Southern University of Science and Technology); Harbin Institute of Technology, Shenzhen; Shenzhen University of Advanced Technology; Southern University of Science and Technology; Shenzhen University", geo:"China", cites:["Harvard EEG Database"], doi:"10.1080/27706710.2025.2585594", url:"https://doi.org/10.1080/27706710.2025.2585594", d:"20251126", t:"Paper"},
-  {inst:"Imperial College London; Nokia Bell Labs; Brave Software; University of Cambridge", geo:"United Kingdom", cites:["Harvard–Emory ECG Database"], doi:"10.1145/3774906.3802787", url:"https://doi.org/10.1145/3774906.3802787", d:"20260510", t:"Paper"},
+  {inst:"Imperial College London; Nokia Bell Labs; Brave Software; University of Cambridge", geo:"England", cites:["Harvard–Emory ECG Database"], doi:"10.1145/3774906.3802787", url:"https://doi.org/10.1145/3774906.3802787", d:"20260510", t:"Paper"},
   {inst:"MIT Laboratory for Computational Physiology; Seoul National University Hospital; Seoul National University College of Medicine; Yonsei University College of Medicine; International University of Health and Welfare (Fukuoka); Harvard T.H. Chan School of Public Health; Beth Israel Deaconess Medical Center", geo:"United States / South Korea / Japan", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-03101-7", url:"https://doi.org/10.1038/s41746-026-03101-7", d:"20260807", t:"Paper"},
   {inst:"Sun Yat-Sen University", geo:"China", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", d:"20260427", t:"Paper"},
-  {inst:"Universidade Federal de Minas Gerais; Hospital das Clínicas UFMG (Telehealth Center); Uppsala University; University of Glasgow", geo:"Brazil / Sweden / United Kingdom", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-02704-4", url:"https://doi.org/10.1038/s41746-026-02704-4", d:"20260526", t:"Paper"},
+  {inst:"Universidade Federal de Minas Gerais; Hospital das Clínicas UFMG (Telehealth Center); Uppsala University; University of Glasgow", geo:"Brazil / Sweden / Scotland", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-02704-4", url:"https://doi.org/10.1038/s41746-026-02704-4", d:"20260526", t:"Paper"},
   {inst:"Shandong Jianzhu University; Beijing Normal University; Zhejiang Lab; Southern University of Science and Technology; Shenzhen MSU-BIT University; Beijing University of Posts and Telecommunications; Institute of Computing Technology, Chinese Academy of Sciences; FUXI AI Lab", geo:"China", cites:["Harvard–Emory ECG Database"], doi:"10.1109/BIBM66473.2025.11356744", url:"https://doi.org/10.1109/BIBM66473.2025.11356744", d:"20260129", t:"Paper"},
   {inst:"Hebei North University", geo:"China", cites:["Heart-failure phenotyping study"], doi:"10.31449/inf.v50i11.12596", url:"https://doi.org/10.31449/inf.v50i11.12596", d:"20260423", t:"Paper"},
   {inst:"University of Calgary (Hotchkiss Brain Institute); Foothills Medical Centre; McGill University; University of Campinas (UNICAMP); Huazhong University of Science and Technology", geo:"Canada / Brazil / China", cites:["Post-stroke outcomes study"], doi:"10.1161/SVIN.125.002261", url:"https://doi.org/10.1161/SVIN.125.002261", d:"20260505", t:"Paper"},
