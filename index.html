@@ -362,7 +362,7 @@ const MODELS = [
    Update this number when a citation appears in a journal not already represented.
    29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
    (npj Digital Medicine was already represented, so the review did not add one.) */
-const VENUES = 38;
+const VENUES = 39;
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -424,6 +424,10 @@ const DATASETS = [
 /* Documented substantial uses: a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
+  {ds:"Human Sleep Project", by:"Lu et al., Aerospace Information Research Institute, Chinese Academy of Sciences",
+   what:"Pre-trained a 1D U-Net segmentation model with a transformer bottleneck on 1,526 curated HSP nights from 1,252 patients, then transferred it to contactless FMCW radar. The authors state the transfer was made because HSP “contains rich respiratory event information and can serve as a powerful supervision source for pre-training”.",
+   where:"Bioengineering, 2026", doi:"10.3390/bioengineering13030283", url:"https://doi.org/10.3390/bioengineering13030283", dep:false},
+
 
   
 
@@ -626,6 +630,8 @@ const PUBS = [
 /* Journals and conference venues that have published an independent citation.
    `n` is the name, `c` the count of citations from that venue. */
 const JOURNALS = [
+  {n:"Bioengineering", c:1},
+
   {n:"International Conference on Learning Representations (ICLR)", c:1},
 
   {n:"Neurologic Clinics", c:1},
@@ -708,7 +714,7 @@ const INSTITUTIONS = [
   {n:"Ottawa Hospital Research Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"University of Ottawa Heart Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"The Ottawa Hospital", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
-  {n:"Beijing Tiantan Hospital, Capital Medical University", c:"China", d:"cited", src:"10.1109/JBHI.2026.3691375"},
+  {n:"Beijing Tiantan Hospital, Capital Medical University", c:"China", d:"cited", src:"10.1109/JBHI.2026.3691375"}, {n:"Aerospace Information Research Institute, Chinese Academy of Sciences", c:"China", d:"trained", src:"10.3390/bioengineering13030283"}, {n:"University of Chinese Academy of Sciences", c:"China", d:"trained", src:"10.3390/bioengineering13030283"}, {n:"Beijing Tongren Hospital, Capital Medical University", c:"China", d:"trained", src:"10.3390/bioengineering13030283"},
   {n:"Shandong Jianzhu University", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Beijing Normal University", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
   {n:"Zhejiang Lab", c:"China", d:"cited", src:"10.1109/BIBM66473.2025.11356744"},
@@ -796,6 +802,8 @@ const INSTITUTIONS = [
   {n:"International University of Health and Welfare", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
 ];
 const CITATIONS = [
+  {inst:"Aerospace Information Research Institute, Chinese Academy of Sciences; University of Chinese Academy of Sciences; Beijing Tongren Hospital, Capital Medical University", geo:"China", cites:["Human Sleep Project"], doi:"10.3390/bioengineering13030283", url:"https://doi.org/10.3390/bioengineering13030283", d:"20260227", t:"Dataset"},
+
   {inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:["Harvard–Emory ECG Database"], doi:"ICLR 2026 (Poster), OpenReview xXRqWpt3Xr", url:"https://openreview.net/forum?id=xXRqWpt3Xr", d:"20260126", t:"Paper"},
 
   {inst:"Stanford University School of Medicine (Stanford Sleep Center, Dept. of Psychiatry and Behavioral Sciences); Google for Health, Alphabet Inc., Mountain View; Platforms and Devices, Alphabet Inc.", geo:"United States", cites:["CAISR"], doi:"10.1016/j.ncl.2026.07.015", url:"https://doi.org/10.1016/j.ncl.2026.07.015", d:"20260903", t:"Paper"},
