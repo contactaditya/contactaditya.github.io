@@ -291,12 +291,12 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="pubs-list"></div></section>
 <section class="sec" id="method"><div class="sec-head"><h2>Method: independence and counting rules</h2><span class="n">Method</span></div>
 <div class="note">
-<h3>A citation counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
-<p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list. The same co-author screen is applied to every work labeled independent elsewhere on this page, and to the works underlying the independent-institution register.</p>
-<p>Where a downstream model was trained, tuned, benchmarked or evaluated by a group I have co-authored with, it is labeled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
+<h3>A work counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
+<p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list. The same co-author screen is applied to every work labeled independent elsewhere on this page, and to the works underlying the independent-institution register.</p>
+<p>Where a downstream model was trained, tuned, validated, benchmarked, or evaluated by a group I have co-authored with, it is labeled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
 <p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit that work’s relationship to the underlying work or resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. Where more than one qualifying relationship exists, the displayed category reflects the strongest documented engagement in this order: downstream use; landmark or key-resource treatment; invited editorial; ordinary citation. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
 <p><b>Counting institutions.</b> Institution counts are based on distinct organizationally independent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Internal departments, laboratories, centers and other subunits are folded into their parent institution. Separate incorporation is strong evidence of organizational independence; where status remains ambiguous, the conservative reading is used. Independent affiliations take many forms: universities, hospitals, research institutes, companies, foundations, professional societies and government organizations are all represented here.</p>
-<p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
+<p>Two caveats worth stating. Citation counts can understate use: the datasets are distributed through self-service credentialed access and can be used without generating a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
 <div class="contact"><p>If you would like to collaborate, or to learn more about this work, you can reach me at <a class="mail" href="mailto:contactadityag@gmail.com">contactadityag@gmail.com</a>.</p></div></section>
@@ -313,8 +313,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
    ADDING A CITATION. Work through all of these:
      CITATIONS     the row itself; `cites` is an array even for one work
-     JOURNALS      add the venue if new, or increment `c`, and add the DOI to
-                   its `src` array. The venue counter and the Venue column in
+     JOURNALS      add the venue if new, or increment `c`, and add the citation's
+                   source identifier to its `src` array. Usually a DOI, but not
+                   always: ICLR proceedings are not DOI-registered, so that row
+                   carries its OpenReview identifier. The venue counter and the Venue column in
                    the citations table both derive from this
      INSTITUTIONS  every parent institution the paper names, each with its
                    own `src`. All institutions on one work share that work's
@@ -326,10 +328,11 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
    THEN VERIFY. Several invariants must still hold:
      sum of JOURNALS[].c  ===  CITATIONS.length
-     union of all JOURNALS[].src  ===  the full set of citation DOIs
+     union of all JOURNALS[].src  ===  the full set of citation source identifiers
      no duplicate INSTITUTIONS names; every one has a resolvable `src`
-     no work whose institutions disagree on designation without a second source
-     the preprint badge audit below logs nothing to the console
+     every source cited by an institution appears in WORK_DESIGNATIONS
+     every card equals the strongest designation its own sources justify
+     the designation audit below logs nothing to the console
 
    The prose that states a number is derived wherever it can be. Two places
    are not, and must be checked by hand: the map alt text and the count of
@@ -457,6 +460,16 @@ const DATASETS = [
 /* Documented substantial uses: a group that trained on, validated against, or
    evaluated using one of the datasets. Add a line when a new one appears. */
 const USES = [
+  {ds:"Harvard–Emory ECG Database", by:"Pretraining Strategies and Scaling for ECG FMs - AI4Health, University of Oldenburg",
+   what:"Table 58 lists 9,922,934 HEEDB samples and 950,441 HEEDB-Emory samples as the pre-training corpus, against 340,285 from CODE-15%, under the BDSP Credentialed Health Data License 1.5.0. The paper describes this as “the largest publicly available pretraining corpus to date comprising over 11M samples”.",
+   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2605.12241", dep:false},
+  {ds:"Harvard–Emory ECG Database", by:"ECG Biometrics with ArcFace-Inception - ASUGI, Trieste",
+   what:"Trained on an internal corpus, then externally evaluated on 385,079 ECGs from 118,756 patients drawn from this database, across four protocols: closed-set leave-one-out, scale analysis, a one to five year temporal stress test, and post-hoc reranking.",
+   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2604.04485", dep:false},
+  {ds:"Harvard–Emory ECG Database", by:"AI-ECG reconstruction error - Digital Cardiology Lab, Medical University Innsbruck",
+   what:"One of three cohorts in the primary analysis, alongside MIMIC-IV-ECG and the CHRIS population cohort, described as “a large US hospital-based ECG dataset from multiple centres, representing a broad clinical spectrum of inpatient and outpatient presentations”. Hazard ratio 1.41, C-index 0.740.",
+   where:"Preprint, medRxiv", doi:"", url:"https://doi.org/10.64898/2026.07.10.26357749", dep:false},
+
   {ds:"Human Sleep Project", by:"Lu et al., Aerospace Information Research Institute, Chinese Academy of Sciences",
    what:"Pre-trained a 1D U-Net segmentation model with a transformer bottleneck on 1,526 curated HSP nights from 1,252 patients, then transferred it to contactless FMCW radar. The authors state the transfer was made because HSP “contains rich respiratory event information and can serve as a powerful supervision source for pre-training”.",
    where:"Bioengineering, 2026", doi:"10.3390/bioengineering13030283", url:"https://doi.org/10.3390/bioengineering13030283", dep:false},
@@ -508,15 +521,22 @@ const USES = [
    where:"Sleep, 2026", doi:"10.1093/sleep/zsag064", dep:true},
 ];
 
-/* Where a source gives only a year, `d` is 1 January of that year: the sort key has to be
-   a full date, and the start of the year claims the least about how recent the work is. The
-   Posted column always shows what the source states, so no invented day is ever displayed.
+/* Preprints that cite or use the work. Not peer-reviewed; kept separate from CITATIONS on
+   purpose. Move a row into CITATIONS when it publishes.
 
-   Preprints that cite or use the work. Not peer-reviewed; kept separate from
-   CITATIONS on purpose. Move a row into CITATIONS when it publishes. The `d` field there is the
-   ONLINE PUBLICATION date: not the acceptance date, not the issue date. It is the date a reader
-   could first see the work, which is what the Published column displays. Where acceptance
-   pre-dates the filing but publication follows, note the acceptance separately, not in `d`. */
+   DATES. For exact-date entries, `d` is the FIRST-PUBLIC date: not the acceptance date, not
+   the issue date, not the date a PDF was generated. Where the source provides only a year or
+   a month, `d` is a conservative internal SORT KEY and nothing more; `posted` preserves the
+   source's actual displayed precision, and the Posted column renders `posted`, so no invented
+   day is ever shown to a reader.
+
+   Choose that sort key as the earliest date consistent with the evidence, not an arbitrary
+   one. engrXiv 7011 posts only "2026", but its literature search ran to 2 June 2026 and its
+   manuscript PDF was created on 12 July, so 1 January would be false; it sorts at 20260712.
+   Where nothing narrows it, 1 January is the conservative default.
+
+   Where acceptance pre-dates the filing but publication follows, note the acceptance
+   separately, never in `d`. */
 const PREPRINTS = [
   {d:20260406, w:"ECG Biometrics with ArcFace-Inception: External Validation on MIMIC and HEEDB",
    inst:"ASUGI, Azienda Sanitaria Universitaria Giuliano-Isontina, Trieste", geo:"Italy",
@@ -535,7 +555,7 @@ const PREPRINTS = [
    how:"Held out of pretraining entirely and used as an independent downstream evaluation cohort. One of only two cohorts in the corpus with linked EHR diagnosis histories, used for phenome-wide disease-onset prediction at a health system the model had never seen.",
    id:"arXiv:2609.06849", url:"https://arxiv.org/abs/2609.06849", posted:"6 Sep 2026", dep:true},
 
-  {d:20260101, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
+  {d:20260712, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"Paper and dataset"}], how:"A full row in Table 5, the review’s comparison of representative EEG resources, alongside Temple, CHB-MIT and EPILEPSIAE, recording 108,341 patients and 284,341 recordings. Cites the Epilepsia descriptor at reference 41 and links the bdsp-core tooling repository in the narrative.", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
 
   {d:20260512, w:"Pretraining Strategies and Scaling for ECG Foundation Models", inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"9,922,934 HEEDB + 950,441 HEEDB-Emory samples, ~97% of the 11M pre-training corpus", id:"arXiv:2605.12241", url:"https://arxiv.org/abs/2605.12241", posted:"12 May 2026", dep:false},
 
@@ -962,9 +982,75 @@ const CITATIONS = [
     });
   })();
 
-  // Enter and Space activate any sortable header. Delegated at the document so it
-  // survives the table re-renders that replace thead, which per-element listeners
-  // would not. Covers sortable, dsort, psort, prsort, nsort and esort.
+  // The designation of a WORK, keyed by the identifier its institutions cite.
+  // This is authoritative: institution cards and the preprint badge are checked
+  // against it, rather than inferred from whichever card happens to have a single
+  // source. Add a line here whenever a work is added.
+  var WORK_DESIGNATIONS = {
+    "10.1002/epi.70077": "landmark",
+    "10.1002/epi.70168": "landmark",
+    "10.1007/s11831-026-10521-x": "landmark",
+    "10.1007/s40675-026-00396-6": "cited",
+    "10.1016/j.asoc.2026.115590": "trained",
+    "10.1016/j.clinph.2026.2111977": "cited",
+    "10.1016/j.ebiom.2024.105061": "cited",
+    "10.1016/j.ncl.2026.07.015": "cited",
+    "10.1016/j.sleepx.2026.100177": "cited",
+    "10.1038/s41467-026-72436-2": "trained",
+    "10.1038/s41598-026-63589-7": "cited",
+    "10.1038/s41746-026-02704-4": "cited",
+    "10.1038/s41746-026-02970-2": "cited",
+    "10.1038/s41746-026-03101-7": "landmark",
+    "10.1038/s41746-026-03196-y": "cited",
+    "10.1080/27706710.2025.2585594": "cited",
+    "10.1088/1741-2552/ae805d": "cited",
+    "10.1093/sleep/zsaf147": "editorial",
+    "10.1093/sleep/zsaf292": "editorial",
+    "10.1093/sleep/zsag152": "cited",
+    "10.1093/sleepadvances/zpag054": "cited",
+    "10.1097/WCO.0000000000001465": "landmark",
+    "10.1109/BCI69045.2026.11435041": "trained",
+    "10.1109/BIBM66473.2025.11356744": "cited",
+    "10.1109/ICASSP55912.2026.11462444": "cited",
+    "10.1109/JBHI.2026.3691375": "cited",
+    "10.1145/3774906.3802787": "cited",
+    "10.1161/JAHA.125.046964": "cited",
+    "10.1161/SVIN.125.002261": "cited",
+    "10.1186/s12911-025-03178-2": "cited",
+    "10.1212/CONT.0000000000001734": "cited",
+    "10.1212/CPJ.0000000000200247": "editorial",
+    "10.14802/jmd.26098": "cited",
+    "10.2147/CIA.S607232": "cited",
+    "10.2147/IJN.S618081": "cited",
+    "10.2196/68317": "cited",
+    "10.31449/inf.v50i11.12596": "cited",
+    "10.3389/fneur.2026.1863897": "cited",
+    "10.3389/fneur.2026.1929036": "cited",
+    "10.3390/bioengineering13030283": "trained",
+    "10.3390/e27090919": "cited",
+    "10.3390/electronics15163537": "cited",
+    "10.3390/make8080248": "cited",
+    "10.3390/technologies13110524": "cited",
+    "10.3390/technologies14070403": "cited",
+    "10.56651/lqdtu.jst.v14.n02.1112.ict": "cited",
+    "10.63317/45m3apdidcpj": "landmark",
+    "10.64898/2026.08.26.747401": "cited",
+    "ICLR 2026 (Poster), OpenReview xXRqWpt3Xr": "trained",
+    "arXiv:2511.02754": "cited",
+    "arXiv:2512.22656": "trained",
+    "arXiv:2601.22197": "trained",
+    "arXiv:2602.15677": "trained",
+    "arXiv:2604.04485": "trained",
+    "arXiv:2605.08495": "landmark",
+    "arXiv:2605.09505": "trained",
+    "arXiv:2606.14957": "trained",
+    "arXiv:2607.21331": "cited",
+    "arXiv:2609.00809": "cited",
+    "engrXiv 7011": "landmark",
+    "medRxiv 10.64898/2026.07.10.26357749": "trained",
+    "medRxiv 10.64898/2026.07.22.26358591": "trained",
+  };
+
   // Sort state is the single source of truth: it produces the arrow AND the
   // aria-sort value. Nothing infers semantics from which glyph is rendered.
   function ariaSort(active, dir){
@@ -1136,11 +1222,7 @@ const CITATIONS = [
     var peer = {};
     CITATIONS.forEach(function(c){ peer[c.doi] = true; });
     EDITORIALS.forEach(function(e){ peer[e.doi] = true; });
-    var workDes = {};
-    INSTITUTIONS.forEach(function(x){
-      var s = [].concat(x.src || []);
-      if (s.length === 1 && peer[s[0]]) workDes[s[0]] = x.d;
-    });
+    var workDes = WORK_DESIGNATIONS;
     var bad = [];
     INSTITUTIONS.forEach(function(x){
       var s = [].concat(x.src || []);
@@ -1152,7 +1234,19 @@ const CITATIONS = [
       if (justified && x.p) bad.push(x.n + ': badged, but ' + best + ' is peer-reviewed');
       if (!justified && !x.p) bad.push(x.n + ': unbadged, but no peer-reviewed source reaches ' + x.d);
     });
-    if (bad.length) console.warn('preprint badge audit:', bad);
+    // Every card must equal the strongest designation its own sources justify,
+    // and every source an institution cites must exist in the map.
+    INSTITUTIONS.forEach(function(x){
+      var s = [].concat(x.src || []);
+      s.forEach(function(v){
+        if (!WORK_DESIGNATIONS[v]) bad.push(x.n + ': source not in WORK_DESIGNATIONS: ' + v);
+      });
+      var best = s.map(function(v){ return WORK_DESIGNATIONS[v]; })
+                  .filter(Boolean)
+                  .sort(function(a,b){ return RANK[a]-RANK[b]; })[0];
+      if (best && best !== x.d) bad.push(x.n + ': shows ' + x.d + ', sources justify ' + best);
+    });
+    if (bad.length) console.warn('designation audit:', bad);
   })();
 
   function instCard(i){
