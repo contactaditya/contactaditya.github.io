@@ -130,6 +130,8 @@ figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-widt
 .c-date{font-family:var(--mono);font-size:11px;white-space:nowrap}
 table.mtab{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
 table.mtab th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);font-weight:600;padding:0 12px 8px 0;border-bottom:1px solid var(--rule2);white-space:nowrap}
+table.mtab th.dsort,table.mtab th.psort,table.mtab th.nsort,table.mtab th.esort{padding:0}
+table.mtab .th-btn{padding:0 12px 8px 0}
 table.mtab td{padding:11px 12px 11px 0;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.45}
 table.mtab tr:last-child td{border-bottom:none}
 table.mtab .m-model{font-weight:600}
@@ -246,7 +248,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="tbl-wrap"><table><thead><tr><th class="sortable" data-k="inst"><button type="button" class="th-btn">Authors’ institutions</button></th><th class="sortable" data-k="geo"><button type="button" class="th-btn">Countries / areas</button></th><th class="sortable" data-k="venue"><button type="button" class="th-btn">Venue</button></th><th class="sortable" data-k="cites"><button type="button" class="th-btn">Cites <span class="sarr">▴</span></button></th><th class="sortable" data-k="t"><button type="button" class="th-btn">Cites as</button></th><th class="sortable" data-k="d"><button type="button" class="th-btn">Published</button></th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
 <section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
-<p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
+<p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus two dataset descriptors I co-authored. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
 <div class="rows" id="nature-list"></div></section>
 
 <section class="sec" id="editorials"><div class="sec-head"><h2>Invited editorials</h2><span class="n" id="n-ed"></span></div>
@@ -441,7 +443,7 @@ const DATASETS = [
    meta:"Massachusetts General Hospital, Beth Israel Deaconess, Brigham and Women\u2019s and Boston Children\u2019s. The peer-reviewed descriptor in <em>Epilepsia</em> reports more than 280,000 recordings from over 108,000 patients.",
    doi:"10.60508/k85b-fc87", bdsp:"https://bdsp.io/content/harvard-eeg-db/4.1/", rel:"20250210", pdoi:"10.1111/epi.18487", pdate:"20250604", pven:"Epilepsia", pver:"v3.0"},
   {name:"Harvard–Emory ECG Database", ver:"v5.0",
-   meta:"Mass General Brigham (Massachusetts) and Emory University (Georgia). The descriptor in <em>Scientific Data</em> reports 10,608,417 recordings from 1,818,247 patients at Mass General Brigham and 998,844 from 349,548 patients at Emory, 11,607,261 in all.",
+   meta:"Massachusetts General Hospital (Massachusetts) and Emory University Hospital (Georgia). The descriptor in <em>Scientific Data</em> reports 10,608,417 recordings from 1,818,247 patients at Massachusetts General Hospital and 998,844 from 349,548 patients at Emory University Hospital, 11,607,261 in all.",
    doi:"10.60508/rv6h-7d10", bdsp:"https://bdsp.io/content/heedb/5.0/", rel:"20260225", pdoi:"10.1038/s41597-026-06861-9", pdate:"20260225", pven:"Scientific Data", pver:"current release"},
   {name:"Human Sleep Project", ver:"v3.0",
    meta:"Stanford, Mass General Brigham, Emory, Beth Israel Deaconess and Boston Children\u2019s. The descriptor in <em>Sleep</em> reports 119,234 overnight recordings from more than 90,000 patients.",
@@ -688,7 +690,7 @@ const PUBS = [
   {d:20250411, y:2025, t:"Automated phenotyping of mild cognitive impairment and Alzheimer's disease using electronic health records", v:"International Journal of Medical Informatics, 2025", doi:"10.1016/j.ijmedinf.2025.105917"},  // ✓ Epub 11 Apr 2025 (issue 200, Aug 2025)
   {d:20250122, y:2025, t:"Automated extraction of post-stroke functional outcomes from unstructured electronic health records", v:"European Stroke Journal, 2025", doi:"10.1177/23969873251314340"},  // ✓ online first 22 Jan 2025 (issue 10(3), 1 Sep 2025)
   {d:20251208, y:2025, t:"Large-scale automated phenotyping of cardiac arrest", v:"Resuscitation, 2026", doi:"10.1016/j.resuscitation.2025.110919"},  // ✓ Epub 8 Dec 2025 (issue 218, Jan 2026); DOI year is 2025
-  {d:20260401, y:2026, t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},  // ✓ Crit Care Explor 8(4):e1402, April 2026
+  {d:20260422, y:2026, t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},  // ✓ epublish 22 Apr 2026; issue 8(4):e1402 dated 1 Apr. `d` is the online date per the rule above
   {d:20260323, y:2026, t:"Automated electronic health record phenotyping of acute and subacute subdural hematoma", v:"Algorithms, 2026;19(3):239", doi:"10.3390/a19030239"},  // ✓ published 23 March 2026
   {d:20250410, y:2025, t:"Identification of patients with congestive heart failure from the electronic health records of two hospitals", v:"JMIR Medical Informatics, 2025;13:e64113", doi:"10.2196/64113"},  // ✓ JMIR Med Inform, published 10 April 2025
   {d:20251231, y:2025, t:"Artificial Intelligence-Enabled Comprehensive Electronic Health Record Phenotyping at a Large Scale", v:"Innovation in Aging, 2025;9(Suppl 2), conference abstract", doi:"10.1093/geroni/igaf122.2241"},  // ✓ Innovation in Aging 9(Suppl 2), December 2025
@@ -1399,7 +1401,7 @@ const CITATIONS = [
   function paintNature(){ $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th class="nsort" data-k="j"'+ariaSort(natKey==='j',natDir)+'><button type="button" class="th-btn">Journal'+(natKey==='j'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="w"'+ariaSort(natKey==='w',natDir)+'><button type="button" class="th-btn">Work'+(natKey==='w'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="by"'+ariaSort(natKey==='by',natDir)+'><button type="button" class="th-btn">Group'+(natKey==='by'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="cites"'+ariaSort(natKey==='cites',natDir)+'><button type="button" class="th-btn">Cites'+(natKey==='cites'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="d"'+ariaSort(natKey==='d',natDir)+'><button type="button" class="th-btn">Published '+(natKey==='d'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     natSorted().map(function(x){
       var basis = x.dep===true ? '<span class="m-shd">shared authorship</span>'
-                : x.dep===null ? '<span class="m-shd">my own paper</span>'
+                : x.dep===null ? '<span class="m-shd">co-authored by me</span>'
                 : '<span class="m-ind">independent</span>';
       return '<tr>'+
         '<td data-l="Journal"><em>'+esc(x.j)+'</em></td>'+
@@ -1418,7 +1420,7 @@ const CITATIONS = [
     if(natKey===k){ natDir=-natDir; } else { natKey=k; natDir=1; }
     paintNature();
   });
-  $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' my own';
+  $('n-nat').textContent = natInd+' independent · '+NATURE.filter(function(x){return x.dep===true;}).length+' shared · '+NATURE.filter(function(x){return x.dep===null;}).length+' co-authored';
 
   var eKey='d', eDir=-1;
   function edSorted(){
