@@ -222,7 +222,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 </div></section>
 
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
-<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets, as distinct from citing it. Each is quoted or summarized from the paper itself.</p>
+<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets, as distinct from citing it. Each description is sourced from the underlying paper, preprint, or official project record.</p>
 <div class="filters" id="uses-filters"></div>
 <div class="rows" id="uses-list"></div></section>
 
@@ -240,7 +240,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="citations"><div class="sec-head"><h2>Independent peer-reviewed citations</h2><span class="n" id="n-cit"></span></div>
 <p class="lede">Peer-reviewed publications citing work I co-authored, by groups in which no author has ever co-authored with me. This is not a total citation count - it is the subset that is both independent and peer-reviewed. Filter by which of my works is cited; every identifier resolves to the source.</p>
 <div class="filters" id="filters"></div>
-<div class="tbl-wrap"><table><thead><tr><th class="sortable" tabindex="0" role="button" data-k="inst">Authors’ institutions</th><th class="sortable" tabindex="0" role="button" data-k="geo">Countries / areas</th><th class="sortable" tabindex="0" role="button" data-k="venue">Venue</th><th class="sortable" tabindex="0" role="button" data-k="cites">Cites <span class="sarr">▾</span></th><th class="sortable" tabindex="0" role="button" data-k="t">Type</th><th class="sortable" tabindex="0" role="button" data-k="d">Published</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<div class="tbl-wrap"><table><thead><tr><th class="sortable" tabindex="0" role="button" data-k="inst">Authors’ institutions</th><th class="sortable" tabindex="0" role="button" data-k="geo">Countries / areas</th><th class="sortable" tabindex="0" role="button" data-k="venue">Venue</th><th class="sortable" tabindex="0" role="button" data-k="cites">Cites <span class="sarr">▾</span></th><th class="sortable" tabindex="0" role="button" data-k="t">Cites as</th><th class="sortable" tabindex="0" role="button" data-k="d">Published</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
 <section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
 <p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
@@ -253,7 +253,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="preprints"><div class="sec-head"><h2>Preprints citing or using the work</h2><span class="n" id="n-pre"></span></div>
 <p class="lede">Not peer-reviewed, and kept separate from the citations table for that reason. Several are substantial uses rather than citations, noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
 <div class="filters" id="pre-filters"></div>
-<div class="tbl-wrap"><table><thead><tr><th class="prsort" tabindex="0" role="button" data-k="w">Preprint</th><th>Authors' institutions</th><th class="prsort" tabindex="0" role="button" data-k="cites">Cites / uses</th><th class="prsort" tabindex="0" role="button" data-k="kind">Type</th><th class="prsort" tabindex="0" role="button" data-k="d">Posted <span class="sarr" id="pre-arr">▾</span></th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
+<div class="tbl-wrap"><table><thead><tr><th class="prsort" tabindex="0" role="button" data-k="w">Preprint</th><th>Authors' institutions</th><th class="prsort" tabindex="0" role="button" data-k="cites">Cites / uses</th><th class="prsort" tabindex="0" role="button" data-k="kind">Cites as</th><th class="prsort" tabindex="0" role="button" data-k="d">Posted <span class="sarr" id="pre-arr">▾</span></th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
 
 <section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
 <p class="lede">Countries or areas with at least one <strong>published</strong> independent citing group, grouped by region. This count is drawn from the independent peer-reviewed citations alone. The three <a href="#editorials">invited editorials</a> add a further two, Denmark and Italy, and are counted separately from this total. Institutions whose work is still in preprint, including India, are listed in the <a href="#institutions">institutions section</a> below and marked as such.</p>
@@ -512,8 +512,9 @@ const PREPRINTS = [
   {d:20260901, w:"Temporally constraining source imaging estimates in an underdetermined neural system with eigenmodes of cortical geometry", inst:"University of Melbourne; Graeme Clark Institute; Grenoble Institut des Neurosciences / INSERM; St Vincent's Hospital, Melbourne", geo:"Australia / France", cites:[{w:"Harvard EEG Database", t:"Paper"}], how:"Cites the Harvard Electroencephalography Database alongside the Human Connectome Project as the large multimodal neuroimaging datasets that could supply population-level transfer functions for EEG source imaging", id:"arXiv:2609.00809", url:"https://arxiv.org/abs/2609.00809", posted:"1 Sep 2026", dep:false},
   {d:20260901, w:"The DYNAM-O Toolbox: Characterizing Individualized Neural Signatures in Sleep EEG", inst:"Brigham and Women's Hospital; Harvard Medical School; Stanford School of Medicine; Stanford University", geo:"United States", cites:[{w:"Human Sleep Project", t:"Paper"}, {w:"Brain health from sleep EEG", t:"Paper"}], how:"Cites the Human Sleep Project among the major polysomnography repositories that have created the need for automated sleep-EEG analysis, and separately cites the NEJM AI sleep-EEG biomarker study among deep-learning methods predicting health outcomes", id:"bioRxiv:2026.08.26.747401", url:"https://doi.org/10.64898/2026.08.26.747401", posted:"1 Sep 2026", dep:false},
   {d:20260706, w:"ImputeECG, Deep Learning Reconstruction of Complete 12-Lead Electrocardiograms",
-   inst:"Peking University and collaborators", geo:"China",
-   cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"Cites the database and ECGFounder as prior work",
+   inst:"Peking University; Peking University Health Science Center; Tianjin University of Technology; University of the Chinese Academy of Sciences", geo:"China",
+   cites:[{w:"Harvard–Emory ECG Database", t:"Paper"}],
+   how:"Used a Net1D model pretrained on the database, applied zero-shot to the Kailuan cohort without cohort-specific fine-tuning, to test whether completed ECGs improve downstream prediction. Cites the Scientific Data descriptor at reference 28.",
    id:"arXiv:2607.05009", url:"https://arxiv.org/abs/2607.05009", posted:"6 Jul 2026", dep:true},
   {d:20260217, w:"CAMEL, An ECG Language Model for Forecasting Cardiac Events",
    inst:"University of Pennsylvania", geo:"United States",
@@ -704,7 +705,7 @@ const INSTITUTIONS = [
   {n:"Genomed Ltd",                               c:"Russia", d:"cited", src:"10.3390/technologies14070403", k:"industry"},
   {n:"Federal Center of Brain Research and Neurotechnologies", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Institute of Theoretical and Experimental Biophysics, RAS", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
-  {n:"University of Toronto",                     c:"Canada", d:"cited", src:"10.2196/68317"},
+  {n:"University of Toronto",                     c:"Canada", d:"trained", src:["medRxiv 10.64898/2026.07.22.26358591", "10.2196/68317"]},
   {n:"York University",                           c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"Vector Institute",                          c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"The University of Hong Kong",               c:"Hong Kong", d:"cited", src:"10.2196/68317"},
@@ -791,7 +792,7 @@ const INSTITUTIONS = [
   {n:"Clínica Universidad de Navarra", c:"Spain", d:"cited", src:"10.1016/j.clinph.2026.2111977"},
   {n:"Universidad Politécnica de Madrid", c:"Spain", d:"cited", src:["10.3390/technologies14070403", "10.3390/technologies13110524"]},
   {n:"Flinders University", c:"Australia", d:"cited", src:"10.1093/sleep/zsag152"},
-  {n:"University of Ottawa", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
+  {n:"University of Ottawa", c:"Canada", d:"trained", src:["medRxiv 10.64898/2026.07.22.26358591", "10.1161/JAHA.125.046964"]},
   {n:"McGill University", c:"Canada", d:"cited", src:"10.1161/SVIN.125.002261"},
   {n:"University of Calgary", c:"Canada", d:"cited", src:"10.1161/SVIN.125.002261"},
   {n:"Universidade Federal de Minas Gerais", c:"Brazil", d:"cited", src:"10.1038/s41746-026-02704-4"},
@@ -812,7 +813,7 @@ const INSTITUTIONS = [
   {n:"Dalian University of Technology", c:"China", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"University of Jyväskylä", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"Tampere University", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
-  {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Kurume University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"The University of Tokyo", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Juntendo University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
+  {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Kurume University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Nanjing University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Montreal Heart Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Mila–Québec AI Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Université de Montréal", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Fondation Rothschild", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1}, {n:"Florida State University", c:"United States", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"University of Osaka", c:"Japan", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"Technical University of Denmark", c:"Denmark", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Politecnico di Torino", c:"Italy", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Martinsburg VA Medical Center", c:"United States", d:"editorial", src:"10.1212/CPJ.0000000000200225"}, {n:"Zhuhai UM Science and Technology Research Institute", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Neijiang Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"University of Electronic Science and Technology of China", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Northwest Minzu University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"German Sleep Society (DGSM e.V.)", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"}, {n:"Beth Israel Deaconess Medical Center", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"}, {n:"108 Military Central Hospital, Hanoi", c:"Vietnam", d:"cited", src:"10.56651/lqdtu.jst.v14.n02.1112.ict"}, {n:"The University of Tokyo", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Juntendo University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
   {n:"International University of Health and Welfare", c:"Japan", d:"landmark", src:"10.1038/s41746-026-03101-7"},
 ];
 const CITATIONS = [
@@ -827,7 +828,7 @@ const CITATIONS = [
   {inst:"Dazhou Integrated TCM & Western Medicine Hospital, Dazhou; Chengdu Medical College, Chengdu", geo:"China", cites:["CAISR"], doi:"10.3389/fneur.2026.1929036", url:"https://doi.org/10.3389/fneur.2026.1929036", d:"20260908", t:"Paper"},
 
   {inst:"University of Edinburgh; NHS Lothian; Heriot-Watt University", geo:"United Kingdom", cites:["BIND"], doi:"10.63317/45m3apdidcpj", url:"https://doi.org/10.63317/45m3apdidcpj", d:"20260516", t:"Paper"},
-  {inst:"QIMR Berghofer Medical Research Institute; The University of Queensland; Queensland Children's Hospital; St Vincent's Hospital, Melbourne; BABA Center, Children's Hospital, Helsinki University Hospital and University of Helsinki", geo:"Australia / Finland", cites:["Harvard EEG Database"], doi:"10.1016/j.ebiom.2024.105061", url:"https://doi.org/10.1016/j.ebiom.2024.105061", d:"20240327", t:"Dataset"}, {inst:"University of Freiburg (Medical Center, Dept. of Psychiatry and Psychotherapy; Faculty of Medicine); German Sleep Society (DGSM e.V.), Jena", geo:"Germany", cites:["Brain health from sleep EEG"], doi:"10.1007/s40675-026-00396-6", url:"https://doi.org/10.1007/s40675-026-00396-6", d:"20260828", t:"Paper"},
+  {inst:"QIMR Berghofer Medical Research Institute; The University of Queensland; Queensland Children's Hospital; St Vincent's Hospital, Melbourne; BABA Center, Children's Hospital, Helsinki University Hospital and University of Helsinki", geo:"Australia / Finland", cites:["Harvard EEG Database"], doi:"10.1016/j.ebiom.2024.105061", url:"https://doi.org/10.1016/j.ebiom.2024.105061", d:"20240327", t:"Dataset"}, {inst:"University of Freiburg (Medical Center, Dept. of Psychiatry and Psychotherapy; Faculty of Medicine); German Sleep Society (DGSM e.V.), Jena", geo:"Germany", cites:["Brain health from sleep EEG"], doi:"10.1007/s40675-026-00396-6", url:"https://doi.org/10.1007/s40675-026-00396-6", d:"20260901", t:"Paper"},
   {inst:"University of Toronto (Dalla Lana School of Public Health); York University; Vector Institute; The University of Hong Kong; University Health Network (Toronto General Hospital Research Institute)", geo:"Canada / Hong Kong", cites:["Cardiac-arrest phenotyping study"], doi:"10.2196/68317", url:"https://doi.org/10.2196/68317", d:"20260821", t:"Paper"},
 
   {inst:"University of Geneva; Geneva University Hospitals; Kantonsspital Winterthur", geo:"Switzerland", cites:["Post-stroke outcomes study"], doi:"10.3390/make8080248", url:"https://doi.org/10.3390/make8080248", d:"20260816", t:"Paper"},
@@ -843,7 +844,7 @@ const CITATIONS = [
   {inst:"General Hospital of Ningxia Medical University", geo:"China", cites:["CAISR"], doi:"10.1038/s41598-026-63589-7", url:"https://doi.org/10.1038/s41598-026-63589-7", d:"20260724", t:"Paper"},
   {inst:"Gangneung Asan Hospital, University of Ulsan College of Medicine; Seoul National University Hospital, Seoul National University", geo:"South Korea", cites:["CAISR"], doi:"10.14802/jmd.26098", url:"https://doi.org/10.14802/jmd.26098", d:"20260414", t:"Paper"},
   {inst:"Jilin University, Second Hospital and China-Japan Union Hospital", geo:"China", cites:["Cardiac-arrest phenotyping study"], doi:"10.2147/CIA.S607232", url:"https://doi.org/10.2147/CIA.S607232", d:"20260617", t:"Paper"},
-  {inst:"Guangdong Polytechnic Normal University; Nanjing University; University of Macau", geo:"China / Macau", cites:["Harvard EEG Database"], doi:"10.3390/e27090919", url:"https://doi.org/10.3390/e27090919", d:"20250830", t:"Paper"},
+  {inst:"Guangdong Polytechnic Normal University; Nanjing University; Zhuhai UM Science and Technology Research Institute; Neijiang Normal University; University of Electronic Science and Technology of China; Northwest Minzu University; University of Macau", geo:"China / Macau", cites:["Harvard EEG Database"], doi:"10.3390/e27090919", url:"https://doi.org/10.3390/e27090919", d:"20250830", t:"Paper"},
   {inst:"Huazhong University of Science and Technology, Wuhan", geo:"China", cites:["Harvard EEG Database"], doi:"10.2147/IJN.S618081", url:"https://doi.org/10.2147/IJN.S618081", d:"20260608", t:"Paper"},
   {inst:"Instituto Nacional de Astrof\u00edsica, \u00d3ptica y Electr\u00f3nica (INAOE)", geo:"Mexico", cites:["Harvard EEG Database"], doi:"10.1007/s11831-026-10521-x", url:"https://doi.org/10.1007/s11831-026-10521-x", d:"20260226", t:"Paper"},
   {inst:"Korea University", geo:"South Korea", cites:["Harvard EEG Database"], doi:"10.1109/BCI69045.2026.11435041", url:"https://ieeexplore.ieee.org/document/11435041", d:"20260319", t:"Paper"},
