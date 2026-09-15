@@ -8,8 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-th.sortable,th.dsort,th.psort,th.prsort,th.nsort,th.esort{cursor:pointer}
-th.sortable:focus-visible,th.dsort:focus-visible,th.psort:focus-visible,th.prsort:focus-visible,th.nsort:focus-visible,th.esort:focus-visible{outline:2px solid var(--indigo);outline-offset:-2px}
+th.sortable,th.dsort,th.psort,th.prsort,th.nsort,th.esort{padding:0}
+.th-btn{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;background:none;border:0;padding:11px 14px;margin:0;cursor:pointer;width:100%;text-align:left;display:block}
+.th-btn:focus-visible{outline:2px solid var(--indigo);outline-offset:-2px}
+
 .isrc-plain{font-style:normal;color:var(--rule2);cursor:help}
 .jsrc{display:inline-flex;gap:3px;margin-left:6px;vertical-align:baseline}
 .jsrc a{display:inline-block;min-width:15px;padding:0 3px;font-family:var(--mono);font-size:10.5px;line-height:15px;text-align:center;color:var(--grey);text-decoration:none;border:1px solid var(--rule2);border-radius:2px}
@@ -222,7 +224,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 </div></section>
 
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
-<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets, as distinct from citing it. Each description is sourced from the underlying paper, preprint, or official project record.</p>
+<p class="lede">Documented downstream uses of these datasets for training, instruction tuning, validation, evaluation, or benchmarking, as distinct from merely citing them. Each description is sourced from the underlying paper, preprint, or official project record.</p>
 <div class="filters" id="uses-filters"></div>
 <div class="rows" id="uses-list"></div></section>
 
@@ -240,7 +242,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="citations"><div class="sec-head"><h2>Independent peer-reviewed citations</h2><span class="n" id="n-cit"></span></div>
 <p class="lede">Peer-reviewed publications citing work I co-authored, by groups in which no author has ever co-authored with me. This is not a total citation count - it is the subset that is both independent and peer-reviewed. Filter by which of my works is cited; every identifier resolves to the source.</p>
 <div class="filters" id="filters"></div>
-<div class="tbl-wrap"><table><thead><tr><th class="sortable" tabindex="0" role="button" data-k="inst">Authors’ institutions</th><th class="sortable" tabindex="0" role="button" data-k="geo">Countries / areas</th><th class="sortable" tabindex="0" role="button" data-k="venue">Venue</th><th class="sortable" tabindex="0" role="button" data-k="cites">Cites <span class="sarr">▾</span></th><th class="sortable" tabindex="0" role="button" data-k="t">Cites as</th><th class="sortable" tabindex="0" role="button" data-k="d">Published</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<div class="tbl-wrap"><table><thead><tr><th class="sortable" data-k="inst"><button type="button" class="th-btn">Authors’ institutions</button></th><th class="sortable" data-k="geo"><button type="button" class="th-btn">Countries / areas</button></th><th class="sortable" data-k="venue"><button type="button" class="th-btn">Venue</button></th><th class="sortable" data-k="cites"><button type="button" class="th-btn">Cites <span class="sarr">▾</span></button></th><th class="sortable" data-k="t"><button type="button" class="th-btn">Cites as</button></th><th class="sortable" data-k="d"><button type="button" class="th-btn">Published</button></th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
 <section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
 <p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
@@ -253,10 +255,10 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="preprints"><div class="sec-head"><h2>Preprints citing or using the work</h2><span class="n" id="n-pre"></span></div>
 <p class="lede">Not peer-reviewed, and kept separate from the citations table for that reason. Several are substantial uses rather than citations, noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
 <div class="filters" id="pre-filters"></div>
-<div class="tbl-wrap"><table><thead><tr><th class="prsort" tabindex="0" role="button" data-k="w">Preprint</th><th>Authors' institutions</th><th class="prsort" tabindex="0" role="button" data-k="cites">Cites / uses</th><th class="prsort" tabindex="0" role="button" data-k="kind">Cites as</th><th class="prsort" tabindex="0" role="button" data-k="d">Posted <span class="sarr" id="pre-arr">▾</span></th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
+<div class="tbl-wrap"><table><thead><tr><th class="prsort" data-k="w"><button type="button" class="th-btn">Preprint</button></th><th>Authors' institutions</th><th class="prsort" data-k="cites"><button type="button" class="th-btn">Cites / uses</button></th><th class="prsort" data-k="kind"><button type="button" class="th-btn">Cites as</button></th><th class="prsort" data-k="d"><button type="button" class="th-btn">Posted <span class="sarr" id="pre-arr">▾</span></button></th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
 
 <section class="sec" id="reach-detail"><div class="sec-head"><h2>Where the work is cited</h2><span class="n" id="n-geo"></span></div>
-<p class="lede">Countries or areas with at least one <strong>published</strong> independent citing group, grouped by region. This count is drawn from the independent peer-reviewed citations alone. The three <a href="#editorials">invited editorials</a> add a further two, Denmark and Italy, and are counted separately from this total. Institutions whose work is still in preprint, including India, are listed in the <a href="#institutions">institutions section</a> below and marked as such.</p>
+<p class="lede">Countries or areas with at least one <strong>published</strong> independent citing group, grouped by region. This count is drawn from the independent peer-reviewed citations alone. The three <a href="#editorials">invited editorials</a> add a further two, Denmark and Italy, and are counted separately from this total. Institutions whose strongest relationship rests on a preprint, including those in India, are listed in the <a href="#institutions">institutions section</a> below and marked as such.</p>
 <figure class="map">
   <img src="citation_map_verified.png" alt="World map with twenty-four countries or areas shaded, marking the location of independent peer-reviewed citing groups across five continents.">
   <figcaption>Countries or areas of independent peer-reviewed citing groups. Shaded areas are those with at least one identified citing paper, determined from institutional affiliations on the qualifying publication, not an author’s nationality or residence. Counted per the United Nations <a href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener">M49 standard</a>.<details class="method-note"><summary>How countries / areas are counted</summary><p>Geographic units follow the <strong>UN M49 standard</strong>, the UN Statistics Division’s classification of countries and areas. The United Kingdom is counted once, and Hong Kong (M49 code 344) and Macau (446, listed there as Macao) are counted separately from China, as that standard lists them. Place names follow the affiliations printed on the citing papers, so this page writes Macau, as the University of Macau does.</p><p>Using a published standard rather than a rule of this page’s own making means the count can be checked against something external to it. The standard is used because it is published and checkable, not to express a view: as M49 itself states, “the assignment of countries or areas to specific groupings is for statistical convenience and does not imply any assumption regarding political or other affiliation of countries or territories.”</p><p>The map is drawn from Natural Earth 1:50m admin-0 countries, which matches that scheme. Hong Kong and Macau have their own polygons but are too small to distinguish at this scale.</p></details></figcaption>
@@ -280,7 +282,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="inst-grid" id="ind-grid"></div>
 
 <div class="sec-head sub"><h3 id="us">U.S. institutions</h3><span class="n" id="n-us"></span></div>
-<p class="lede">The domestic subset, drawn from the same list above and counted in the same total. Institutions marked <em>preprint</em> engage the work in papers not yet peer-reviewed.</p>
+<p class="lede">The domestic subset, drawn from the same list above and counted in the same total. The <em>preprint</em> marker means that the institution’s strongest relationship shown here rests on work that has not yet been peer-reviewed.</p>
 <div class="inst-grid" id="us-grid"></div></section>
 
 <section class="sec" id="publications"><div class="sec-head"><h2>Publications</h2><span class="n" id="n-pubs"></span></div>
@@ -292,7 +294,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list.</p>
 <p>Where a downstream model was trained, tuned, benchmarked or evaluated by a group I have co-authored with, it is labeled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
 <p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit the same relationship to the cited resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
-<p><b>Counting institutions.</b> Institution counts are based on distinct parent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Departments, laboratories, centers and other internal subunits are not counted separately from their parent institution. Separately incorporated universities, hospitals, research institutes, companies and government organizations are counted separately when named as affiliations. Where organizational status remains ambiguous, the conservative reading is used.</p>
+<p><b>Counting institutions.</b> Institution counts are based on distinct parent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Distinct <strong>organizationally independent</strong> affiliations are counted separately. Internal departments, laboratories, centers and other subunits are folded into their parent institution. Separate incorporation is strong evidence of organizational independence; where status remains ambiguous, the conservative reading is used. Independent affiliations take many forms: universities, hospitals, research institutes, companies, foundations, professional societies and government organizations are all represented here.</p>
 <p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
@@ -304,10 +306,33 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 /* ═══════════════════════════════════════════════════════════════════════
    HOW TO UPDATE THIS PAGE
    ───────────────────────────────────────────────────────────────────────
-   Everything below is data. The page builds itself from it.
-   To add a new citation, copy any line in CITATIONS and change the values.
-   To add a publication, dataset, model, country or institution, do the same
-   in the list below it. Nothing else in the file needs to change.
+   Everything below is data, and every counter derives from it. But a single
+   new citation usually touches five or six structures, not one. Adding a row
+   to CITATIONS alone will leave the page internally inconsistent.
+
+   ADDING A CITATION. Work through all of these:
+     CITATIONS     the row itself; `cites` is an array even for one work
+     JOURNALS      add the venue if new, or increment `c`, and add the DOI to
+                   its `src` array. The venue counter and the Venue column in
+                   the citations table both derive from this
+     INSTITUTIONS  every parent institution the paper names, each with its
+                   own `src`. All institutions on one work share that work's
+                   designation; a stronger one needs a separate work
+     REGIONS       only if the paper brings a new country or area
+     FIELDS        only if it opens a clinical field not already listed
+     NATURE        only if the venue is a Nature Portfolio title
+     the map       rebuild with build_citation_map.py if REGIONS changed
+
+   THEN VERIFY. Several invariants must still hold:
+     sum of JOURNALS[].c  ===  CITATIONS.length
+     union of all JOURNALS[].src  ===  the full set of citation DOIs
+     no duplicate INSTITUTIONS names; every one has a resolvable `src`
+     no work whose institutions disagree on designation without a second source
+     the preprint badge audit below logs nothing to the console
+
+   The prose that states a number is derived wherever it can be. Two places
+   are not, and must be checked by hand: the map alt text and the count of
+   countries the editorials add.
    ═══════════════════════════════════════════════════════════════════════ */
 
 const PROFILES = [
@@ -482,7 +507,11 @@ const USES = [
    where:"Sleep, 2026", doi:"10.1093/sleep/zsag064", dep:true},
 ];
 
-/* Preprints that cite or use the work. Not peer-reviewed; kept separate from
+/* Where a source gives only a year, `d` is 1 January of that year: the sort key has to be
+   a full date, and the start of the year claims the least about how recent the work is. The
+   Posted column always shows what the source states, so no invented day is ever displayed.
+
+   Preprints that cite or use the work. Not peer-reviewed; kept separate from
    CITATIONS on purpose. Move a row into CITATIONS when it publishes. The `d` field there is the
    ONLINE PUBLICATION date: not the acceptance date, not the issue date. It is the date a reader
    could first see the work, which is what the Published column displays. Where acceptance
@@ -505,7 +534,7 @@ const PREPRINTS = [
    how:"Held out of pretraining entirely and used as an independent downstream evaluation cohort. One of only two cohorts in the corpus with linked EHR diagnosis histories, used for phenome-wide disease-onset prediction at a health system the model had never seen.",
    id:"arXiv:2609.06849", url:"https://arxiv.org/abs/2609.06849", posted:"6 Sep 2026", dep:true},
 
-  {d:20260501, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
+  {d:20260101, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
 
   {d:20260512, w:"Pretraining Strategies and Scaling for ECG Foundation Models", inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"9,922,934 HEEDB + 950,441 HEEDB-Emory samples, ~97% of the 11M pre-training corpus", id:"arXiv:2605.12241", url:"https://arxiv.org/abs/2605.12241", posted:"12 May 2026", dep:false},
 
@@ -700,7 +729,6 @@ const INSTITUTIONS = [
   {n:"University of Edinburgh", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"NHS Lothian", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"}, {n:"Heriot-Watt University", c:"United Kingdom", d:"landmark", src:"10.63317/45m3apdidcpj"},
   {n:"QIMR Berghofer Medical Research Institute", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"Queensland Children's Hospital", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"St Vincent's Hospital, Melbourne", c:"Australia", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"Helsinki University Hospital", c:"Finland", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"University of Helsinki", c:"Finland", d:"cited", src:"10.1016/j.ebiom.2024.105061"}, {n:"University of Freiburg", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"},
   {n:"Privolzhsky Research Medical University",   c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
-  {n:"Veltischev Research and Clinical Institute", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Genomed Ltd",                               c:"Russia", d:"cited", src:"10.3390/technologies14070403", k:"industry"},
   {n:"Federal Center of Brain Research and Neurotechnologies", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Institute of Theoretical and Experimental Biophysics, RAS", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
@@ -943,7 +971,7 @@ const CITATIONS = [
       .forEach(function(th){
         var arrow = th.querySelector('.sarr');
         if(!arrow){ th.setAttribute('aria-sort','none'); return; }
-        th.setAttribute('aria-sort', arrow.textContent.indexOf('\u25b4')>=0 ? 'ascending' : 'descending');
+        th.setAttribute('aria-sort', arrow.textContent.indexOf('\u25b4')>=0 ? 'ascending' : 'descending');  // \u25b4 = ascending
       });
   }
   document.addEventListener('click', function(e){
@@ -953,15 +981,9 @@ const CITATIONS = [
   window.addEventListener('load', syncAriaSort);
   setTimeout(syncAriaSort, 0);
 
-  document.addEventListener('keydown', function(e){
-    if(e.key!=='Enter' && e.key!==' ') return;
-    var t = e.target;
-    if(!t || !t.closest) return;
-    var th = t.closest('th.sortable, th.dsort, th.psort, th.prsort, th.nsort, th.esort');
-    if(!th) return;
-    e.preventDefault();
-    th.click();
-  });
+  // No keydown shim is needed: each sortable header now contains a real <button>,
+  // which handles Enter and Space natively and keeps the th as a columnheader so
+  // aria-sort is honoured.
 
   (function(){
     var links = [].slice.call(document.querySelectorAll('.jump a'));
@@ -987,12 +1009,12 @@ const CITATIONS = [
       return dDir*(av<bv?-1:av>bv?1:0);
     });
   }
-  function arrFor(k){ return dKey===k ? '<span class="sarr">'+(dDir===1?'\u25be':'\u25b4')+'</span>' : ''; }
+  function arrFor(k){ return dKey===k ? '<span class="sarr">'+(dDir===1?'\u25b4':'\u25be')+'</span>' : ''; }
   function paintDs(){
    $('datasets-list').innerHTML = '<table class="mtab"><thead><tr>'+
-    '<th class="dsort" tabindex="0" role="button" data-k="name">Dataset'+arrFor('name')+'</th><th>Ver.</th>'+
-    '<th class="dsort" tabindex="0" role="button" data-k="rel">Released'+arrFor('rel')+'</th><th>Release DOI</th>'+
-    '<th class="dsort" tabindex="0" role="button" data-k="pdate">Descriptor'+arrFor('pdate')+'</th><th>Descriptor DOI</th>'+
+    '<th class="dsort" data-k="name"><button type="button" class="th-btn">Dataset'+arrFor('name')+'</button></th><th>Ver.</th>'+
+    '<th class="dsort" data-k="rel"><button type="button" class="th-btn">Released'+arrFor('rel')+'</button></th><th>Release DOI</th>'+
+    '<th class="dsort" data-k="pdate"><button type="button" class="th-btn">Descriptor'+arrFor('pdate')+'</button></th><th>Descriptor DOI</th>'+
     '</tr></thead><tbody>'+
     dsSorted().map(function(d){
       return '<tr>'+
@@ -1022,7 +1044,7 @@ const CITATIONS = [
     });
   }
   function paintPubs(){ $('pubs-list').innerHTML =
-    '<table class="mtab"><thead><tr><th class="psort" tabindex="0" role="button" data-k="t">Publication'+(pKey==='t'?'<span class="sarr">'+(pDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="psort" tabindex="0" role="button" data-k="v">Venue'+(pKey==='v'?'<span class="sarr">'+(pDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="psort" tabindex="0" role="button" data-k="d">Published'+(pKey==='d'?'<span class="sarr">'+(pDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th>DOI</th></tr></thead><tbody>'+
+    '<table class="mtab"><thead><tr><th class="psort" data-k="t"><button type="button" class="th-btn">Publication'+(pKey==='t'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="psort" data-k="v"><button type="button" class="th-btn">Venue'+(pKey==='v'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="psort" data-k="d"><button type="button" class="th-btn">Published'+(pKey==='d'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     pubsSortedFn().map(function(p){
       var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
                         : '<span class="nodoi">see ORCID</span>';
@@ -1273,7 +1295,7 @@ const CITATIONS = [
       return natDir*(f(a).localeCompare(f(b)));
     });
   }
-  function paintNature(){ $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th class="nsort" tabindex="0" role="button" data-k="j">Journal'+(natKey==='j'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" tabindex="0" role="button" data-k="w">Work'+(natKey==='w'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" tabindex="0" role="button" data-k="by">Group'+(natKey==='by'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" tabindex="0" role="button" data-k="cites">Cites'+(natKey==='cites'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th class="nsort" tabindex="0" role="button" data-k="d">Published '+(natKey==='d'?'<span class="sarr">'+(natDir===1?'\u25be':'\u25b4')+'</span>':'')+'</th><th>DOI</th></tr></thead><tbody>'+
+  function paintNature(){ $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th class="nsort" data-k="j"><button type="button" class="th-btn">Journal'+(natKey==='j'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="w"><button type="button" class="th-btn">Work'+(natKey==='w'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="by"><button type="button" class="th-btn">Group'+(natKey==='by'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="cites"><button type="button" class="th-btn">Cites'+(natKey==='cites'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="d"><button type="button" class="th-btn">Published '+(natKey==='d'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     natSorted().map(function(x){
       var basis = x.dep===true ? '<span class="m-shd">shared authorship</span>'
                 : x.dep===null ? '<span class="m-shd">my own paper</span>'
@@ -1305,13 +1327,13 @@ const CITATIONS = [
       return eDir*(av<bv?-1:av>bv?1:0);
     });
   }
-  function eArr(k){ return eKey===k ? '<span class="sarr">'+(eDir===1?'\u25be':'\u25b4')+'</span>' : ''; }
+  function eArr(k){ return eKey===k ? '<span class="sarr">'+(eDir===1?'\u25b4':'\u25be')+'</span>' : ''; }
   function paintEd(){
    $('ed-list').innerHTML =
-    '<table class="mtab"><thead><tr><th class="esort" tabindex="0" role="button" data-k="who">Editorial'+eArr('who')+'</th>'+
-    '<th class="esort" tabindex="0" role="button" data-k="j">Journal'+eArr('j')+'</th><th>Institution</th>'+
-    '<th class="esort" tabindex="0" role="button" data-k="geo">Country'+eArr('geo')+'</th><th>On</th>'+
-    '<th class="esort" tabindex="0" role="button" data-k="d">Published'+eArr('d')+'</th><th>DOI</th></tr></thead><tbody>'+
+    '<table class="mtab"><thead><tr><th class="esort" data-k="who"><button type="button" class="th-btn">Editorial'+eArr('who')+'</button></th>'+
+    '<th class="esort" data-k="j"><button type="button" class="th-btn">Journal'+eArr('j')+'</button></th><th>Institution</th>'+
+    '<th class="esort" data-k="geo"><button type="button" class="th-btn">Country'+eArr('geo')+'</button></th><th>On</th>'+
+    '<th class="esort" data-k="d"><button type="button" class="th-btn">Published'+eArr('d')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     edSorted().map(function(e){
       return '<tr>'+
         '<td data-l="Editorial"><span class="m-model">'+esc(e.who)+'</span><span class="m-sub" style="font-style:italic">&ldquo;'+esc(e.quote)+'&rdquo;</span></td>'+
