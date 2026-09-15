@@ -259,7 +259,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Countries or areas with at least one <strong>published</strong> independent citing group, grouped by region. This count is drawn from the independent peer-reviewed citations alone. The three <a href="#editorials">invited editorials</a> add a further two, Denmark and Italy, and are counted separately from this total. Institutions whose work is still in preprint, including India, are listed in the <a href="#institutions">institutions section</a> below and marked as such.</p>
 <figure class="map">
   <img src="citation_map_verified.png" alt="World map with twenty-four countries or areas shaded, marking the location of independent peer-reviewed citing groups across five continents.">
-  <figcaption>Countries or areas of independent peer-reviewed citing groups. Shaded areas are those with at least one identified citing paper, determined from institutional affiliations on the qualifying publication, not an author’s nationality or residence. Counted per the United Nations <a href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener">M49 standard</a>.<details class="method-note"><summary>How countries / areas are counted</summary><p>Countries follow the <strong>UN M49 standard</strong>, the UN Statistics Division’s classification of countries and areas. The United Kingdom is counted once, and Hong Kong (M49 code 344) and Macau (446, listed there as Macao) are counted separately from China, as that standard lists them. Place names follow the affiliations printed on the citing papers, so this page writes Macau, as the University of Macau does.</p><p>Using a published standard rather than a rule of this page’s own making means the count can be checked against something external to it. The standard is used because it is published and checkable, not to express a view: as M49 itself states, “the assignment of countries or areas to specific groupings is for statistical convenience and does not imply any assumption regarding political or other affiliation of countries or territories.”</p><p>The map is drawn from Natural Earth 1:50m admin-0 countries, which matches that scheme. Hong Kong and Macau have their own polygons but are too small to distinguish at this scale.</p></details></figcaption>
+  <figcaption>Countries or areas of independent peer-reviewed citing groups. Shaded areas are those with at least one identified citing paper, determined from institutional affiliations on the qualifying publication, not an author’s nationality or residence. Counted per the United Nations <a href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener">M49 standard</a>.<details class="method-note"><summary>How countries / areas are counted</summary><p>Geographic units follow the <strong>UN M49 standard</strong>, the UN Statistics Division’s classification of countries and areas. The United Kingdom is counted once, and Hong Kong (M49 code 344) and Macau (446, listed there as Macao) are counted separately from China, as that standard lists them. Place names follow the affiliations printed on the citing papers, so this page writes Macau, as the University of Macau does.</p><p>Using a published standard rather than a rule of this page’s own making means the count can be checked against something external to it. The standard is used because it is published and checkable, not to express a view: as M49 itself states, “the assignment of countries or areas to specific groupings is for statistical convenience and does not imply any assumption regarding political or other affiliation of countries or territories.”</p><p>The map is drawn from Natural Earth 1:50m admin-0 countries, which matches that scheme. Hong Kong and Macau have their own polygons but are too small to distinguish at this scale.</p></details></figcaption>
 </figure>
 <div class="regions" id="regions"></div></section>
 <section class="sec" id="journals"><div class="sec-head"><h2>Venues that have published a citation</h2><span class="n" id="n-jrn"></span></div>
@@ -272,7 +272,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing or using the work</h2><span class="n" id="n-inst"></span></div>
 <p class="lede">Named institutions with no shared authorship. The count is of distinct parent institutions named in the author affiliations of the qualifying works represented on this page, and internal subunits are not counted separately from their parent, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained or validated models on the data, some named it among the field's key resources, and some cite it as prior work.</p>
-<div class="legend"><span><i class="dot trained"></i>Trained or validated a model on the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = work not yet peer-reviewed</span></div>
+<div class="legend"><span><i class="dot trained"></i>Trained or validated a model on the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
 <div class="sec-head sub"><h3 id="industry">Industry</h3><span class="n" id="n-ind"></span></div>
@@ -619,9 +619,8 @@ const CHALLENGE = {
 
 
 /* Publications. `d` is the publication date as YYYYMMDD; the page sorts by it,
-   newest first. All 17 verified. These are ONLINE publication dates where one exists;
-   two works (BIND, Learning brain health) use the acceptance or issue date - see the
-   trailing comments. */
+   newest first. All 17 verified. Every row uses the ONLINE PUBLICATION date: not the
+   acceptance date, not the issue date, matching the rule stated for PREPRINTS below. */
 const PUBS = [
   {d:20260805, y:2026, t:"The Human Sleep Project: a multi-center clinical polysomnography dataset across the human lifespan", v:"Sleep, 2026", doi:"10.1093/sleep/zsag215"},  // ✓ published 5 August 2026
   {d:20260225, y:2026, t:"The Harvard–Emory ECG Database", v:"Scientific Data (Nature Portfolio), 2026", doi:"10.1038/s41597-026-06861-9"},  // ✓ Sci Data 2026 Feb 25;13:516 (recv 5 Sep 2025, acc 6 Feb 2026)
@@ -638,8 +637,8 @@ const PUBS = [
   {d:20260401, y:2026, t:"Electroencephalogram monitoring in critical care: multicenter analysis of timing, duration and readmissions", v:"Critical Care Explorations, 2026", doi:"10.1097/CCE.0000000000001402"},  // ✓ Crit Care Explor 8(4):e1402, April 2026
   {d:20260323, y:2026, t:"Automated electronic health record phenotyping of acute and subacute subdural hematoma", v:"Algorithms, 2026;19(3):239", doi:"10.3390/a19030239"},  // ✓ published 23 March 2026
   {d:20250410, y:2025, t:"Identification of patients with congestive heart failure from the electronic health records of two hospitals", v:"JMIR Medical Informatics, 2025;13:e64113", doi:"10.2196/64113"},  // ✓ JMIR Med Inform, published 10 April 2025
-  {d:20251201, y:2025, t:"Artificial intelligence-enabled phenotyping of neurological disease from electronic health records", v:"Innovation in Aging, 2025;9(Suppl 1), conference abstract", doi:"10.1093/geroni/igaf122.2241"},  // ✓ Innovation in Aging 9(Suppl 2), December 2025
-  {d:20260501, y:2026, t:"Learning brain health from sleep", v:"Sleep, 2026;49(Suppl 1), conference abstract", doi:"10.1093/sleep/zsag091.0331"},  // ✓ Sleep 49(Suppl 1):A146, May 2026
+  {d:20251231, y:2025, t:"Artificial Intelligence-Enabled Comprehensive Electronic Health Record Phenotyping at a Large Scale", v:"Innovation in Aging, 2025;9(Suppl 2), conference abstract", doi:"10.1093/geroni/igaf122.2241"},  // ✓ Innovation in Aging 9(Suppl 2), December 2025
+  {d:20260508, y:2026, t:"Learning Brain Health from Sleep: A Generalizable EEG Biomarker Validated Across Diverse Cohorts", v:"Sleep, 2026;49(Suppl 1), conference abstract", doi:"10.1093/sleep/zsag091.0331"},  // ✓ Sleep 49(Suppl 1):A146, May 2026
 ];
 
 /* Journals and conference venues that have published an independent citation.
@@ -705,7 +704,7 @@ const INSTITUTIONS = [
   {n:"Genomed Ltd",                               c:"Russia", d:"cited", src:"10.3390/technologies14070403", k:"industry"},
   {n:"Federal Center of Brain Research and Neurotechnologies", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
   {n:"Institute of Theoretical and Experimental Biophysics, RAS", c:"Russia", d:"cited", src:"10.3390/technologies14070403"},
-  {n:"University of Toronto",                     c:"Canada", d:"trained", src:["medRxiv 10.64898/2026.07.22.26358591", "10.2196/68317"]},
+  {n:"University of Toronto",                     c:"Canada", d:"trained", src:["medRxiv 10.64898/2026.07.22.26358591", "10.2196/68317"], p:1},
   {n:"York University",                           c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"Vector Institute",                          c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"The University of Hong Kong",               c:"Hong Kong", d:"cited", src:"10.2196/68317"},
@@ -743,14 +742,14 @@ const INSTITUTIONS = [
   {n:"University of Geneva", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Geneva University Hospitals", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Kantonsspital Winterthur", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
-  {n:"University of Pennsylvania", c:"United States", d:"trained", src:["arXiv:2602.15677", "10.1002/epi.70168", "10.1088/1741-2552/ae805d"]},
+  {n:"University of Pennsylvania", c:"United States", d:"trained", src:["arXiv:2602.15677", "10.1002/epi.70168", "10.1088/1741-2552/ae805d"], p:1},
   {n:"Brigham and Women's Hospital", c:"United States", d:"cited", src:["10.64898/2026.08.26.747401", "arXiv:2511.02754"], p:1}, {n:"Stanford University", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015"}, {n:"Alphabet Inc. (Google for Health; Platforms and Devices)", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"NYU Langone Health", c:"United States", d:"trained", src:"arXiv:2606.14957", p:1},
   {n:"Korea University", c:"South Korea", d:"trained", src:"10.1109/BCI69045.2026.11435041"},
   {n:"Sun Yat-Sen University", c:"China", d:"trained", src:"10.1038/s41467-026-72436-2"},
   {n:"Carl von Ossietzky Universität Oldenburg", c:"Germany", d:"trained", src:"ICLR 2026 (Poster), OpenReview xXRqWpt3Xr"},
   {n:"Sungkyunkwan University", c:"South Korea", d:"trained", src:"10.1016/j.asoc.2026.115590"}, {n:"Sejong University", c:"South Korea", d:"trained", src:"10.1016/j.asoc.2026.115590"},
   {n:"Prince Sattam bin Abdulaziz University", c:"Saudi Arabia", d:"trained", src:"10.1016/j.asoc.2026.115590"},
-  {n:"Medical University of Innsbruck", c:"Austria", d:"trained", src:["medRxiv 10.64898/2026.07.10.26357749", "10.1038/s41746-026-03196-y"]},
+  {n:"Medical University of Innsbruck", c:"Austria", d:"trained", src:["medRxiv 10.64898/2026.07.10.26357749", "10.1038/s41746-026-03196-y"], p:1},
   {n:"Eurac Research", c:"Italy", d:"trained", src:"medRxiv 10.64898/2026.07.10.26357749", p:1},
   {n:"IIT Kharagpur", c:"India", d:"trained", src:"arXiv:2512.22656", p:1}, {n:"ASUGI, Azienda Sanitaria Universitaria Giuliano-Isontina, Trieste", c:"Italy", d:"trained", src:"arXiv:2604.04485", p:1},
   {n:"University of Illinois Urbana-Champaign", c:"United States", d:"trained", src:["arXiv:2601.22197", "arXiv:2605.09505"], p:1},
@@ -764,9 +763,9 @@ const INSTITUTIONS = [
   {n:"Thomas Jefferson University", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of South Carolina", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"UTHealth Houston", c:"United States", d:"cited", src:"arXiv:2607.21331", p:1},
-  {n:"King's College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"]},
-  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1145/3774906.3802787"]}, {n:"Royal Manchester Children's Hospital", c:"United Kingdom", d:"landmark", src:"engrXiv 7011", p:1},
-  {n:"University College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"]},
+  {n:"King's College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"], p:1},
+  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1145/3774906.3802787"], p:1}, {n:"Royal Manchester Children's Hospital", c:"United Kingdom", d:"landmark", src:"engrXiv 7011", p:1},
+  {n:"University College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"], p:1},
   {n:"Great Ormond Street Hospital for Children", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
   {n:"Tsinghua University", c:"China", d:"landmark", src:"engrXiv 7011", p:1},
   {n:"VinUniversity", c:"Vietnam", d:"landmark", src:"engrXiv 7011", p:1},
@@ -792,7 +791,7 @@ const INSTITUTIONS = [
   {n:"Clínica Universidad de Navarra", c:"Spain", d:"cited", src:"10.1016/j.clinph.2026.2111977"},
   {n:"Universidad Politécnica de Madrid", c:"Spain", d:"cited", src:["10.3390/technologies14070403", "10.3390/technologies13110524"]},
   {n:"Flinders University", c:"Australia", d:"cited", src:"10.1093/sleep/zsag152"},
-  {n:"University of Ottawa", c:"Canada", d:"trained", src:["medRxiv 10.64898/2026.07.22.26358591", "10.1161/JAHA.125.046964"]},
+  {n:"University of Ottawa", c:"Canada", d:"trained", src:["medRxiv 10.64898/2026.07.22.26358591", "10.1161/JAHA.125.046964"], p:1},
   {n:"McGill University", c:"Canada", d:"cited", src:"10.1161/SVIN.125.002261"},
   {n:"University of Calgary", c:"Canada", d:"cited", src:"10.1161/SVIN.125.002261"},
   {n:"Universidade Federal de Minas Gerais", c:"Brazil", d:"cited", src:"10.1038/s41746-026-02704-4"},
@@ -813,7 +812,7 @@ const INSTITUTIONS = [
   {n:"Dalian University of Technology", c:"China", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"University of Jyväskylä", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"Tampere University", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
-  {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Kurume University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Nanjing University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Montreal Heart Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Mila–Québec AI Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Université de Montréal", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Fondation Rothschild", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1}, {n:"Florida State University", c:"United States", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"University of Osaka", c:"Japan", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"Technical University of Denmark", c:"Denmark", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Politecnico di Torino", c:"Italy", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Martinsburg VA Medical Center", c:"United States", d:"editorial", src:"10.1212/CPJ.0000000000200225"}, {n:"Zhuhai UM Science and Technology Research Institute", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Neijiang Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"University of Electronic Science and Technology of China", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Northwest Minzu University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"German Sleep Society (DGSM e.V.)", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"}, {n:"Beth Israel Deaconess Medical Center", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"}, {n:"108 Military Central Hospital, Hanoi", c:"Vietnam", d:"cited", src:"10.56651/lqdtu.jst.v14.n02.1112.ict"}, {n:"The University of Tokyo", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Juntendo University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
+  {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Kurume University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Nanjing University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Montreal Heart Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Mila–Québec AI Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Université de Montréal", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Fondation Rothschild", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1}, {n:"Florida State University", c:"United States", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"University of Osaka", c:"Japan", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"Technical University of Denmark", c:"Denmark", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Politecnico di Torino", c:"Italy", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Martinsburg VA Medical Center", c:"United States", d:"editorial", src:"10.1212/CPJ.0000000000200247"}, {n:"Zhuhai UM Science and Technology Research Institute", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Neijiang Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"University of Electronic Science and Technology of China", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Northwest Minzu University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"German Sleep Society (DGSM e.V.)", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"}, {n:"Beth Israel Deaconess Medical Center", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"}, {n:"108 Military Central Hospital, Hanoi", c:"Vietnam", d:"cited", src:"10.56651/lqdtu.jst.v14.n02.1112.ict"}, {n:"The University of Tokyo", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Juntendo University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
   {n:"International University of Health and Welfare", c:"Japan", d:"landmark", src:"10.1038/s41746-026-03101-7"},
 ];
 const CITATIONS = [
