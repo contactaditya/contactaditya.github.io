@@ -9,7 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 th.sortable,th.dsort,th.psort,th.prsort,th.nsort,th.esort{padding:0}
-.th-btn{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;background:none;border:0;padding:11px 14px;margin:0;cursor:pointer;width:100%;text-align:left;display:block}
+.th-btn{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;background:none;border:0;padding:11px 14px;margin:0;cursor:pointer;width:100%;text-align:left;display:block;user-select:none}
+.th-btn:hover{opacity:.7}
 .th-btn:focus-visible{outline:2px solid var(--indigo);outline-offset:-2px}
 
 .isrc-plain{font-style:normal;color:var(--rule2);cursor:help}
@@ -118,13 +119,13 @@ figure.map img{width:100%;height:auto;display:block;border:1px solid var(--rule2
 figure.map figcaption{font-size:12.5px;color:var(--grey);margin-top:8px;max-width:none}
 .isrc{font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.5;margin-left:6px;white-space:nowrap}
 .isrc:hover{opacity:1}
-th.sortable,th.nsort,th.psort,th.dsort,th.esort,th.prsort{cursor:pointer;user-select:none}
-th.prsort:hover{opacity:.7}
-th.esort:hover{opacity:.7}
-th.dsort:hover{opacity:.7}
-th.psort:hover{opacity:.7}
-th.nsort:hover{opacity:.7}
-th.sortable:hover{opacity:.7}
+
+
+
+
+
+
+
 .sarr{font-size:9px;opacity:.55}
 .c-date{font-family:var(--mono);font-size:11px;white-space:nowrap}
 table.mtab{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
@@ -273,8 +274,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="fields-list"></div></section>
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing or using the work</h2><span class="n" id="n-inst"></span></div>
-<p class="lede">Named institutions with no shared authorship. The count is of distinct parent institutions named in the author affiliations of the qualifying works represented on this page, and internal subunits are not counted separately from their parent, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, validated, or evaluated models using the data, some named it among the field's key resources, and some cite it as prior work.</p>
-<div class="legend"><span><i class="dot trained"></i>Trained, validated, or evaluated a model using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
+<p class="lede">Named institutions represented in qualifying works with no shared authorship. The count is of distinct organizationally independent institutions named in the author affiliations of those works; internal subunits are folded into their parent institution, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, tuned, validated, benchmarked, or evaluated models using the data, some named it among the field's key resources, and some cite it as prior work.</p>
+<div class="legend"><span><i class="dot trained"></i>Trained, tuned, validated, benchmarked, or evaluated a model using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
 <div class="sec-head sub"><h3 id="industry">Industry</h3><span class="n" id="n-ind"></span></div>
@@ -293,8 +294,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <h3>A citation counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
 <p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list.</p>
 <p>Where a downstream model was trained, tuned, benchmarked or evaluated by a group I have co-authored with, it is labeled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
-<p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit the same relationship to the cited resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
-<p><b>Counting institutions.</b> Institution counts are based on distinct parent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Distinct <strong>organizationally independent</strong> affiliations are counted separately. Internal departments, laboratories, centers and other subunits are folded into their parent institution. Separate incorporation is strong evidence of organizational independence; where status remains ambiguous, the conservative reading is used. Independent affiliations take many forms: universities, hospitals, research institutes, companies, foundations, professional societies and government organizations are all represented here.</p>
+<p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit that work’s relationship to the underlying work or resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
+<p><b>Counting institutions.</b> Institution counts are based on distinct organizationally independent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Internal departments, laboratories, centers and other subunits are folded into their parent institution. Separate incorporation is strong evidence of organizational independence; where status remains ambiguous, the conservative reading is used. Independent affiliations take many forms: universities, hospitals, research institutes, companies, foundations, professional societies and government organizations are all represented here.</p>
 <p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
