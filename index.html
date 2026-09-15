@@ -225,7 +225,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 </div></section>
 
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
-<p class="lede">Documented downstream uses of these datasets for training, instruction tuning, validation, evaluation, or benchmarking, as distinct from merely citing them. Each description is sourced from the underlying paper, preprint, or official project record.</p>
+<p class="lede">Documented downstream uses of these datasets, including training, instruction tuning, validation, evaluation, benchmarking, and an international competition, as distinct from merely citing them. Each description is sourced from the underlying paper, preprint, or official project record.</p>
 <div class="filters" id="uses-filters"></div>
 <div class="rows" id="uses-list"></div></section>
 
@@ -275,7 +275,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing, using, or assessing the work</h2><span class="n" id="n-inst"></span></div>
 <p class="lede">Named institutions represented in qualifying works with no shared authorship. The count is of distinct organizationally independent institutions named in the author affiliations of those works; internal subunits are folded into their parent institution, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, tuned, validated, benchmarked, or evaluated models using the data, some named it among the field’s key resources, some wrote invited editorials assessing the work, and some cite it as prior work.</p>
-<div class="legend"><span><i class="dot trained"></i>Trained, tuned, validated, benchmarked, or evaluated a model using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
+<div class="legend"><span><i class="dot trained"></i>Documented downstream use: trained, tuned, validated, benchmarked, or evaluated using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
 <div class="sec-head sub"><h3 id="industry">Industry</h3><span class="n" id="n-ind"></span></div>
@@ -457,17 +457,21 @@ const DATASETS = [
    doi:"10.60508/zkvt-gt36", bdsp:"https://bdsp.io/content/480zbyvqxlq0agc6myih/1.0/", rel:"20260331", pdoi:"", pdate:"", pven:"", pver:""},
 ];
 
-/* Documented substantial uses: a group that trained on, validated against, or
-   evaluated using one of the datasets. Add a line when a new one appears. */
+/* Documented downstream uses, including training, tuning, validation, evaluation,
+   benchmarking and competition use, as distinct from merely citing the work. Not
+   every row is a model or a group: one is an NIH-funded international competition.
+   `what` must be sourced from the underlying paper, preprint or official project
+   record, which is what the section lede promises. Add a line when a new one
+   appears, and check the preprints table for uses not yet recorded here. */
 const USES = [
   {ds:"Harvard–Emory ECG Database", by:"Pretraining Strategies and Scaling for ECG FMs - AI4Health, University of Oldenburg",
    what:"Table 58 lists 9,922,934 HEEDB samples and 950,441 HEEDB-Emory samples as the pre-training corpus, against 340,285 from CODE-15%, under the BDSP Credentialed Health Data License 1.5.0. The paper describes this as “the largest publicly available pretraining corpus to date comprising over 11M samples”.",
    where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2605.12241", dep:false},
   {ds:"Harvard–Emory ECG Database", by:"ECG Biometrics with ArcFace-Inception - ASUGI, Trieste",
-   what:"Trained on an internal corpus, then externally evaluated on 385,079 ECGs from 118,756 patients drawn from this database, across four protocols: closed-set leave-one-out, scale analysis, a one to five year temporal stress test, and post-hoc reranking.",
+   what:"Trained on an internal corpus, then externally evaluated on 385,079 ECGs from 118,756 patients drawn from this database, across four protocols: closed-set leave-one-out, scale analysis, a one- to five-year temporal stress test, and post-hoc reranking.",
    where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2604.04485", dep:false},
   {ds:"Harvard–Emory ECG Database", by:"AI-ECG reconstruction error - Digital Cardiology Lab, Medical University Innsbruck",
-   what:"One of three cohorts in the primary analysis, alongside MIMIC-IV-ECG and the CHRIS population cohort, described as “a large US hospital-based ECG dataset from multiple centres, representing a broad clinical spectrum of inpatient and outpatient presentations”. Hazard ratio 1.41, C-index 0.740.",
+   what:"One of four independent external-validation cohorts in the primary analysis, alongside MIMIC-IV-ECG, CHRIS and Innsbruck, described as “a large US hospital-based ECG dataset from multiple centres, representing a broad clinical spectrum of inpatient and outpatient presentations”. Hazard ratio 1.41, C-index 0.740.",
    where:"Preprint, medRxiv", doi:"", url:"https://doi.org/10.64898/2026.07.10.26357749", dep:false},
 
   {ds:"Human Sleep Project", by:"Lu et al., Aerospace Information Research Institute, Chinese Academy of Sciences",
@@ -575,10 +579,10 @@ const PREPRINTS = [
    cites:[{w:"Harvard–Emory ECG Database", t:"Paper"}],
    how:"One of four external validation cohorts: 5,100 ECGs from 5,100 patients drawn from 998,844 recordings, reaching macro-AUROC 0.90 against 0.96 internally. Cites the Scientific Data descriptor at reference 33.",
    id:"medRxiv 10.64898/2026.07.22.26358591", url:"https://doi.org/10.64898/2026.07.22.26358591", posted:"24 Jul 2026", dep:false},
-  {d:20260710, w:"Artificial intelligence-based ECG reconstruction error as a continuous predictor of all-cause mortality",
+  {d:20260714, w:"Artificial intelligence-based ECG reconstruction error as a continuous predictor of all-cause mortality",
    inst:"Digital Cardiology Lab, Medical University of Innsbruck · Eurac Research", geo:"Austria / Italy",
    cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"One of four external validation cohorts; HR 1.41, C-index 0.740",
-   id:"medRxiv 10.64898/2026.07.10.26357749", url:"https://doi.org/10.64898/2026.07.10.26357749", posted:"10 Jul 2026", dep:false},
+   id:"medRxiv 10.64898/2026.07.10.26357749", url:"https://doi.org/10.64898/2026.07.10.26357749", posted:"14 Jul 2026", dep:false},
   {d:20260612, w:"Neuro-JEPA, Learning Sparse Latent Predictive Foundation Model for Multimodal Neuroimaging",
    inst:"NYU Langone Health", geo:"United States",
    cites:[{w:"BIND", t:"—"}], how:"One of the principal evaluation cohorts; 45 task/modality combinations; clinical tasks incl. glioblastoma, multiple sclerosis, atrophy",
