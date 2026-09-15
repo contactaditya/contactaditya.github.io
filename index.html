@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+th.sortable{cursor:pointer}
+th.sortable:focus-visible{outline:2px solid var(--indigo);outline-offset:-2px}
+.isrc-plain{font-style:normal;color:var(--rule2);cursor:help}
 .jsrc{display:inline-flex;gap:3px;margin-left:6px;vertical-align:baseline}
 .jsrc a{display:inline-block;min-width:15px;padding:0 3px;font-family:var(--mono);font-size:10.5px;line-height:15px;text-align:center;color:var(--grey);text-decoration:none;border:1px solid var(--rule2);border-radius:2px}
 .jsrc a:hover{color:var(--card);background:var(--indigo);border-color:var(--indigo)}
@@ -66,8 +69,7 @@ h1{font-family:var(--cond);font-weight:700;color:var(--ink);font-size:clamp(38px
 .reach a{text-decoration:none;color:inherit;display:block;border-radius:2px;transition:.12s}
 .reach a:hover{background:var(--paper)}
 .reach a:hover b{color:var(--indigo)}
-html{scroll-behavior:smooth}
-.reach div{padding:0 4px}
+  .reach div{padding:0 4px}
 .reach b{font-family:var(--cond);font-size:30px;font-weight:700;display:block;line-height:1}
 .reach span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);display:block;min-height:2.6em;line-height:1.3}
 .sec{padding:54px 0 8px;text-align:left}
@@ -129,7 +131,7 @@ table.mtab td{padding:11px 12px 11px 0;border-bottom:1px solid var(--rule);verti
 table.mtab tr:last-child td{border-bottom:none}
 table.mtab .m-model{font-weight:600}
 table.mtab .m-sub{display:block;color:var(--grey);font-size:11.5px;margin-top:2px}
-table.mtab .m-ind{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--accent)}
+table.mtab .m-ind{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--indigo)}
 table.mtab .m-shd{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--grey)}
 @media(max-width:720px){table.mtab thead{display:none}
 table.mtab,table.mtab tbody,table.mtab tr,table.mtab td{display:block;width:100%}
@@ -199,7 +201,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <nav class="jump" aria-label="Section navigation"><div class="jump-in"><a href="#models">Models</a><a href="#datasets">Datasets</a><a href="#pipeline">Engineering</a><a href="#uses">Uses</a><a href="#funding">Funding</a><a href="#citations">Citations</a><a href="#institutions">Institutions</a><a href="#publications">Publications</a><a href="#method">Method</a></div></nav>
 <main class="wrap">
 <section class="sec" id="models"><div class="sec-head"><h2>Models built on these datasets</h2><span class="n" id="n-models"></span></div>
-<p class="lede">The clearest evidence that infrastructure matters is what other people build with it. Each row runs from a dataset I co-engineered, through the model trained on it, to where that model was published. Rows marked <em>shared authorship</em> come from groups I have co-authored with; the rest are independent.</p>
+<p class="lede">The clearest evidence that infrastructure matters is what other people build with it. Each row runs from a dataset I co-engineered, through the model trained on it, to where that model was published or posted. Rows marked <em>shared authorship</em> come from groups I have co-authored with; the rest are independent.</p>
 <div class="filters" id="models-filters"></div>
 <div id="traces"></div></section>
 <section class="sec" id="datasets"><div class="sec-head"><h2>Credentialed research datasets</h2><span class="n" id="n-data"></span></div>
@@ -210,7 +212,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <h3>A dataset listing shows the output. These are the stages that produce it.</h3>
 <p><b>Ingestion and indexing.</b> Raw studies sit in hospital systems in proprietary vendor formats, spread across archives that were never built to be queried as a corpus. The first task is knowing what exists: cataloguing every recording, reconciling it against the clinical record, and pulling it on a schedule. I run the complete daily electroencephalography pipeline for Beth Israel Deaconess from indexing through archiving.</p>
 <p><b>Patient matching.</b> A physiological recording is only useful if it can be tied to the right patient across systems that identify people differently. Getting this wrong is worse than useless, because it silently corrupts every downstream analysis.</p>
-<p><b>Format conversion and annotation.</b> Vendor formats differ by manufacturer and by decade. Each recording is converted to the <a href="https://bids.neuroimaging.io/" target="_blank" rel="noopener">Brain Imaging Data Structure</a> standard, and I generate the BIDS-compliant annotation files for every electroencephalogram in the platform.</p>
+<p><b>Format conversion and annotation.</b> Vendor formats differ by manufacturer and by decade. EEG and polysomnography recordings are standardized using the <a href="https://bids.neuroimaging.io/" target="_blank" rel="noopener">Brain Imaging Data Structure</a> (BIDS); ECG recordings are converted to WFDB format; and clinical imaging studies are converted from DICOM to NIfTI and organized according to BIDS. I generate the BIDS-compliant annotation files for every electroencephalogram in the platform.</p>
 <p><b>Electronic health record extraction and linkage.</b> A waveform without clinical context answers few questions. I built the daily extraction of Epic-sourced record data through an enterprise data warehouse, and the linkage of that clinical data to the corresponding physiological recordings.</p>
 <p><b>De-identification.</b> Clinical recordings are protected health information. Studying records from Mass General, Beth Israel Deaconess, Brigham and Women's, Boston Children's, Emory and Stanford together would ordinarily involve institution-specific approvals and data-use arrangements, a barrier heavy enough to foreclose many of the multi-site studies clinical AI depends on. Once data is de-identified to the HIPAA Safe Harbor standard, that barrier is substantially reduced: a single harmonised resource can be shared under one governed access process rather than renegotiated at every hospital. I extended <a href="https://github.com/BCHSI/philter-ucsf" target="_blank" rel="noopener">Philter</a>, the UCSF natural-language de-identification tool, with a cross-institutional abstraction layer, and applied it to millions of clinical notes, imaging reports and neurology reports.</p>
 <p><b>Harmonisation.</b> Each contributing site records under its own equipment, conventions and documentation practices. Making fourteen institutions' data comparable, rather than merely co-located, is done across institutional boundaries by definition.</p>
@@ -237,7 +239,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="citations"><div class="sec-head"><h2>Independent peer-reviewed citations</h2><span class="n" id="n-cit"></span></div>
 <p class="lede">Peer-reviewed publications by groups that share no author with me, citing work I co-authored. This is not a total citation count - it is the subset that is both independent and peer-reviewed. Filter by which of my works is cited; every identifier resolves to the source.</p>
 <div class="filters" id="filters"></div>
-<div class="tbl-wrap"><table><thead><tr><th class="sortable" data-k="inst">Citing institution</th><th class="sortable" data-k="geo">Country</th><th class="sortable" data-k="venue">Venue</th><th class="sortable" data-k="cites">Cites <span class="sarr">▾</span></th><th class="sortable" data-k="t">Type</th><th class="sortable" data-k="d">Published</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<div class="tbl-wrap"><table><thead><tr><th class="sortable" tabindex="0" role="button" data-k="inst">Citing institution</th><th class="sortable" tabindex="0" role="button" data-k="geo">Country</th><th class="sortable" tabindex="0" role="button" data-k="venue">Venue</th><th class="sortable" tabindex="0" role="button" data-k="cites">Cites <span class="sarr">▾</span></th><th class="sortable" tabindex="0" role="button" data-k="t">Type</th><th class="sortable" tabindex="0" role="button" data-k="d">Published</th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
 <section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
 <p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
@@ -330,7 +332,7 @@ const MODELS = [
    note:"Entire Stage-2 instruction tuning", shared:false},
   {data:"Harvard–Emory ECG Database", scale:"10.7 million records", model:"ECG-CPC",
    murl:"https://openreview.net/forum?id=xXRqWpt3Xr", by:"Carl von Ossietzky Universität Oldenburg",
-   venue:"ICLR 2026", note:"Dominated 5 of 7 task categories at 3.8M parameters, the smallest of the eight. Independently benchmarked in npj Digital Medicine, which records this database as its pretraining corpus", shared:false},
+   venue:"ICLR 2026", note:"The ECG-CPC authors report that it dominated 5 of 7 task categories at 3.8M parameters, the smallest of the eight. BenchECG subsequently evaluated ECG-CPC independently in npj Digital Medicine and identifies HEEDB as its pretraining dataset", shared:false},
   {data:"Harvard EEG Database", scale:"12,290 reports from 10,886 patients",
    model:"CELM", murl:"https://arxiv.org/abs/2601.22197",
    by:"University of Illinois Urbana-Champaign", venue:"Preprint, arXiv",
@@ -363,11 +365,7 @@ const MODELS = [
    note:"A new cardiovascular-risk biomarker built end-to-end on the corpus", shared:true},
 ];
 
-/* Distinct peer-reviewed venues that have published an independent citation.
-   Update this number when a citation appears in a journal not already represented.
-   29 covered the first 32 citations; +Continuum, +Electronics, +Frontiers in Neurology.
-   (npj Digital Medicine was already represented, so the review did not add one.) */
-const VENUES = 39;
+
 
 const FIELDS = [
   {n:"Neurology & clinical neurophysiology", e:"EEG, epilepsy, stroke"},
@@ -615,11 +613,6 @@ const CHALLENGE = {
 
 
 
-/* Publications. `y` is the year; the page sorts by it, newest first,
-   keeping the order below within a year. Add a row anywhere; it will slot in. */
-/* Publications. `d` is the publication date as YYYYMMDD; the page sorts by it,
-   newest first. Dates marked ✓ are taken from the article; those marked ~ are
-   inferred from the issue number or venue date and are worth confirming. */
 /* Publications. `d` is the publication date as YYYYMMDD; the page sorts by it,
    newest first. All 17 verified. These are ONLINE publication dates where one exists;
    two works (BIND, Learning brain health) use the acceptance or issue date - see the
@@ -883,7 +876,7 @@ const CITATIONS = [
   $('reach').innerHTML =
     '<a href="#citations"><b>'+CITATIONS.length+'</b><span>Independent peer-reviewed citations</span></a>'+
     '<a href="#editorials"><b>'+EDITORIALS.length+'</b><span>Editorials</span></a>'+
-    '<a href="#journals"><b>'+VENUES+'</b><span>Peer-reviewed venues</span></a>'+
+    '<a href="#journals"><b>'+JOURNALS.length+'</b><span>Peer-reviewed venues</span></a>'+
     '<a href="#fields"><b>'+FIELDS.length+'</b><span>Fields</span></a>'+
     '<a href="#reach-detail"><b>'+countries.length+'</b><span>Countries</span></a>'+
     '<a href="#institutions"><b>'+INSTITUTIONS.length+'</b><span>Institutions</span></a>'+
@@ -1023,7 +1016,7 @@ const CITATIONS = [
   $('jrn-grid').innerHTML = JOURNALS.slice().sort(function(a,b){ return (b.c-a.c)||a.n.localeCompare(b.n); })
     .map(function(j){
       var links = (j.src||[]).map(function(d,i){
-        var href = /^10\./.test(d) ? 'https://doi.org/'+d : 'https://openreview.net/forum?id=xXRqWpt3Xr';
+        var href = srcURL(d);
         var label = j.src.length>1 ? (i+1) : '\u2197';
         return '<a href="'+href+'" target="_blank" rel="noopener" title="'+esc(d)+'">'+label+'</a>';
       }).join('');
@@ -1036,20 +1029,58 @@ const CITATIONS = [
     'general-science titles such as <em>Nature Communications</em> and <em>Scientific Reports</em>, through clinical journals '+
     'including <em>Epilepsia</em>, <em>Sleep</em>, <em>Clinical Neurophysiology</em> and the American Academy of Neurology\'s '+
     '<em>Continuum</em>, to engineering and machine-learning venues such as <em>IEEE JBHI</em>, <em>ICASSP</em> and <em>ACM SenSys</em>. '+
-    'Three are in <em>npj Digital Medicine</em> and two each in <em>Epilepsia</em> and <em>Technologies</em>, '+
-    'with the remaining citations distributed across distinct venues.';
+    (function(){
+      // Derived from JOURNALS so the sentence cannot drift from the data.
+      var WORD = ['zero','one','two','three','four','five','six','seven','eight','nine','ten'];
+      var multi = JOURNALS.filter(function(j){ return j.c > 1; })
+                          .sort(function(a,b){ return (b.c-a.c) || a.n.localeCompare(b.n); });
+      if (!multi.length) return 'Each appears once.';
+      var byCount = {};
+      multi.forEach(function(j){ (byCount[j.c] = byCount[j.c] || []).push('<em>'+esc(j.n)+'</em>'); });
+      var parts = Object.keys(byCount).sort(function(a,b){ return b-a; }).map(function(c){
+        var names = byCount[c], n = Number(c);
+        var list = names.length === 1 ? names[0]
+                 : names.slice(0,-1).join(', ') + ' and ' + names[names.length-1];
+        return (WORD[n]||n) + (names.length > 1 ? ' each in ' : ' are in ') + list;
+      });
+      var head = parts.shift();
+      head = head.charAt(0).toUpperCase() + head.slice(1);
+      return head + (parts.length ? ', and ' + parts.join(', and ') : '') +
+             ', with the remaining citations distributed across distinct venues.';
+    })();
 
   $('fields-list').innerHTML = FIELDS.map(function(f){
     return '<div class="row"><span><span class="row-t">'+esc(f.n)+'</span><span class="row-m">'+esc(f.e)+'</span></span></div>'; }).join('');
   $('n-fields').textContent = FIELDS.length+' fields';
 
   var order = {trained:0, landmark:1, editorial:2, cited:3};
+  // One resolver for every identifier form the register stores, so no renderer
+  // has to assume a src is a DOI. Anything unrecognised returns '' and the
+  // caller renders plain text rather than a broken link.
+  function srcURL(v){
+    if(!v) return '';
+    v = String(v).trim();
+    if (/^https?:\/\//.test(v))            return v;
+    if (/^10\./.test(v))                   return 'https://doi.org/' + v;
+    if (/^arXiv:/i.test(v))                return 'https://arxiv.org/abs/' + v.replace(/^arXiv:/i,'');
+    if (/^medRxiv\s+10\./i.test(v))        return 'https://doi.org/' + v.replace(/^medRxiv\s+/i,'');
+    if (/OpenReview\s+(\S+)/i.test(v))     return 'https://openreview.net/forum?id=' + /OpenReview\s+(\S+)/i.exec(v)[1];
+    if (/^ICLR/i.test(v))                  return 'https://openreview.net/forum?id=xXRqWpt3Xr';
+    if (/^engrXiv\s+(\S+)/i.test(v))       return 'https://engrxiv.org/preprint/view/' + /^engrXiv\s+(\S+)/i.exec(v)[1];
+    return '';
+  }
   function instCard(i){
       var ss = i.src ? [].concat(i.src) : [];
+      var one = function(v){
+        var u = srcURL(v);
+        return u ? '<a href="'+u+'" target="_blank" rel="noopener">'+esc(v)+'</a>' : esc(v);
+      };
       var src = ss.length===1
-        ? ' <a class="isrc" href="https://doi.org/'+ss[0]+'" target="_blank" rel="noopener" title="Added from '+esc(ss[0])+'">source</a>'
+        ? (srcURL(ss[0])
+            ? ' <a class="isrc" href="'+srcURL(ss[0])+'" target="_blank" rel="noopener" title="Added from '+esc(ss[0])+'">source</a>'
+            : ' <em class="isrc-plain" title="Added from '+esc(ss[0])+'">source</em>')
         : (ss.length>1
-           ? ' <details class="isrcs"><summary>'+ss.length+' sources</summary><ul>'+ss.map(function(s){return '<li><a href="https://doi.org/'+esc(s)+'" target="_blank" rel="noopener">'+esc(s)+'</a></li>';}).join('')+'</ul></details>'
+           ? ' <details class="isrcs"><summary>'+ss.length+' sources</summary><ul>'+ss.map(function(s){return '<li>'+one(s)+'</li>';}).join('')+'</ul></details>'
            : '');
       return '<div class="inst"><i class="dot '+i.d+'"></i><span>'+esc(i.n)+' <em>'+esc(i.c)+(i.p?' · preprint':'')+'</em>'+src+'</span></div>'; }
   (function(){
@@ -1312,6 +1343,9 @@ const CITATIONS = [
   (function(){
     var ths = Array.prototype.slice.call(document.querySelectorAll('th.sortable'));
     ths.forEach(function(th){
+      th.addEventListener('keydown', function(e){
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); th.click(); }
+      });
       th.addEventListener('click', function(){
         var k = th.getAttribute('data-k');
         if(sortKey===k){ sortDir = -sortDir; } else { sortKey = k; sortDir = 1; }
