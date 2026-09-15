@@ -965,6 +965,12 @@ const CITATIONS = [
   // Enter and Space activate any sortable header. Delegated at the document so it
   // survives the table re-renders that replace thead, which per-element listeners
   // would not. Covers sortable, dsort, psort, prsort, nsort and esort.
+  // Sort state is the single source of truth: it produces the arrow AND the
+  // aria-sort value. Nothing infers semantics from which glyph is rendered.
+  function ariaSort(active, dir){
+    return ' aria-sort="' + (active ? (dir === 1 ? 'ascending' : 'descending') : 'none') + '"';
+  }
+
   // The two tables with a static thead start sorted; mark their initial state.
   // Every other table emits aria-sort from its renderer, so nothing reads glyphs.
   (function markInitialSort(){
