@@ -200,6 +200,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <main class="wrap">
 <section class="sec" id="models"><div class="sec-head"><h2>Models built on these datasets</h2><span class="n" id="n-models"></span></div>
 <p class="lede">The clearest evidence that infrastructure matters is what other people build with it. Each row runs from a dataset I co-engineered, through the model trained on it, to where that model was published. Rows marked <em>shared authorship</em> come from groups I have co-authored with; the rest are independent.</p>
+<div class="filters" id="models-filters"></div>
 <div id="traces"></div></section>
 <section class="sec" id="datasets"><div class="sec-head"><h2>Credentialed research datasets</h2><span class="n" id="n-data"></span></div>
 <p class="lede">Each is a DOI-registered release on the <a href="https://bdsp.io/content/" target="_blank" rel="noopener">Brain Data Science Platform</a>, distributed under credentialed access and a signed data-use agreement. My name appears in the citation string of each.</p>
@@ -329,7 +330,7 @@ const MODELS = [
    note:"Entire Stage-2 instruction tuning", shared:false},
   {data:"Harvard–Emory ECG Database", scale:"10.7 million records", model:"ECG-CPC",
    murl:"https://openreview.net/forum?id=xXRqWpt3Xr", by:"Carl von Ossietzky Universität Oldenburg",
-   venue:"ICLR 2026", note:"Dominated 5 of 7 task categories at 3.8M parameters, the smallest of the eight", shared:false},
+   venue:"ICLR 2026", note:"Dominated 5 of 7 task categories at 3.8M parameters, the smallest of the eight. Independently benchmarked in npj Digital Medicine, which records this database as its pretraining corpus", shared:false},
   {data:"Harvard EEG Database", scale:"12,290 reports from 10,886 patients",
    model:"CELM", murl:"https://arxiv.org/abs/2601.22197",
    by:"University of Illinois Urbana-Champaign", venue:"Preprint, arXiv",
@@ -398,7 +399,7 @@ const EDITORIALS = [
    j:"Sleep, 2025", about:"CAISR", doi:"10.1093/sleep/zsaf147",
    quote:"the excellent methodology and results make CAISR a milestone toward full automation of PSG analysis", d:"20250619"},
   {who:"Raphaelson", where:"Martinsburg VA Medical Center · private practice, Leesburg VA", geo:"United States",
-   j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG health-outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
+   j:"Neurology: Clinical Practice, 2024", about:"Sleep-EEG outcomes cohort study", doi:"10.1212/CPJ.0000000000200247",
    quote:"a more intuitive view of future risks, high, intermediate, or low, for a larger range of unwanted outcomes", d:"20231208"},
   {who:"Schütz & Goldstein", where:"University of Michigan", geo:"United States",
    j:"Sleep, 2026", about:["Health-Oriented Sleep States (designated Companion Article)", "Sleep-EEG outcomes cohort study"], doi:"10.1093/sleep/zsaf292",
@@ -451,13 +452,13 @@ const USES = [
   {ds:"Harvard\u2013Emory ECG Database", by:"ECGFounder",
    what:"Trained on all 10,771,552 electrocardiograms in the database, with the resulting model weights released publicly for use by any party.",
    where:"NEJM AI, 2025", doi:"10.1056/AIoa2401033", url:"https://doi.org/10.1056/AIoa2401033", dep:true},
-  {ds:"Harvard Electroencephalography Database", by:"NeuroLex - Korea University",
+  {ds:"Harvard EEG Database", by:"NeuroLex - Korea University",
    what:"Trained exclusively on report text from this database - approximately 70,000 EEG reports and 800,000 paragraphs - to build a domain language model for clinical EEG reporting.",
    where:"IEEE, 2026", doi:"", url:"https://ieeexplore.ieee.org/document/11435041", dep:false},
-  {ds:"Harvard Electroencephalography Database", by:"CELM - University of Illinois Urbana-Champaign",
+  {ds:"Harvard EEG Database", by:"CELM - University of Illinois Urbana-Champaign",
    what:"12,290 curated clinical EEG reports from 10,886 patients used to build an EEG-to-language foundation model; the repository is acknowledged by name in the project's own materials.",
    where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2601.22197", dep:false},
-  {ds:"Harvard Electroencephalography Database", by:"MORGOTH 1.0",
+  {ds:"Harvard EEG Database", by:"MORGOTH 1.0",
    what:"An EEG foundation model pre-trained on 14,500 patients from v4.1. The platform records the derivation structurally: the release page carries a Parent Projects field stating the model was derived from this database.",
    where:"The Lancet Digital Health, 2026", doi:"10.1016/j.landig.2026.101039", url:"https://doi.org/10.1016/j.landig.2026.101039", dep:true},
   {ds:"Human Sleep Project", by:"George B. Moody PhysioNet Challenge 2026",
@@ -466,16 +467,16 @@ const USES = [
   {ds:"Human Sleep Project", by:"AI Sleep Co-Scientist - Stanford, DTU, Together AI, WashU",
    what:"Used as one of four cohorts and as the independent replication set (n = 17,810 and n = 16,973).",
    where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2607.25175", dep:true},
-  {ds:"Brain Imaging and Neurophysiology Database (BIND)", by:"Neuro-JEPA - NYU Langone Health",
+  {ds:"BIND", by:"Neuro-JEPA - NYU Langone Health",
    what:"Used as one of the principal evaluation cohorts, reported separately from the public datasets. Clinical tasks derived from it span glioblastoma, gliosis, haematoma, multiple sclerosis, atrophy and cancer; performance is reported across 45 task and modality combinations from this cohort alone. The paper's data-availability statement links directly to the BDSP release page.",
    where:"Preprint, arXiv (NYU Langone Health)", doi:"", url:"https://arxiv.org/abs/2606.14957", dep:false},
-  {ds:"Boston Children's Hospital Sleep Corpus", by:"Bashir et al., Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
+  {ds:"BCH Sleep Corpus", by:"Bashir et al., Sungkyunkwan & Sejong University, Prince Sattam bin Abdulaziz University",
    what:"Used as an out-of-distribution external validation cohort. Trained on the Nationwide Children's Hospital Sleep DataBank, then tested against this corpus \u201con an independent external cohort ... to examine cross cohort generalizability\u201d.",
    where:"Applied Soft Computing, 2026;202:115590", doi:"10.1016/j.asoc.2026.115590", dep:false},
-  {ds:"Boston Children's Hospital Sleep Corpus", by:"PANDA",
+  {ds:"BCH Sleep Corpus", by:"PANDA",
    what:"Evaluated on a held-out test set of 3,804 recordings from 3,000 subjects, and benchmarked against CAISR (\u03ba = 0.45 vs 0.26).",
    where:"npj Digital Medicine, 2026", doi:"10.1038/s41746-026-02967-x", dep:true},
-  {ds:"Boston Children's Hospital Sleep Corpus", by:"Pediatric SleepNet",
+  {ds:"BCH Sleep Corpus", by:"Pediatric SleepNet",
    what:"Trained and evaluated on the corpus; reported mean Cohen's \u03ba rising from 0.49 in infants aged 0\u20136 months to 0.72 in children over 12.",
    where:"Sleep, 2026", doi:"10.1093/sleep/zsag064", dep:true},
 ];
@@ -486,6 +487,17 @@ const USES = [
    could first see the work, which is what the Published column displays. Where acceptance
    pre-dates the filing but publication follows, note the acceptance separately, not in `d`. */
 const PREPRINTS = [
+  {d:20260416, w:"ECG Biometrics with ArcFace-Inception: External Validation on MIMIC and HEEDB",
+   inst:"ASUGI, Azienda Sanitaria Universitaria Giuliano-Isontina, Trieste", geo:"Italy",
+   cites:[{w:"Harvard–Emory ECG Database", t:"Dataset"}],
+   how:"Used HEEDB v5.0 as an external validation domain for a biometric identification model, taking the i0006 Emory subset: 385,079 ECGs from 118,756 patients after filtering. Cites both the version 5.0 release page and the Scientific Data descriptor.",
+   id:"arXiv:2604.04485", url:"https://arxiv.org/abs/2604.04485", posted:"16 Apr 2026", dep:false},
+  {d:20260119, w:"AnyECG: Evolved ECG Foundation Model for Holistic Health Profiling",
+   inst:"Peking University; Huazhong University of Science and Technology; Peking University People’s Hospital", geo:"China",
+   cites:[{w:"Harvard–Emory ECG Database", t:"Dataset"}],
+   how:"Used the HEEDB MGH and Emory cohorts among nine datasets for model development, quoting 10,608,417 records from 1,818,247 patients.",
+   id:"arXiv:2601.10748", url:"https://arxiv.org/abs/2601.10748", posted:"19 Jan 2026", dep:true},
+
   {d:20260906, w:"SleepFM-2: Learning transferable human physiology from two million hours of sleep",
    inst:"Stanford University; Technical University of Denmark; BrainCapture; Danish Center for Sleep Medicine",
    geo:"United States / Denmark", cites:[{w:"Human Sleep Project", t:"Dataset"}],
@@ -742,7 +754,7 @@ const INSTITUTIONS = [
   {n:"Prince Sattam bin Abdulaziz University", c:"Saudi Arabia", d:"trained", src:"10.1016/j.asoc.2026.115590"},
   {n:"Medical University of Innsbruck", c:"Austria", d:"cited", src:"10.1038/s41746-026-03196-y"},
   {n:"Eurac Research", c:"Italy", d:"trained", p:1},
-  {n:"IIT Kharagpur", c:"India", d:"trained", p:1},
+  {n:"IIT Kharagpur", c:"India", d:"trained", p:1}, {n:"ASUGI, Azienda Sanitaria Universitaria Giuliano-Isontina, Trieste", c:"Italy", d:"trained", src:"arXiv:2604.04485", p:1},
   {n:"University of Illinois Urbana-Champaign", c:"United States", d:"trained", p:1},
   {n:"Meta FAIR (Brain & AI)", c:"France", d:"landmark", p:1, k:"industry"},
   {n:"École Normale Supérieure / CNRS", c:"France", d:"landmark", p:1},
@@ -883,7 +895,7 @@ const CITATIONS = [
       '<th>Dataset</th><th>Used</th><th>Model</th><th>Group</th><th>Published in</th><th>Basis</th>'+
     '</tr></thead><tbody>'+
     MODELS.map(function(m){
-      return '<tr>'+
+      return '<tr data-ds="'+esc(m.data)+'">'+
         '<td data-l="Dataset">'+esc(m.data)+'</td>'+
         '<td data-l="Used">'+esc(m.scale)+'</td>'+
         '<td data-l="Model"><span class="m-model"><a href="'+m.murl+'" target="_blank" rel="noopener">'+esc(m.model)+'</a></span>'+
@@ -893,6 +905,36 @@ const CITATIONS = [
         '<td data-l="Basis">'+(m.shared?'<span class="m-shd">shared authorship</span>':'<span class="m-ind">independent</span>')+'</td>'+
       '</tr>'; }).join('')+
     '</tbody></table>';
+
+  // Filter the models table by the dataset each model was built on. Same
+  // interaction as the citations and uses filters.
+  (function(){
+    var order = ['Harvard EEG Database','Harvard\u2013Emory ECG Database','Human Sleep Project',
+                 'BCH Sleep Corpus','BIND','PROPHET'];
+    var counts = {};
+    MODELS.forEach(function(m){ counts[m.data] = (counts[m.data]||0)+1; });
+    var keys = Object.keys(counts).sort(function(a,b){
+      var ia = order.indexOf(a), ib = order.indexOf(b);
+      return ((ia<0?99:ia)-(ib<0?99:ib)) || (counts[b]-counts[a]) || a.localeCompare(b);
+    });
+    $('models-filters').innerHTML =
+      '<button class="filt" data-m="ALL" aria-pressed="true">ALL</button>'+
+      keys.map(function(k){
+        return '<button class="filt" data-m="'+esc(k)+'">'+esc(k)+'</button>';
+      }).join('');
+    var btns = [].slice.call($('models-filters').querySelectorAll('.filt'));
+    var trs  = [].slice.call($('traces').querySelectorAll('tbody tr'));
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){
+        var want = b.getAttribute('data-m');
+        btns.forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); });
+        trs.forEach(function(tr){
+          tr.style.display = (want==='ALL' || tr.getAttribute('data-ds')===want) ? '' : 'none';
+        });
+      });
+    });
+  })();
+
   (function(){
     var links = [].slice.call(document.querySelectorAll('.jump a'));
     var secs = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
@@ -1023,9 +1065,8 @@ const CITATIONS = [
 
   var byDs = {};
   USES.forEach(function(u){ (byDs[u.ds] = byDs[u.ds] || []).push(u); });
-  var DS_ORDER = ["Harvard Electroencephalography Database","Harvard\u2013Emory ECG Database",
-    "Human Sleep Project","Boston Children's Hospital Sleep Corpus",
-    "Brain Imaging and Neurophysiology Database (BIND)","PROPHET"];
+  var DS_ORDER = ["Harvard EEG Database","Harvard\u2013Emory ECG Database",
+    "Human Sleep Project","BCH Sleep Corpus","BIND","PROPHET"];
   function dsRank(n){ var i = DS_ORDER.indexOf(n); return i<0 ? 99 : i; }
   var dsKeys = Object.keys(byDs).sort(function(a,b){
     return (dsRank(a)-dsRank(b)) || (byDs[b].length-byDs[a].length) || a.localeCompare(b); });
