@@ -271,8 +271,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="fields-list"></div></section>
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing or using the work</h2><span class="n" id="n-inst"></span></div>
-<p class="lede">Named institutions with no shared authorship. The count is of distinct parent institutions named in the author affiliations of the qualifying works represented on this page, and internal subunits are not counted separately from their parent, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained or validated models on the data, some named it among the field's key resources, and some cite it as prior work.</p>
-<div class="legend"><span><i class="dot trained"></i>Trained or validated a model on the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
+<p class="lede">Named institutions with no shared authorship. The count is of distinct parent institutions named in the author affiliations of the qualifying works represented on this page, and internal subunits are not counted separately from their parent, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, validated, or evaluated models using the data, some named it among the field's key resources, and some cite it as prior work.</p>
+<div class="legend"><span><i class="dot trained"></i>Trained, validated, or evaluated a model using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
 <div class="sec-head sub"><h3 id="industry">Industry</h3><span class="n" id="n-ind"></span></div>
@@ -505,7 +505,7 @@ const PREPRINTS = [
    how:"Held out of pretraining entirely and used as an independent downstream evaluation cohort. One of only two cohorts in the corpus with linked EHR diagnosis histories, used for phenome-wide disease-onset prediction at a health system the model had never seen.",
    id:"arXiv:2609.06849", url:"https://arxiv.org/abs/2609.06849", posted:"6 Sep 2026", dep:true},
 
-  {d:20260501, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"—"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
+  {d:20260501, w:"From brain signals to smart modulation: a scoping review of EEG signal processing, network analysis and neuromodulation in epilepsy", inst:"King's College London; UCL; Imperial College London; VinUniversity, Hanoi; Royal Manchester Children's Hospital; Tsinghua University", geo:"United Kingdom / Vietnam / China", cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Full row in the dataset comparison table alongside Temple, CHB-MIT and EPILEPSIAE; cites the bdsp-core tooling repository in the narrative", id:"engrXiv 7011", url:"https://engrxiv.org/preprint/view/7011", posted:"2026", dep:false},
 
   {d:20260512, w:"Pretraining Strategies and Scaling for ECG Foundation Models", inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:[{w:"Harvard–Emory ECG Database", t:"—"}], how:"9,922,934 HEEDB + 950,441 HEEDB-Emory samples, ~97% of the 11M pre-training corpus", id:"arXiv:2605.12241", url:"https://arxiv.org/abs/2605.12241", posted:"12 May 2026", dep:false},
 
@@ -535,15 +535,15 @@ const PREPRINTS = [
    id:"arXiv:2606.14957", url:"https://arxiv.org/abs/2606.14957", posted:"12 Jun 2026", dep:false},
   {d:20260508, w:"NeuralBench, EEG foundation model benchmark",
    inst:"Meta FAIR (Brain & AI) · École Normale Supérieure / CNRS · Inria · Fondation Rothschild", geo:"France",
-   cites:[{w:"Harvard EEG Database", t:"—"}], how:"Cited with the Human Connectome Project, TUH EEG Corpus, Cam-CAN and Individual Brain Charting as the large-scale public datasets reshaping the field",
+   cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Cited with the Human Connectome Project, TUH EEG Corpus, Cam-CAN and Individual Brain Charting as the large-scale public datasets reshaping the field",
    id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"8 May 2026", dep:false},
   {d:20260129, w:"CELM, Neural Signals Generate Clinical Notes in the Wild",
    inst:"University of Illinois Urbana-Champaign", geo:"United States",
-   cites:[{w:"Harvard EEG Database", t:"—"}], how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
+   cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
    id:"arXiv:2601.22197", url:"https://arxiv.org/abs/2601.22197", posted:"29 Jan 2026", dep:false},
   {d:20260513, w:"EpiGraph, epilepsy knowledge graph and benchmark",
    inst:"University of Illinois Urbana-Champaign · Florida State University · University of Osaka", geo:"United States / Japan",
-   cites:[{w:"Harvard EEG Database", t:"—"}], how:"Used under the database's data-use agreement (v4.1)",
+   cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Used under the database's data-use agreement (v4.1)",
    id:"arXiv:2605.09505", url:"https://arxiv.org/abs/2605.09505", posted:"13 May 2026", dep:false},
   {d:20260219, w:"Position: Evaluation of ECG Representations Must Be Fixed",
    inst:"Massachusetts Institute of Technology", geo:"United States",
@@ -551,7 +551,7 @@ const PREPRINTS = [
    id:"arXiv:2602.17531", url:"https://arxiv.org/abs/2602.17531", posted:"19 Feb 2026", dep:false},
   {d:20251104, w:"DANIEL, A Distributed and Scalable Approach for Global Representation Learning with EHR Applications",
    inst:"Harvard · University of Chicago · Carnegie Mellon University · University of Pittsburgh · Brigham and Women's Hospital", geo:"United States",
-   cites:[{w:"MCI/ADRD phenotyping study", t:"—"}], how:"Cited as prior work on EHR phenotyping; submitted to the Journal of Machine Learning Research",
+   cites:[{w:"MCI/ADRD phenotyping study", t:"Paper"}], how:"Cited as prior work on EHR phenotyping; submitted to the Journal of Machine Learning Research",
    id:"arXiv:2511.02754", url:"https://arxiv.org/abs/2511.02754", posted:"4 Nov 2025", dep:false},
   {d:20251227, w:"Multi-disorder EEG classification benchmarks",
    inst:"Indian Institute of Technology Kharagpur", geo:"India",
@@ -763,9 +763,9 @@ const INSTITUTIONS = [
   {n:"Thomas Jefferson University", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of South Carolina", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"UTHealth Houston", c:"United States", d:"cited", src:"arXiv:2607.21331", p:1},
-  {n:"King's College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"], p:1},
+  {n:"King's College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"]},
   {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1145/3774906.3802787"], p:1}, {n:"Royal Manchester Children's Hospital", c:"United Kingdom", d:"landmark", src:"engrXiv 7011", p:1},
-  {n:"University College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"], p:1},
+  {n:"University College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"]},
   {n:"Great Ormond Street Hospital for Children", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
   {n:"Tsinghua University", c:"China", d:"landmark", src:"engrXiv 7011", p:1},
   {n:"VinUniversity", c:"Vietnam", d:"landmark", src:"engrXiv 7011", p:1},
@@ -903,7 +903,8 @@ const CITATIONS = [
       '</tr>'; }).join('')+
     '</tbody></table>';
 
-  // Filter the models table by the dataset each model was built on. Same
+  // Filter the models table by the dataset each model was trained, tuned,
+  // benchmarked or evaluated on. Same
   // interaction as the citations and uses filters.
   (function(){
     var order = ['Harvard EEG Database','Harvard\u2013Emory ECG Database','Human Sleep Project',
@@ -935,6 +936,23 @@ const CITATIONS = [
   // Enter and Space activate any sortable header. Delegated at the document so it
   // survives the table re-renders that replace thead, which per-element listeners
   // would not. Covers sortable, dsort, psort, prsort, nsort and esort.
+  // Tell assistive technology which column is sorted and which way. Runs after any
+  // repaint, since five of the six tables replace their own thead when they sort.
+  function syncAriaSort(){
+    [].slice.call(document.querySelectorAll('th.sortable, th.dsort, th.psort, th.prsort, th.nsort, th.esort'))
+      .forEach(function(th){
+        var arrow = th.querySelector('.sarr');
+        if(!arrow){ th.setAttribute('aria-sort','none'); return; }
+        th.setAttribute('aria-sort', arrow.textContent.indexOf('\u25b4')>=0 ? 'ascending' : 'descending');
+      });
+  }
+  document.addEventListener('click', function(e){
+    if(e.target && e.target.closest && e.target.closest('th.sortable, th.dsort, th.psort, th.prsort, th.nsort, th.esort'))
+      setTimeout(syncAriaSort, 0);
+  });
+  window.addEventListener('load', syncAriaSort);
+  setTimeout(syncAriaSort, 0);
+
   document.addEventListener('keydown', function(e){
     if(e.key!=='Enter' && e.key!==' ') return;
     var t = e.target;
@@ -1085,6 +1103,34 @@ const CITATIONS = [
     if (/^engrXiv\s+(\S+)/i.test(v))       return 'https://engrxiv.org/preprint/view/' + /^engrXiv\s+(\S+)/i.exec(v)[1];
     return '';
   }
+// The preprint badge is not a free-standing flag: it must mean that no
+  // peer-reviewed source justifies the designation being displayed. This derives
+  // each source's work-level designation from the data and checks every card.
+  // It logs rather than throws, so a bad flag is visible without breaking the page.
+  (function auditPreprintBadge(){
+    var RANK = {trained:0, landmark:1, editorial:2, cited:3};
+    var peer = {};
+    CITATIONS.forEach(function(c){ peer[c.doi] = true; });
+    EDITORIALS.forEach(function(e){ peer[e.doi] = true; });
+    var workDes = {};
+    INSTITUTIONS.forEach(function(x){
+      var s = [].concat(x.src || []);
+      if (s.length === 1 && peer[s[0]]) workDes[s[0]] = x.d;
+    });
+    var bad = [];
+    INSTITUTIONS.forEach(function(x){
+      var s = [].concat(x.src || []);
+      var best = s.filter(function(v){ return peer[v]; })
+                  .map(function(v){ return workDes[v]; })
+                  .filter(Boolean)
+                  .sort(function(a,b){ return RANK[a]-RANK[b]; })[0];
+      var justified = best && RANK[best] <= RANK[x.d];
+      if (justified && x.p) bad.push(x.n + ': badged, but ' + best + ' is peer-reviewed');
+      if (!justified && !x.p) bad.push(x.n + ': unbadged, but no peer-reviewed source reaches ' + x.d);
+    });
+    if (bad.length) console.warn('preprint badge audit:', bad);
+  })();
+
   function instCard(i){
       var ss = i.src ? [].concat(i.src) : [];
       var one = function(v){
