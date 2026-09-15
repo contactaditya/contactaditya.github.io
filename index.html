@@ -200,7 +200,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="thesis">The datasets, publications, and external uses below are source-linked to their underlying records.</p>
 <div class="idlinks" id="profiles"></div>
 <div class="reach" id="reach"></div>
-<p class="meth-link"><a href="#method">How independence is defined</a></p>
+<p class="meth-link"><a href="#method">Method and counting rules</a></p>
 </div></header>
 <nav class="jump" aria-label="Section navigation"><div class="jump-in"><a href="#models">Models</a><a href="#datasets">Datasets</a><a href="#pipeline">Engineering</a><a href="#uses">Uses</a><a href="#funding">Funding</a><a href="#citations">Citations</a><a href="#institutions">Institutions</a><a href="#publications">Publications</a><a href="#method">Method</a></div></nav>
 <main class="wrap">
@@ -243,7 +243,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="citations"><div class="sec-head"><h2>Independent peer-reviewed citations</h2><span class="n" id="n-cit"></span></div>
 <p class="lede">Peer-reviewed publications citing work I co-authored, by groups in which no author has ever co-authored with me. This is not a total citation count - it is the subset that is both independent and peer-reviewed. Filter by which of my works is cited; every identifier resolves to the source.</p>
 <div class="filters" id="filters"></div>
-<div class="tbl-wrap"><table><thead><tr><th class="sortable" data-k="inst"><button type="button" class="th-btn">Authors’ institutions</button></th><th class="sortable" data-k="geo"><button type="button" class="th-btn">Countries / areas</button></th><th class="sortable" data-k="venue"><button type="button" class="th-btn">Venue</button></th><th class="sortable" data-k="cites"><button type="button" class="th-btn">Cites <span class="sarr">▾</span></button></th><th class="sortable" data-k="t"><button type="button" class="th-btn">Cites as</button></th><th class="sortable" data-k="d"><button type="button" class="th-btn">Published</button></th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<div class="tbl-wrap"><table><thead><tr><th class="sortable" data-k="inst"><button type="button" class="th-btn">Authors’ institutions</button></th><th class="sortable" data-k="geo"><button type="button" class="th-btn">Countries / areas</button></th><th class="sortable" data-k="venue"><button type="button" class="th-btn">Venue</button></th><th class="sortable" data-k="cites"><button type="button" class="th-btn">Cites <span class="sarr">▴</span></button></th><th class="sortable" data-k="t"><button type="button" class="th-btn">Cites as</button></th><th class="sortable" data-k="d"><button type="button" class="th-btn">Published</button></th><th>DOI / identifier</th></tr></thead><tbody id="tbody"></tbody></table></div>
 <p class="count" id="count"></p></section>
 <section class="sec" id="nature"><div class="sec-head"><h2>Nature Portfolio</h2><span class="n" id="n-nat"></span></div>
 <p class="lede">Papers in Nature Portfolio journals that cite or use this work, plus my own two dataset descriptors. Rows marked <em>shared authorship</em> come from groups I have co-authored with; they are shown for completeness, not counted as independent.</p>
@@ -273,8 +273,8 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Clinical specialties in which independent groups have cited this work.</p>
 <div class="rows" id="fields-list"></div></section>
 
-<section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing or using the work</h2><span class="n" id="n-inst"></span></div>
-<p class="lede">Named institutions represented in qualifying works with no shared authorship. The count is of distinct organizationally independent institutions named in the author affiliations of those works; internal subunits are folded into their parent institution, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, tuned, validated, benchmarked, or evaluated models using the data, some named it among the field's key resources, and some cite it as prior work.</p>
+<section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing, using, or assessing the work</h2><span class="n" id="n-inst"></span></div>
+<p class="lede">Named institutions represented in qualifying works with no shared authorship. The count is of distinct organizationally independent institutions named in the author affiliations of those works; internal subunits are folded into their parent institution, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, tuned, validated, benchmarked, or evaluated models using the data, some named it among the field’s key resources, some wrote invited editorials assessing the work, and some cite it as prior work.</p>
 <div class="legend"><span><i class="dot trained"></i>Trained, tuned, validated, benchmarked, or evaluated a model using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
@@ -289,12 +289,12 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="publications"><div class="sec-head"><h2>Publications</h2><span class="n" id="n-pubs"></span></div>
 <p class="lede">Peer-reviewed articles and conference abstracts. The complete, authoritative list is on <a href="https://orcid.org/0000-0002-5243-368X" target="_blank" rel="noopener">ORCID</a>.</p>
 <div class="rows" id="pubs-list"></div></section>
-<section class="sec" id="method"><div class="sec-head"><h2>How this page defines independence</h2><span class="n">Method</span></div>
+<section class="sec" id="method"><div class="sec-head"><h2>Method: independence and counting rules</h2><span class="n">Method</span></div>
 <div class="note">
 <h3>A citation counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
-<p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list.</p>
+<p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list. The same co-author screen is applied to every work labeled independent elsewhere on this page, and to the works underlying the independent-institution register.</p>
 <p>Where a downstream model was trained, tuned, benchmarked or evaluated by a group I have co-authored with, it is labeled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
-<p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit that work’s relationship to the underlying work or resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
+<p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit that work’s relationship to the underlying work or resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. Where more than one qualifying relationship exists, the displayed category reflects the strongest documented engagement in this order: downstream use; landmark or key-resource treatment; invited editorial; ordinary citation. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
 <p><b>Counting institutions.</b> Institution counts are based on distinct organizationally independent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Internal departments, laboratories, centers and other subunits are folded into their parent institution. Separate incorporation is strong evidence of organizational independence; where status remains ambiguous, the conservative reading is used. Independent affiliations take many forms: universities, hospitals, research institutes, companies, foundations, professional societies and government organizations are all represented here.</p>
 <p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
@@ -965,22 +965,17 @@ const CITATIONS = [
   // Enter and Space activate any sortable header. Delegated at the document so it
   // survives the table re-renders that replace thead, which per-element listeners
   // would not. Covers sortable, dsort, psort, prsort, nsort and esort.
-  // Tell assistive technology which column is sorted and which way. Runs after any
-  // repaint, since five of the six tables replace their own thead when they sort.
-  function syncAriaSort(){
-    [].slice.call(document.querySelectorAll('th.sortable, th.dsort, th.psort, th.prsort, th.nsort, th.esort'))
-      .forEach(function(th){
-        var arrow = th.querySelector('.sarr');
-        if(!arrow){ th.setAttribute('aria-sort','none'); return; }
-        th.setAttribute('aria-sort', arrow.textContent.indexOf('\u25b4')>=0 ? 'ascending' : 'descending');  // \u25b4 = ascending
-      });
-  }
-  document.addEventListener('click', function(e){
-    if(e.target && e.target.closest && e.target.closest('th.sortable, th.dsort, th.psort, th.prsort, th.nsort, th.esort'))
-      setTimeout(syncAriaSort, 0);
-  });
-  window.addEventListener('load', syncAriaSort);
-  setTimeout(syncAriaSort, 0);
+  // The two tables with a static thead start sorted; mark their initial state.
+  // Every other table emits aria-sort from its renderer, so nothing reads glyphs.
+  (function markInitialSort(){
+    document.querySelectorAll('th.sortable, th.prsort').forEach(function(th){
+      th.setAttribute('aria-sort','none');
+    });
+    var c=document.querySelector('th.sortable[data-k="cites"]');
+    if(c) c.setAttribute('aria-sort','ascending');      // sortDir starts at 1
+    var p=document.querySelector('th.prsort[data-k="d"]');
+    if(p) p.setAttribute('aria-sort','descending');     // prDir starts at -1
+  })();
 
   // No keydown shim is needed: each sortable header now contains a real <button>,
   // which handles Enter and Space natively and keeps the th as a columnheader so
@@ -1013,9 +1008,9 @@ const CITATIONS = [
   function arrFor(k){ return dKey===k ? '<span class="sarr">'+(dDir===1?'\u25b4':'\u25be')+'</span>' : ''; }
   function paintDs(){
    $('datasets-list').innerHTML = '<table class="mtab"><thead><tr>'+
-    '<th class="dsort" data-k="name"><button type="button" class="th-btn">Dataset'+arrFor('name')+'</button></th><th>Ver.</th>'+
-    '<th class="dsort" data-k="rel"><button type="button" class="th-btn">Released'+arrFor('rel')+'</button></th><th>Release DOI</th>'+
-    '<th class="dsort" data-k="pdate"><button type="button" class="th-btn">Descriptor'+arrFor('pdate')+'</button></th><th>Descriptor DOI</th>'+
+    '<th class="dsort" data-k="name"'+ariaSort(dKey==='name',dDir)+'><button type="button" class="th-btn">Dataset'+arrFor('name')+'</button></th><th>Ver.</th>'+
+    '<th class="dsort" data-k="rel"'+ariaSort(dKey==='rel',dDir)+'><button type="button" class="th-btn">Released'+arrFor('rel')+'</button></th><th>Release DOI</th>'+
+    '<th class="dsort" data-k="pdate"'+ariaSort(dKey==='pdate',dDir)+'><button type="button" class="th-btn">Descriptor'+arrFor('pdate')+'</button></th><th>Descriptor DOI</th>'+
     '</tr></thead><tbody>'+
     dsSorted().map(function(d){
       return '<tr>'+
@@ -1045,7 +1040,7 @@ const CITATIONS = [
     });
   }
   function paintPubs(){ $('pubs-list').innerHTML =
-    '<table class="mtab"><thead><tr><th class="psort" data-k="t"><button type="button" class="th-btn">Publication'+(pKey==='t'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="psort" data-k="v"><button type="button" class="th-btn">Venue'+(pKey==='v'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="psort" data-k="d"><button type="button" class="th-btn">Published'+(pKey==='d'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
+    '<table class="mtab"><thead><tr><th class="psort" data-k="t"'+ariaSort(pKey==='t',pDir)+'><button type="button" class="th-btn">Publication'+(pKey==='t'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="psort" data-k="v"'+ariaSort(pKey==='v',pDir)+'><button type="button" class="th-btn">Venue'+(pKey==='v'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="psort" data-k="d"'+ariaSort(pKey==='d',pDir)+'><button type="button" class="th-btn">Published'+(pKey==='d'?'<span class="sarr">'+(pDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     pubsSortedFn().map(function(p){
       var right = p.doi ? '<a href="https://doi.org/'+p.doi+'" target="_blank" rel="noopener">'+esc(p.doi)+'</a>'
                         : '<span class="nodoi">see ORCID</span>';
@@ -1270,10 +1265,11 @@ const CITATIONS = [
     var k=th.getAttribute('data-k');
     if(prKey===k){ prDir=-prDir; } else { prKey=k; prDir=1; }
     var ths=document.querySelectorAll('#preprints th.prsort');
-    Array.prototype.forEach.call(ths,function(o){ var a=o.querySelector('.sarr'); if(a){a.parentNode.removeChild(a);} });
+    Array.prototype.forEach.call(ths,function(o){ var a=o.querySelector('.sarr'); if(a){a.parentNode.removeChild(a);} o.setAttribute('aria-sort','none'); });
     var arr=document.createElement('span'); arr.className='sarr';
-    arr.textContent=(prDir===1?' \u25be':' \u25b4');
-    th.appendChild(arr);
+    arr.textContent=(prDir===1?' \u25b4':' \u25be');
+    (th.querySelector('.th-btn') || th).appendChild(arr);
+    th.setAttribute('aria-sort', prDir===1 ? 'ascending' : 'descending');
     paintPre();
   });
   $('n-pre').textContent = PREPRINTS.filter(function(x){return !x.dep;}).length+' independent · '+PREPRINTS.filter(function(x){return x.dep;}).length+' shared authorship';
@@ -1296,7 +1292,7 @@ const CITATIONS = [
       return natDir*(f(a).localeCompare(f(b)));
     });
   }
-  function paintNature(){ $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th class="nsort" data-k="j"><button type="button" class="th-btn">Journal'+(natKey==='j'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="w"><button type="button" class="th-btn">Work'+(natKey==='w'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="by"><button type="button" class="th-btn">Group'+(natKey==='by'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="cites"><button type="button" class="th-btn">Cites'+(natKey==='cites'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="d"><button type="button" class="th-btn">Published '+(natKey==='d'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
+  function paintNature(){ $('nature-list').innerHTML = '<table class="mtab"><thead><tr><th class="nsort" data-k="j"'+ariaSort(natKey==='j',natDir)+'><button type="button" class="th-btn">Journal'+(natKey==='j'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="w"'+ariaSort(natKey==='w',natDir)+'><button type="button" class="th-btn">Work'+(natKey==='w'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="by"'+ariaSort(natKey==='by',natDir)+'><button type="button" class="th-btn">Group'+(natKey==='by'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="cites"'+ariaSort(natKey==='cites',natDir)+'><button type="button" class="th-btn">Cites'+(natKey==='cites'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th class="nsort" data-k="d"'+ariaSort(natKey==='d',natDir)+'><button type="button" class="th-btn">Published '+(natKey==='d'?'<span class="sarr">'+(natDir===1?'\u25b4':'\u25be')+'</span>':'')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     natSorted().map(function(x){
       var basis = x.dep===true ? '<span class="m-shd">shared authorship</span>'
                 : x.dep===null ? '<span class="m-shd">my own paper</span>'
@@ -1331,10 +1327,10 @@ const CITATIONS = [
   function eArr(k){ return eKey===k ? '<span class="sarr">'+(eDir===1?'\u25b4':'\u25be')+'</span>' : ''; }
   function paintEd(){
    $('ed-list').innerHTML =
-    '<table class="mtab"><thead><tr><th class="esort" data-k="who"><button type="button" class="th-btn">Editorial'+eArr('who')+'</button></th>'+
-    '<th class="esort" data-k="j"><button type="button" class="th-btn">Journal'+eArr('j')+'</button></th><th>Institution</th>'+
-    '<th class="esort" data-k="geo"><button type="button" class="th-btn">Country'+eArr('geo')+'</button></th><th>On</th>'+
-    '<th class="esort" data-k="d"><button type="button" class="th-btn">Published'+eArr('d')+'</button></th><th>DOI</th></tr></thead><tbody>'+
+    '<table class="mtab"><thead><tr><th class="esort" data-k="who"'+ariaSort(eKey==='who',eDir)+'><button type="button" class="th-btn">Editorial'+eArr('who')+'</button></th>'+
+    '<th class="esort" data-k="j"'+ariaSort(eKey==='j',eDir)+'><button type="button" class="th-btn">Journal'+eArr('j')+'</button></th><th>Institution</th>'+
+    '<th class="esort" data-k="geo"'+ariaSort(eKey==='geo',eDir)+'><button type="button" class="th-btn">Country'+eArr('geo')+'</button></th><th>On</th>'+
+    '<th class="esort" data-k="d"'+ariaSort(eKey==='d',eDir)+'><button type="button" class="th-btn">Published'+eArr('d')+'</button></th><th>DOI</th></tr></thead><tbody>'+
     edSorted().map(function(e){
       return '<tr>'+
         '<td data-l="Editorial"><span class="m-model">'+esc(e.who)+'</span><span class="m-sub" style="font-style:italic">&ldquo;'+esc(e.quote)+'&rdquo;</span></td>'+
@@ -1436,10 +1432,11 @@ const CITATIONS = [
       th.addEventListener('click', function(){
         var k = th.getAttribute('data-k');
         if(sortKey===k){ sortDir = -sortDir; } else { sortKey = k; sortDir = 1; }
-        ths.forEach(function(o){ var a=o.querySelector('.sarr'); if(a){ a.parentNode.removeChild(a); } });
+        ths.forEach(function(o){ var a=o.querySelector('.sarr'); if(a){ a.parentNode.removeChild(a); } o.setAttribute('aria-sort','none'); });
         var arr=document.createElement('span'); arr.className='sarr';
-        arr.textContent = (sortDir===1?' \u25be':' \u25b4');
-        th.appendChild(arr);
+        arr.textContent = (sortDir===1?' \u25b4':' \u25be');
+        (th.querySelector('.th-btn') || th).appendChild(arr);
+        th.setAttribute('aria-sort', sortDir===1 ? 'ascending' : 'descending');
         paintTable();
         apply(curFilter);
       });
