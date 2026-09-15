@@ -189,7 +189,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 .isrcs{display:inline-block;margin-left:6px}.isrcs summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.5;white-space:nowrap;transition:opacity .15s}.isrcs summary::-webkit-details-marker{display:none}.isrcs summary::after{content:"\25be";margin-left:3px;display:inline-block;transition:transform .15s}.isrcs summary:hover{opacity:.85}.isrcs[open] summary::after{transform:rotate(180deg)}.isrcs[open] summary{opacity:.85}.isrcs ul{list-style:none;margin:4px 0 2px;padding:0 0 0 9px;border-left:1px solid var(--rule2)}.isrcs li{margin:2px 0}.isrcs li a{font-family:var(--mono);font-size:9.5px;opacity:.6;letter-spacing:0;text-transform:none}.isrcs li a:hover{opacity:1}</style>
 </head>
 <body>
-<header class="mast"><button id="theme" type="button" aria-label="Switch colour theme">Dark</button><div class="mast-in">
+<header class="mast"><button id="theme" type="button" aria-label="Switch color theme">Dark</button><div class="mast-in">
 <p class="eyebrow">Research data infrastructure · Boston</p>
 <h1>Aditya Gupta</h1>
 <p class="role">Software and data engineer at <a href="https://www.massgeneral.org/" target="_blank" rel="noopener"><b>Massachusetts General Hospital</b></a>. One of three engineers on the <a href="https://bdsp.io/about/" target="_blank" rel="noopener">Brain Data Science Platform</a>, which distributes clinical EEG, ECG, polysomnography, brain-imaging, and linked electronic-health-record data drawn from multiple U.S. academic medical centers.</p>
@@ -210,18 +210,18 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <section class="sec" id="pipeline"><div class="sec-head"><h2>What building these involves</h2><span class="n">The engineering</span></div>
 <div class="note">
 <h3>A dataset listing shows the output. These are the stages that produce it.</h3>
-<p><b>Ingestion and indexing.</b> Raw studies sit in hospital systems in proprietary vendor formats, spread across archives that were never built to be queried as a corpus. The first task is knowing what exists: cataloguing every recording, reconciling it against the clinical record, and pulling it on a schedule. I run the complete daily electroencephalography pipeline for Beth Israel Deaconess from indexing through archiving.</p>
+<p><b>Ingestion and indexing.</b> Raw studies sit in hospital systems in proprietary vendor formats, spread across archives that were never built to be queried as a corpus. The first task is knowing what exists: cataloging every recording, reconciling it against the clinical record, and pulling it on a schedule. I run the complete daily electroencephalography pipeline for Beth Israel Deaconess from indexing through archiving.</p>
 <p><b>Patient matching.</b> A physiological recording is only useful if it can be tied to the right patient across systems that identify people differently. Getting this wrong is worse than useless, because it silently corrupts every downstream analysis.</p>
 <p><b>Format conversion and annotation.</b> Vendor formats differ by manufacturer and by decade. <a href="https://doi.org/10.1111/epi.18487" target="_blank" rel="noopener">EEG recordings are standardized</a> using the <a href="https://bids.neuroimaging.io/" target="_blank" rel="noopener">Brain Imaging Data Structure</a> (BIDS); <a href="https://doi.org/10.1093/sleep/zsag215" target="_blank" rel="noopener">polysomnography recordings are likewise standardized using BIDS</a>; ECG recordings are converted to <a href="https://doi.org/10.1038/s41597-026-06861-9" target="_blank" rel="noopener">WFDB format</a>; and clinical imaging studies are converted from DICOM to <a href="https://doi.org/10.1038/s41597-026-07421-x" target="_blank" rel="noopener">NIfTI and organized according to BIDS</a>. I generate the BIDS-compliant annotation files for every electroencephalogram in the platform.</p>
 <p><b>Electronic health record extraction and linkage.</b> A waveform without clinical context answers few questions. I built the daily extraction of Epic-sourced record data through an enterprise data warehouse, and the linkage of that clinical data to the corresponding physiological recordings.</p>
 <p><b>De-identification.</b> Clinical recordings are protected health information. Studying records from Mass General, Beth Israel Deaconess, Brigham and Women's, Boston Children's, Emory and Stanford together would ordinarily involve institution-specific approvals and data-use arrangements, a barrier heavy enough to foreclose many of the multi-site studies clinical AI depends on. Once data is de-identified to the HIPAA Safe Harbor standard, that barrier is substantially reduced: a single harmonized resource can be shared under one governed access process rather than renegotiated at every hospital. I extended <a href="https://github.com/BCHSI/philter-ucsf" target="_blank" rel="noopener">Philter</a>, the UCSF natural-language de-identification tool, with a cross-institutional abstraction layer, and applied it to millions of clinical notes, imaging reports and neurology reports.</p>
-<p><b>Harmonisation.</b> Each contributing site records under its own equipment, conventions and documentation practices. Making fourteen institutions' data comparable, rather than merely co-located, is done across institutional boundaries by definition.</p>
+<p><b>Harmonization.</b> Each contributing site records under its own equipment, conventions and documentation practices. Making fourteen institutions' data comparable, rather than merely co-located, is done across institutional boundaries by definition.</p>
 <p><b>Release and governed access.</b> Each resource is registered under a DOI, versioned, and distributed through a credentialed-access layer that enforces every contributing institution's terms through signed data-use agreements. As of 31 August 2026, 1,016 researchers had been approved from 1,717 applications.</p>
 <p>I am one of three engineers on the platform, and a named Data Coordinator on the Mass General Brigham institutional review board protocols under which this work is conducted.</p>
 </div></section>
 
 <section class="sec" id="uses"><div class="sec-head"><h2>Documented substantial uses</h2><span class="n" id="n-uses"></span></div>
-<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets, as distinct from citing it. Each is quoted or summarised from the paper itself.</p>
+<p class="lede">Groups that trained on, validated against, or evaluated using one of these datasets, as distinct from citing it. Each is quoted or summarized from the paper itself.</p>
 <div class="filters" id="uses-filters"></div>
 <div class="rows" id="uses-list"></div></section>
 
@@ -258,7 +258,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="lede">Countries or areas with at least one <strong>published</strong> independent citing group, grouped by region. This count is drawn from the independent peer-reviewed citations alone. The three <a href="#editorials">invited editorials</a> add a further two, Denmark and Italy, and are counted separately from this total. Institutions whose work is still in preprint, including India, are listed in the <a href="#institutions">institutions section</a> below and marked as such.</p>
 <figure class="map">
   <img src="citation_map_verified.png" alt="World map with twenty-four countries or areas shaded, marking the location of independent peer-reviewed citing groups across five continents.">
-  <figcaption>Countries or areas of independent peer-reviewed citing groups. Shaded areas are those with at least one identified citing paper, determined from institutional affiliations on the qualifying publication, not an author’s nationality or residence. Counted per the United Nations <a href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener">M49 standard</a>.<details class="method-note"><summary>How countries are counted</summary><p>Countries follow the <strong>UN M49 standard</strong>, the UN Statistics Division’s classification of countries and areas. The United Kingdom is counted once, and Hong Kong (M49 code 344) and Macau (446, listed there as Macao) are counted separately from China, as that standard lists them. Place names follow the affiliations printed on the citing papers, so this page writes Macau, as the University of Macau does.</p><p>Using a published standard rather than a rule of this page’s own making means the count can be checked against something external to it. The standard is used because it is published and checkable, not to express a view: as M49 itself states, “the assignment of countries or areas to specific groupings is for statistical convenience and does not imply any assumption regarding political or other affiliation of countries or territories.”</p><p>The map is drawn from Natural Earth 1:50m admin-0 countries, which matches that scheme. Hong Kong and Macau have their own polygons but are too small to distinguish at this scale.</p></details></figcaption>
+  <figcaption>Countries or areas of independent peer-reviewed citing groups. Shaded areas are those with at least one identified citing paper, determined from institutional affiliations on the qualifying publication, not an author’s nationality or residence. Counted per the United Nations <a href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener">M49 standard</a>.<details class="method-note"><summary>How countries / areas are counted</summary><p>Countries follow the <strong>UN M49 standard</strong>, the UN Statistics Division’s classification of countries and areas. The United Kingdom is counted once, and Hong Kong (M49 code 344) and Macau (446, listed there as Macao) are counted separately from China, as that standard lists them. Place names follow the affiliations printed on the citing papers, so this page writes Macau, as the University of Macau does.</p><p>Using a published standard rather than a rule of this page’s own making means the count can be checked against something external to it. The standard is used because it is published and checkable, not to express a view: as M49 itself states, “the assignment of countries or areas to specific groupings is for statistical convenience and does not imply any assumption regarding political or other affiliation of countries or territories.”</p><p>The map is drawn from Natural Earth 1:50m admin-0 countries, which matches that scheme. Hong Kong and Macau have their own polygons but are too small to distinguish at this scale.</p></details></figcaption>
 </figure>
 <div class="regions" id="regions"></div></section>
 <section class="sec" id="journals"><div class="sec-head"><h2>Venues that have published a citation</h2><span class="n" id="n-jrn"></span></div>
@@ -270,7 +270,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="fields-list"></div></section>
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing or using the work</h2><span class="n" id="n-inst"></span></div>
-<p class="lede">Named institutions with no shared authorship. Distinct parent institutions named in the citing papers’ author affiliations; subunits are not counted separately from their parent, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained or validated models on the data, some named it among the field's key resources, and some cite it as prior work.</p>
+<p class="lede">Named institutions with no shared authorship. The count is of distinct parent institutions named in the author affiliations of the qualifying works represented on this page, and internal subunits are not counted separately from their parent, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained or validated models on the data, some named it among the field's key resources, and some cite it as prior work.</p>
 <div class="legend"><span><i class="dot trained"></i>Trained or validated a model on the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = work not yet peer-reviewed</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
@@ -289,8 +289,9 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="note">
 <h3>A citation counts as independent only if none of its authors is me or anyone I have co-authored with.</h3>
 <p>That is a stricter test than a simple check for my own name. Large clinical datasets are built by large teams, and papers using them often carry an author in common. A citing work is excluded if any of its authors appears among the 121 people who have co-authored a paper or dataset release with me, across 19 such works. Every citation in the table above was checked individually against that complete list.</p>
-<p>Where a downstream model was built by a group I have co-authored with, it is labelled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
-<p><b>Counting institutions.</b> Institution counts are based on distinct parent institutions named in the citing papers’ author affiliations. Departments, laboratories, centers and other subunits are not counted separately from their parent institution; separately named universities, hospitals, research institutes, companies and government organizations are. Where classification is ambiguous the conservative reading is taken, so a combined name is treated as one institution unless the paper presents its parts as independent affiliations.</p>
+<p>Where a downstream model was trained, tuned, benchmarked or evaluated by a group I have co-authored with, it is labeled <em>shared authorship</em> rather than quietly counted. <a href="https://doi.org/10.1056/AIoa2401033" target="_blank" rel="noopener"><code>ECGFounder</code></a> and <a href="https://doi.org/10.60508/v7ky-5g40" target="_blank" rel="noopener"><code>MORGOTH</code></a> are in that category; <a href="https://openreview.net/forum?id=xXRqWpt3Xr" target="_blank" rel="noopener"><code>ECG-CPC</code></a>, <a href="https://doi.org/10.1038/s41467-026-72436-2" target="_blank" rel="noopener"><code>ECG-LFM</code></a>, <a href="https://ieeexplore.ieee.org/document/11435041" target="_blank" rel="noopener"><code>NeuroLex</code></a> and <a href="https://arxiv.org/abs/2602.15677" target="_blank" rel="noopener"><code>CAMEL</code></a> are not.</p>
+<p><b>Relationship designations.</b> Designations are assigned at the work level. All eligible institutions represented on the same work inherit the same relationship to the cited resource. An institution may display a stronger designation if a separate qualifying work documents a stronger form of engagement. <em>Landmark</em> is reserved for works that identify the resource as a key, exemplary, recommended or field-significant resource; ordinary provenance or background references are classified as <em>cited</em>.</p>
+<p><b>Counting institutions.</b> Institution counts are based on distinct parent institutions named in the author affiliations of the qualifying works represented on this page, which include citations, preprints, documented uses and invited editorials. Departments, laboratories, centers and other internal subunits are not counted separately from their parent institution. Separately incorporated universities, hospitals, research institutes, companies and government organizations are counted separately when named as affiliations. Where organizational status remains ambiguous, the conservative reading is used.</p>
 <p>Two caveats worth stating. Citation counts understate use: the datasets are distributed through self-service credentialed access, so groups can and do use them without a formal citation. And several works listed as preprints may publish later; status shown is current, not permanent.</p>
 </div></section>
 <section class="sec" id="contact"><div class="sec-head"><h2>Get in touch</h2><span class="n">Open to collaboration</span></div>
@@ -345,10 +346,10 @@ const MODELS = [
   // shared authorship, groups I have co-authored with
   {data:"Harvard–Emory ECG Database", scale:"All 10,771,552 ECGs",
    model:"ECGFounder", murl:"https://doi.org/10.1056/AIoa2401033",
-   by:"Massachusetts General Hospital; Emory University; Peking University", venue:"NEJM AI, 2025", note:"Model weights released publicly on HuggingFace under an MIT licence", shared:true},
+   by:"Massachusetts General Hospital; Emory University; Peking University", venue:"NEJM AI, 2025", note:"Model weights released publicly on HuggingFace under an MIT license", shared:true},
   {data:"Harvard EEG Database", scale:"14,500 patients pre-training (v4.1)",
    model:"MORGOTH", murl:"https://doi.org/10.1016/j.landig.2026.101039",
-   by:"Stanford University School of Medicine; Beth Israel Deaconess Medical Center; Emory; Yale and 30 further centres", venue:"The Lancet Digital Health, 2026",
+   by:"Stanford University School of Medicine; Beth Israel Deaconess Medical Center; Emory; Yale and 30 further centers", venue:"The Lancet Digital Health, 2026",
    note:"The platform records the derivation: the release page carries a Parent Projects field naming this database", shared:true},
   {data:"Human Sleep Project", scale:"Part of 580,865 hours of PSG pre-training",
    model:"BCGNet", murl:"https://doi.org/10.1038/s41746-026-02885-y",
@@ -360,7 +361,7 @@ const MODELS = [
   {data:"BCH Sleep Corpus", scale:"Training and evaluation cohort",
    model:"Pediatric SleepNet", murl:"https://doi.org/10.1093/sleep/zsag064",
    by:"Beth Israel Deaconess Medical Center; Harvard Medical School", venue:"Sleep, 2026", note:"Benchmarked against CAISR", shared:true},
-  {data:"Human Sleep Project", scale:"20,737 recordings plus two further centres",
+  {data:"Human Sleep Project", scale:"20,737 recordings plus two further centers",
    model:"RLCI", murl:"https://doi.org/10.1093/sleep/zsag204",
    by:"Beth Israel Deaconess Medical Center; Harvard Medical School; Oasi Research Institute IRCCS, Troina", venue:"Sleep, 2026",
    note:"A new cardiovascular-risk biomarker built end-to-end on the corpus", shared:true},
@@ -529,10 +530,10 @@ const PREPRINTS = [
    inst:"NYU Langone Health", geo:"United States",
    cites:[{w:"BIND", t:"—"}], how:"One of the principal evaluation cohorts; 45 task/modality combinations; clinical tasks incl. glioblastoma, multiple sclerosis, atrophy",
    id:"arXiv:2606.14957", url:"https://arxiv.org/abs/2606.14957", posted:"12 Jun 2026", dep:false},
-  {d:20260515, w:"NeuralBench, EEG foundation model benchmark",
+  {d:20260508, w:"NeuralBench, EEG foundation model benchmark",
    inst:"Meta FAIR (Brain & AI) · École Normale Supérieure / CNRS · Inria · Fondation Rothschild", geo:"France",
    cites:[{w:"Harvard EEG Database", t:"—"}], how:"Cited with the Human Connectome Project, TUH EEG Corpus, Cam-CAN and Individual Brain Charting as the large-scale public datasets reshaping the field",
-   id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"May 2026", dep:false},
+   id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"8 May 2026", dep:false},
   {d:20260129, w:"CELM, Neural Signals Generate Clinical Notes in the Wild",
    inst:"University of Illinois Urbana-Champaign", geo:"United States",
    cites:[{w:"Harvard EEG Database", t:"—"}], how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
@@ -607,7 +608,7 @@ const CHALLENGE = {
   points:[
     "Runs on data from the <a href='https://doi.org/10.60508/m3sw-rz13' target='_blank' rel='noopener'>Human Sleep Project</a>, distributed through the <a href='https://bdsp.io/about/' target='_blank' rel='noopener'>Brain Data Science Platform</a>.",
     "<a href='https://doi.org/10.1093/sleep/zsaf134' target='_blank' rel='noopener'>CAISR</a>, which I co-authored, generated the algorithmic annotations the Challenge is scored against.",
-    "The Human Sleep Project is distributed through the same de-identification and harmonisation pipeline I work on across the platform.",
+    "The Human Sleep Project is distributed through the same de-identification and harmonization pipeline I work on across the platform.",
     "PhysioNet Challenges are the field's long-running open benchmark, entered by teams worldwide."
   ]
 };
@@ -706,22 +707,22 @@ const INSTITUTIONS = [
   {n:"Vector Institute",                          c:"Canada", d:"cited", src:"10.2196/68317"},
   {n:"The University of Hong Kong",               c:"Hong Kong", d:"cited", src:"10.2196/68317"},
   {n:"University Health Network (Toronto General)", c:"Canada", d:"cited", src:"10.2196/68317"},
-  {n:"University Hospital Bern", c:"Switzerland", d:"cited", src:"10.1002/epi.70077"},
-  {n:"Aix-Marseille University", c:"France", d:"cited", src:"10.1002/epi.70077"}, {n:"INSERM", c:"France", d:"cited", src:"10.1002/epi.70077"}, {n:"Grenoble Institut des Neurosciences / INSERM", c:"France", d:"cited", p:1},
+  {n:"University Hospital Bern", c:"Switzerland", d:"landmark", src:"10.1002/epi.70077"},
+  {n:"Aix-Marseille University", c:"France", d:"landmark", src:"10.1002/epi.70077"}, {n:"INSERM", c:"France", d:"landmark", src:"10.1002/epi.70077"}, {n:"Grenoble Institut des Neurosciences / INSERM", c:"France", d:"cited", src:"arXiv:2609.00809", p:1},
   {n:"Duke University Medical Center", c:"United States", d:"landmark", src:"10.1002/epi.70077"},
-  {n:"University of Melbourne", c:"Australia", d:"cited", src:"10.1002/epi.70077"},
-  {n:"Masaryk University", c:"Czech Republic", d:"cited", src:"10.1002/epi.70168"}, {n:"St. Anne's University Hospital Brno", c:"Czech Republic", d:"cited", src:"10.1002/epi.70168"},
-  {n:"University of Science and Technology of China", c:"China", d:"cited", src:"10.1002/epi.70168"},
-  {n:"Kyoto University", c:"Japan", d:"cited", src:"10.1002/epi.70168"},
-  {n:"Alfred Health", c:"Australia", d:"cited", src:"10.1002/epi.70168"}, {n:"Monash University", c:"Australia", d:"cited", src:"10.1002/epi.70168"},
+  {n:"University of Melbourne", c:"Australia", d:"landmark", src:"10.1002/epi.70077"},
+  {n:"Masaryk University", c:"Czech Republic", d:"landmark", src:"10.1002/epi.70168"}, {n:"St. Anne's University Hospital Brno", c:"Czech Republic", d:"landmark", src:"10.1002/epi.70168"},
+  {n:"University of Science and Technology of China", c:"China", d:"landmark", src:"10.1002/epi.70168"},
+  {n:"Kyoto University", c:"Japan", d:"landmark", src:"10.1002/epi.70168"},
+  {n:"Alfred Health", c:"Australia", d:"landmark", src:"10.1002/epi.70168"}, {n:"Monash University", c:"Australia", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of California San Diego", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
-  {n:"University of Queensland", c:"Australia", d:"cited", src:"10.1002/epi.70168"},
+  {n:"University of Queensland", c:"Australia", d:"landmark", src:"10.1002/epi.70168"},
   {n:"Nokia Bell Labs", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
   {n:"Brave Software", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787", k:"industry"},
   {n:"University of Cambridge", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787"},
-  {n:"Seoul National University College of Medicine", c:"South Korea", d:"cited", src:"10.1038/s41746-026-03101-7"},
-  {n:"Yonsei University College of Medicine", c:"South Korea", d:"cited", src:"10.1038/s41746-026-03101-7"},
-  {n:"Harvard T.H. Chan School of Public Health", c:"United States", d:"cited", src:"10.1038/s41746-026-03101-7"},
+  {n:"Seoul National University College of Medicine", c:"South Korea", d:"landmark", src:"10.1038/s41746-026-03101-7"},
+  {n:"Yonsei University College of Medicine", c:"South Korea", d:"landmark", src:"10.1038/s41746-026-03101-7"},
+  {n:"Harvard T.H. Chan School of Public Health", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"},
   {n:"Ottawa Hospital Research Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"University of Ottawa Heart Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"The Ottawa Hospital", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
@@ -739,41 +740,41 @@ const INSTITUTIONS = [
   {n:"University of Geneva", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Geneva University Hospitals", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Kantonsspital Winterthur", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
-  {n:"University of Pennsylvania", c:"United States", d:"trained", src:["10.1002/epi.70168", "10.1088/1741-2552/ae805d"]},
-  {n:"Brigham and Women's Hospital", c:"United States", d:"cited", p:1}, {n:"Stanford University School of Medicine", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015"}, {n:"Google for Health, Alphabet Inc.", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"Platforms and Devices, Alphabet Inc.", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"Graeme Clark Institute", c:"Australia", d:"cited", p:1}, {n:"NYU Langone Health", c:"United States", d:"trained", p:1},
+  {n:"University of Pennsylvania", c:"United States", d:"trained", src:["arXiv:2602.15677", "10.1002/epi.70168", "10.1088/1741-2552/ae805d"]},
+  {n:"Brigham and Women's Hospital", c:"United States", d:"cited", src:["10.64898/2026.08.26.747401", "arXiv:2511.02754"], p:1}, {n:"Stanford University School of Medicine", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015"}, {n:"Alphabet Inc. (Google for Health; Platforms and Devices)", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"NYU Langone Health", c:"United States", d:"trained", src:"arXiv:2606.14957", p:1},
   {n:"Korea University", c:"South Korea", d:"trained", src:"10.1109/BCI69045.2026.11435041"},
   {n:"Sun Yat-Sen University", c:"China", d:"trained", src:"10.1038/s41467-026-72436-2"},
   {n:"Carl von Ossietzky Universität Oldenburg", c:"Germany", d:"trained", src:"ICLR 2026 (Poster), OpenReview xXRqWpt3Xr"},
   {n:"Sungkyunkwan University", c:"South Korea", d:"trained", src:"10.1016/j.asoc.2026.115590"}, {n:"Sejong University", c:"South Korea", d:"trained", src:"10.1016/j.asoc.2026.115590"},
   {n:"Prince Sattam bin Abdulaziz University", c:"Saudi Arabia", d:"trained", src:"10.1016/j.asoc.2026.115590"},
   {n:"Medical University of Innsbruck", c:"Austria", d:"cited", src:"10.1038/s41746-026-03196-y"},
-  {n:"Eurac Research", c:"Italy", d:"trained", p:1},
-  {n:"IIT Kharagpur", c:"India", d:"trained", p:1}, {n:"ASUGI, Azienda Sanitaria Universitaria Giuliano-Isontina, Trieste", c:"Italy", d:"trained", src:"arXiv:2604.04485", p:1},
-  {n:"University of Illinois Urbana-Champaign", c:"United States", d:"trained", p:1},
-  {n:"Meta FAIR (Brain & AI)", c:"France", d:"landmark", p:1, k:"industry"},
-  {n:"École Normale Supérieure", c:"France", d:"landmark", p:1}, {n:"CNRS", c:"France", d:"landmark", p:1},
-  {n:"Inria", c:"France", d:"landmark", p:1},
+  {n:"Eurac Research", c:"Italy", d:"trained", src:"medRxiv 10.64898/2026.07.10.26357749", p:1},
+  {n:"IIT Kharagpur", c:"India", d:"trained", src:"arXiv:2512.22656", p:1}, {n:"ASUGI, Azienda Sanitaria Universitaria Giuliano-Isontina, Trieste", c:"Italy", d:"trained", src:"arXiv:2604.04485", p:1},
+  {n:"University of Illinois Urbana-Champaign", c:"United States", d:"trained", src:["arXiv:2601.22197", "arXiv:2605.09505"], p:1},
+  {n:"Meta FAIR (Brain & AI)", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1, k:"industry"},
+  {n:"École Normale Supérieure", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1}, {n:"CNRS", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1},
+  {n:"Inria", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1},
   {n:"Massachusetts Institute of Technology", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"},
   {n:"Vanderbilt University", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"Emory University", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of California San Francisco", c:"United States", d:"landmark", src:["10.1002/epi.70077", "10.3389/fneur.2026.1863897"]},
   {n:"Thomas Jefferson University", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"University of South Carolina", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
-  {n:"UTHealth Houston", c:"United States", d:"landmark", p:1},
-  {n:"King's College London", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
-  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:"10.1145/3774906.3802787"},
-  {n:"University College London", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
-  {n:"Great Ormond Street Institute of Child Health", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"}, {n:"Great Ormond Street Hospital for Children", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
-  {n:"Tsinghua University", c:"China", d:"landmark", p:1},
-  {n:"VinUniversity", c:"Vietnam", d:"landmark", p:1},
+  {n:"UTHealth Houston", c:"United States", d:"cited", src:"arXiv:2607.21331", p:1},
+  {n:"King's College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"]},
+  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1145/3774906.3802787"]}, {n:"Royal Manchester Children's Hospital", c:"United Kingdom", d:"landmark", src:"engrXiv 7011", p:1},
+  {n:"University College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1097/WCO.0000000000001465"]},
+  {n:"Great Ormond Street Hospital for Children", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
+  {n:"Tsinghua University", c:"China", d:"landmark", src:"engrXiv 7011", p:1},
+  {n:"VinUniversity", c:"Vietnam", d:"landmark", src:"engrXiv 7011", p:1},
   {n:"INAOE", c:"Mexico", d:"landmark", src:"10.1007/s11831-026-10521-x"},
-  {n:"ACCELStars, Inc.", c:"Japan", d:"landmark", src:"10.1093/sleepadvances/zpag054", k:"industry"},
+  {n:"ACCELStars, Inc.", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054", k:"industry"},
   {n:"Johns Hopkins University / APL", c:"United States", d:"cited", src:"10.1038/s41746-026-02970-2"},
   {n:"UCLA", c:"United States", d:"cited", src:"10.1088/1741-2552/ae805d"},
   {n:"Morehouse School of Medicine", c:"United States", d:"cited", src:"10.1212/CONT.0000000000001734"},
-  {n:"University of Chicago", c:"United States", d:"cited", p:1},
-  {n:"Carnegie Mellon University", c:"United States", d:"cited", p:1},
-  {n:"University of Pittsburgh", c:"United States", d:"cited", p:1},
+  {n:"University of Chicago", c:"United States", d:"cited", src:"arXiv:2511.02754", p:1},
+  {n:"Carnegie Mellon University", c:"United States", d:"cited", src:"arXiv:2511.02754", p:1},
+  {n:"University of Pittsburgh", c:"United States", d:"cited", src:"arXiv:2511.02754", p:1},
   {n:"University of Michigan", c:"United States", d:"editorial", src:"10.1093/sleep/zsaf292"},
   {n:"Mayo Clinic", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
   {n:"Boston University", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
@@ -783,7 +784,7 @@ const INSTITUTIONS = [
   {n:"Hoag Medical Group", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
   {n:"Memorial Healthcare (Michigan)", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897"},
   {n:"Eli Lilly and Company", c:"United States", d:"cited", src:"10.3389/fneur.2026.1863897", k:"industry"},
-  {n:"Seoul National University Hospital", c:"South Korea", d:"cited", src:["10.14802/jmd.26098", "10.1038/s41746-026-03101-7"]}, {n:"Gangneung Asan Hospital, University of Ulsan College of Medicine", c:"South Korea", d:"cited", src:"10.14802/jmd.26098"},
+  {n:"Seoul National University Hospital", c:"South Korea", d:"landmark", src:["10.1038/s41746-026-03101-7", "10.14802/jmd.26098"]}, {n:"Gangneung Asan Hospital, University of Ulsan College of Medicine", c:"South Korea", d:"cited", src:"10.14802/jmd.26098"},
   {n:"Politehnica Bucharest", c:"Romania", d:"cited", src:"10.3390/electronics15163537"},
   {n:"Clínica Universidad de Navarra", c:"Spain", d:"cited", src:"10.1016/j.clinph.2026.2111977"},
   {n:"Universidad Politécnica de Madrid", c:"Spain", d:"cited", src:["10.3390/technologies14070403", "10.3390/technologies13110524"]},
@@ -804,13 +805,13 @@ const INSTITUTIONS = [
   {n:"Jilin University", c:"China", d:"cited", src:"10.2147/CIA.S607232"},
   {n:"Hebei North University", c:"China", d:"cited", src:"10.31449/inf.v50i11.12596"},
   {n:"Ningxia Medical University", c:"China", d:"cited", src:"10.1038/s41598-026-63589-7"},
-  {n:"Guangdong Polytechnic Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Dazhou Integrated TCM & Western Medicine Hospital", c:"China", d:"cited", src:"10.3389/fneur.2026.1929036"}, {n:"Chengdu Medical College", c:"China", d:"cited", src:"10.3389/fneur.2026.1929036"}, {n:"Shenzhen Bay Laboratory", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen People’s Hospital", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Harbin Institute of Technology, Shenzhen", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University of Advanced Technology", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"},
+  {n:"Guangdong Polytechnic Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Dazhou Integrated TCM & Western Medicine Hospital", c:"China", d:"cited", src:"10.3389/fneur.2026.1929036"}, {n:"Chengdu Medical College", c:"China", d:"cited", src:"10.3389/fneur.2026.1929036"}, {n:"Shenzhen Bay Laboratory", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen People's Hospital", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Harbin Institute of Technology, Shenzhen", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University of Advanced Technology", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"}, {n:"Shenzhen University", c:"China", d:"cited", src:"10.1080/27706710.2025.2585594"},
   {n:"University of Macau", c:"Macau", d:"cited", src:"10.3390/e27090919"},
   {n:"Dalian University of Technology", c:"China", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"University of Jyväskylä", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"Tampere University", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
-  {n:"International University of Health and Welfare", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
+  {n:"International University of Health and Welfare", c:"Japan", d:"landmark", src:["10.1038/s41746-026-03101-7", "10.1093/sleepadvances/zpag054"]},
 ];
 const CITATIONS = [
   {inst:"Digital Cardiology Lab, University Clinic of Internal Medicine III, Medical University of Innsbruck", geo:"Austria", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-03196-y", url:"https://doi.org/10.1038/s41746-026-03196-y", d:"20260914", t:"Paper"},
@@ -850,7 +851,7 @@ const CITATIONS = [
   {inst:"University Hospital Bern; Aix-Marseille University / INSERM; Duke University Medical Center; University of Melbourne; University of California San Francisco", geo:"Switzerland / France / United States / Australia", cites:["Harvard EEG Database"], doi:"10.1002/epi.70077", url:"https://doi.org/10.1002/epi.70077", d:"20260103", t:"Paper"},
   {inst:"University of Pennsylvania; Vanderbilt University Medical Center; University of South Carolina; Masaryk University / St. Anne's University Hospital Brno; University of Science and Technology of China; Kyoto University; Alfred Health and Monash University; Thomas Jefferson University; University of California San Diego; Emory University; University of Queensland", geo:"United States / Czech Republic / China / Japan / Australia", cites:["Harvard EEG Database"], doi:"10.1002/epi.70168", url:"https://doi.org/10.1002/epi.70168", d:"20260302", t:"Paper"},
   {inst:"University of Pennsylvania; University of California, Los Angeles", geo:"United States", cites:["Harvard EEG Database"], doi:"10.1088/1741-2552/ae805d", url:"https://doi.org/10.1088/1741-2552/ae805d", d:"20260710", t:"Paper"},
-  {inst:"Shenzhen Bay Laboratory; Shenzhen People’s Hospital (First Affiliated Hospital, Southern University of Science and Technology); Harbin Institute of Technology, Shenzhen; Shenzhen University of Advanced Technology; Southern University of Science and Technology; Shenzhen University", geo:"China", cites:["Harvard EEG Database"], doi:"10.1080/27706710.2025.2585594", url:"https://doi.org/10.1080/27706710.2025.2585594", d:"20251126", t:"Paper"},
+  {inst:"Shenzhen Bay Laboratory; Shenzhen People's Hospital (First Affiliated Hospital, Southern University of Science and Technology); Harbin Institute of Technology, Shenzhen; Shenzhen University of Advanced Technology; Southern University of Science and Technology; Shenzhen University", geo:"China", cites:["Harvard EEG Database"], doi:"10.1080/27706710.2025.2585594", url:"https://doi.org/10.1080/27706710.2025.2585594", d:"20251126", t:"Paper"},
   {inst:"Imperial College London; Nokia Bell Labs; Brave Software; University of Cambridge", geo:"United Kingdom", cites:["Harvard–Emory ECG Database"], doi:"10.1145/3774906.3802787", url:"https://doi.org/10.1145/3774906.3802787", d:"20260510", t:"Paper"},
   {inst:"MIT Laboratory for Computational Physiology; Seoul National University Hospital; Seoul National University College of Medicine; Yonsei University College of Medicine; International University of Health and Welfare (Fukuoka); Harvard T.H. Chan School of Public Health; Beth Israel Deaconess Medical Center", geo:"United States / South Korea / Japan", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41746-026-03101-7", url:"https://doi.org/10.1038/s41746-026-03101-7", d:"20260807", t:"Paper"},
   {inst:"Sun Yat-Sen University", geo:"China", cites:["Harvard–Emory ECG Database"], doi:"10.1038/s41467-026-72436-2", url:"https://doi.org/10.1038/s41467-026-72436-2", d:"20260427", t:"Paper"},
@@ -1188,7 +1189,7 @@ const CITATIONS = [
       '<td style="min-width:190px">'+esc(x.inst)+'<span class="row-m">'+esc(x.geo)+'</span></td>'+
       '<td>'+[].concat(x.cites).map(function(c){ return '<span class="chip">'+esc(c.w)+'</span>'; }).join(' ')+'</td>'+
  '<td>'+[].concat(x.cites).map(function(c){ return '<span class="chip">'+esc(c.t)+'</span>'; }).join(' ')+'</td>'+
-      '<td class="c-date">'+fmtDate(String(x.d))+'</td>'+
+      '<td class="c-date">'+esc(x.posted || fmtDate(String(x.d)))+'</td>'+
       '<td class="c-doi"><a href="'+x.url+'" target="_blank" rel="noopener">'+esc(x.id)+'</a></td></tr>'; }).join('');
   }
   paintPre();
