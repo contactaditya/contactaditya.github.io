@@ -37,39 +37,6 @@ th.sortable,th.dsort,th.psort,th.prsort,th.nsort,th.esort{padding:0}
 .jump a:hover{color:var(--ink);background:var(--hover)}
 .jump a.here{color:var(--indigo);border-bottom-color:var(--indigo)}
 .sec{scroll-margin-top:56px}
-@media print{
-  /* The page is meant to be printable evidence, so force the light palette
-     regardless of the stored theme: a dark selection plus a browser that drops
-     backgrounds leaves pale text on white paper. */
-  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
-    --paper:#fff;--card:#fff;--ink:#000;--indigo:#1a2a6b;--rust:#7a3820;
-    --grey:#444;--rule:#bbb;--rule2:#999;--hover:#fff;--shade:rgba(0,0,0,.2)}
-  html,body{background:#fff!important;color:#000!important}
-  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  /* Interactive controls carry no meaning on paper. */
-  .jump,#theme,.theme-btn,.filters,.fbtn,.pre-filters,#models-filters,#uses-filters,
-  #pre-filters,.sarr,.meth-link{display:none!important}
-  /* Sortable headers keep their text; the button is just a control. */
-  .th-btn{padding:0!important;cursor:auto}
-  /* Wide tables must print in full rather than clipping at the scroll edge. */
-  .tbl-wrap,.mtab-wrap{overflow:visible!important}
-  table{width:100%!important;table-layout:auto}
-  /* Source lists are collapsed on screen; open them so the provenance prints. */
-  details.isrcs{display:inline}
-  details.isrcs>summary{display:none}
-  details.isrcs ul{display:inline;padding:0;margin:0}
-  details.isrcs li{display:inline;margin-right:6px;list-style:none}
-  /* Denser type for the wide evidence tables. */
-  body{font-size:9.5pt;line-height:1.4}
-  table,.mtab{font-size:8pt}
-  .inst{font-size:8.5pt;break-inside:avoid}
-  section{break-inside:auto}
-  h2{break-after:avoid}
-  tr,.row,.use{break-inside:avoid}
-  /* Link targets are the evidence; print them after the text. */
-  a[href^="http"]::after{content:" (" attr(href) ")";font-size:7pt;color:#444;word-break:break-all}
-  .jsrc a::after,.isrc::after,nav a::after{content:""}
-}
 .sec-head.sub{margin-top:26px}
 .sec-head.sub h3{font-size:1.05rem;margin:0}
 
@@ -226,7 +193,46 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 .wrap,.mast-in{padding-left:18px;padding-right:18px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 :focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
-.isrcs{display:inline-block;margin-left:6px}.isrcs summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.5;white-space:nowrap;transition:opacity .15s}.isrcs summary::-webkit-details-marker{display:none}.isrcs summary::after{content:"\25be";margin-left:3px;display:inline-block;transition:transform .15s}.isrcs summary:hover{opacity:.85}.isrcs[open] summary::after{transform:rotate(180deg)}.isrcs[open] summary{opacity:.85}.isrcs ul{list-style:none;margin:4px 0 2px;padding:0 0 0 9px;border-left:1px solid var(--rule2)}.isrcs li{margin:2px 0}.isrcs li a{font-family:var(--mono);font-size:9.5px;opacity:.6;letter-spacing:0;text-transform:none}.isrcs li a:hover{opacity:1}</style>
+.isrcs{display:inline-block;margin-left:6px}.isrcs summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.5;white-space:nowrap;transition:opacity .15s}.isrcs summary::-webkit-details-marker{display:none}.isrcs summary::after{content:"\25be";margin-left:3px;display:inline-block;transition:transform .15s}.isrcs summary:hover{opacity:.85}.isrcs[open] summary::after{transform:rotate(180deg)}.isrcs[open] summary{opacity:.85}.isrcs ul{list-style:none;margin:4px 0 2px;padding:0 0 0 9px;border-left:1px solid var(--rule2)}.isrcs li{margin:2px 0}.isrcs li a{font-family:var(--mono);font-size:9.5px;opacity:.6;letter-spacing:0;text-transform:none}.isrcs li a:hover{opacity:1}
+/* Print rules last: media queries add no specificity, so these must come after
+   the dark-theme declarations to override them. */
+@media print{
+  /* The page is meant to be printable evidence, so force the light palette
+     regardless of the stored theme: a dark selection plus a browser that drops
+     backgrounds leaves pale text on white paper. */
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+    --paper:#fff;--card:#fff;--ink:#000;--indigo:#1a2a6b;--rust:#7a3820;
+    --grey:#444;--rule:#bbb;--rule2:#999;--hover:#fff;--shade:rgba(0,0,0,.2)}
+  html,body{background:#fff!important;color:#000!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* Interactive controls carry no meaning on paper. */
+  .jump,#theme,.theme-btn,.filters,.fbtn,.pre-filters,#models-filters,#uses-filters,
+  #pre-filters,.sarr,.meth-link{display:none!important}
+  /* Sortable headers keep their text; the button is just a control. */
+  .th-btn{padding:0!important;cursor:auto}
+  /* Wide tables must print in full rather than clipping at the scroll edge. */
+  .tbl-wrap,.mtab-wrap{overflow:visible!important}
+  table{width:100%!important;table-layout:auto}
+  /* Source lists are collapsed on screen; open them so the provenance prints. */
+  details.isrcs{display:inline}
+  details.isrcs>summary{display:none}
+  details.isrcs ul{display:inline;padding:0;margin:0}
+  details.isrcs li{display:inline;margin-right:6px;list-style:none}
+  /* Denser type for the wide evidence tables. */
+  body{font-size:9.5pt;line-height:1.4}
+  table,.mtab{font-size:8pt}
+  .inst{font-size:8.5pt;break-inside:avoid}
+  section{break-inside:auto}
+  h2{break-after:avoid}
+  tr,.row,.use{break-inside:avoid}
+  /* Nowrap keeps DOIs, dates and chips on one line on screen, where a table can
+     scroll. Paper cannot scroll, so let them wrap rather than clip. */
+  .c-doi a,.row-d,.c-geo,.chip{white-space:normal!important;word-break:break-word}
+  /* Link targets are the evidence; print them after the text. */
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:7pt;color:#444;word-break:break-all}
+  .jsrc a::after,.isrc::after,nav a::after{content:""}
+}
+</style>
 </head>
 <body>
 <header class="mast"><button id="theme" type="button" aria-label="Switch color theme">Dark</button><div class="mast-in">
