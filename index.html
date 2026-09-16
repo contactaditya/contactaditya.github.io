@@ -256,7 +256,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="rows" id="ed-list"></div></section>
 
 <section class="sec" id="preprints"><div class="sec-head"><h2>Preprints citing or using the work</h2><span class="n" id="n-pre"></span></div>
-<p class="lede">Not peer-reviewed, and kept separate from the citations table for that reason. Several are substantial uses rather than citations, noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
+<p class="lede">Works whose citable record here remains a preprint, kept separate from the peer-reviewed citations table. Most have not undergone peer review; where a preprint has also been accepted to a peer-reviewed non-archival workshop, that status is noted. Several are substantial uses rather than citations, noted per row. Rows marked <em>shared authorship</em> come from groups I have co-authored with.</p>
 <div class="filters" id="pre-filters"></div>
 <div class="tbl-wrap"><table><thead><tr><th class="prsort" data-k="w"><button type="button" class="th-btn">Preprint</button></th><th>Authors' institutions</th><th class="prsort" data-k="cites"><button type="button" class="th-btn">Cites / uses</button></th><th class="prsort" data-k="kind"><button type="button" class="th-btn">Cites as</button></th><th class="prsort" data-k="d"><button type="button" class="th-btn">Posted <span class="sarr" id="pre-arr">▾</span></button></th><th>Identifier</th></tr></thead><tbody id="pre-body"></tbody></table></div></section>
 
@@ -373,9 +373,9 @@ const MODELS = [
   {data:"Harvard–Emory ECG Database", scale:"10.7 million records", model:"ECG-CPC",
    murl:"https://openreview.net/forum?id=xXRqWpt3Xr", by:"Carl von Ossietzky Universität Oldenburg",
    venue:"ICLR 2026", note:"The ECG-CPC authors report that it dominated 5 of 7 task categories at 3.8M parameters, the smallest of the eight. BenchECG subsequently evaluated ECG-CPC independently in npj Digital Medicine and identifies HEEDB as its pretraining dataset", shared:false},
-  {data:"Harvard EEG Database", scale:"12,290 reports from 10,886 patients",
+  {data:"Harvard EEG Database", scale:"9,922 reports from 9,048 patients",
    model:"CELM", murl:"https://arxiv.org/abs/2601.22197",
-   by:"University of Illinois Urbana-Champaign", venue:"Preprint, arXiv",
+   by:"University of Illinois Urbana-Champaign; SANKEN, Osaka University", venue:"ICLR 2026 Workshop, non-archival; arXiv",
    note:"Clinical EEG-to-language foundation model", shared:false},
   {data:"BIND", scale:"One of the principal evaluation cohorts",
    model:"Neuro-JEPA", murl:"https://arxiv.org/abs/2606.14957",
@@ -513,9 +513,9 @@ const USES = [
   {ds:"Harvard EEG Database", by:"NeuroLex - Korea University",
    what:"Trained exclusively on report text from this database - approximately 70,000 EEG reports and 800,000 paragraphs - to build a domain language model for clinical EEG reporting.",
    where:"IEEE, 2026", doi:"", url:"https://ieeexplore.ieee.org/document/11435041", dep:false},
-  {ds:"Harvard EEG Database", by:"CELM - University of Illinois Urbana-Champaign",
-   what:"12,290 curated clinical EEG reports from 10,886 patients used to build an EEG-to-language foundation model; the repository is acknowledged by name in the project's own materials.",
-   where:"Preprint, arXiv", doi:"", url:"https://arxiv.org/abs/2601.22197", dep:false},
+  {ds:"Harvard EEG Database", by:"CELM - University of Illinois Urbana-Champaign, SANKEN Osaka University",
+   what:"The paper describes the source database as approximately 10,000 clinical reports from 10,886 patients across multiple hospital sites. After filtering to single-session routine and monitoring visits, 9,922 reports from 9,048 patients were retained for training and evaluation: 5,049 from 4,669 patients at site S0001 and 4,873 from 4,379 at S0002, paired with about 11,000 hours of recording.",
+   where:"ICLR 2026 Workshop, non-archival; arXiv", doi:"", url:"https://arxiv.org/abs/2601.22197", dep:false},
   {ds:"Harvard EEG Database", by:"MORGOTH 1.0",
    what:"An EEG foundation model pre-trained on 14,500 patients from v4.1. The platform records the derivation structurally: the release page carries a Parent Projects field stating the model was derived from this database.",
    where:"The Lancet Digital Health, 2026", doi:"10.1016/j.landig.2026.101039", url:"https://doi.org/10.1016/j.landig.2026.101039", dep:true},
@@ -539,8 +539,12 @@ const USES = [
    where:"Sleep, 2026", doi:"10.1093/sleep/zsag064", dep:true},
 ];
 
-/* Preprints that cite or use the work. Not peer-reviewed; kept separate from CITATIONS on
-   purpose. Move a row into CITATIONS when it publishes.
+/* Preprints that cite or use the work, kept separate from CITATIONS on purpose.
+
+   TIER RULE. Full archival publication, a journal paper or a main conference track, moves a
+   row into CITATIONS. A non-archival workshop acceptance does not: the workshop has no
+   proceedings, so the citable record stays the preprint. Disclose the workshop status in
+   the row rather than implying the work is unreviewed. CELM is the only such row today.
 
    DATES. For exact-date entries, `d` is the FIRST-PUBLIC date: the v1 posting, not a later
    revision, not the acceptance date, not
@@ -612,8 +616,8 @@ const PREPRINTS = [
    cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Cited with the Human Connectome Project, TUH EEG Corpus, Cam-CAN and Individual Brain Charting as the large-scale public datasets reshaping the field",
    id:"arXiv:2605.08495", url:"https://arxiv.org/abs/2605.08495", posted:"8 May 2026", dep:false},
   {d:20260129, w:"CELM, Neural Signals Generate Clinical Notes in the Wild",
-   inst:"University of Illinois Urbana-Champaign", geo:"United States",
-   cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"12,290 curated clinical EEG reports from 10,886 patients; the repository is acknowledged by name",
+   inst:"University of Illinois Urbana-Champaign · SANKEN, Osaka University", geo:"United States / Japan",
+   cites:[{w:"Harvard EEG Database", t:"Dataset"}], how:"Accepted at the ICLR 2026 Workshop on Multimodal Intelligence, peer-reviewed but non-archival, so the citable record remains the arXiv preprint. 9,922 reports from 9,048 patients retained after filtering, with approximately 11,000 hours of recording; the repository is acknowledged by name",
    id:"arXiv:2601.22197", url:"https://arxiv.org/abs/2601.22197", posted:"29 Jan 2026", dep:false},
   {d:20260510, w:"EpiGraph, epilepsy knowledge graph and benchmark",
    inst:"University of Illinois Urbana-Champaign · Florida State University · University of Osaka", geo:"United States / Japan",
@@ -837,7 +841,7 @@ const INSTITUTIONS = [
   {n:"University of South Carolina", c:"United States", d:"landmark", src:"10.1002/epi.70168"},
   {n:"UTHealth Houston", c:"United States", d:"cited", src:"arXiv:2607.21331", p:1},
   {n:"King's College London", c:"United Kingdom", d:"landmark", src:["medRxiv 10.64898/2026.07.03.26357250", "engrXiv 7011", "10.1097/WCO.0000000000001465"]},
-  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1145/3774906.3802787"], p:1}, {n:"Royal Manchester Children's Hospital", c:"United Kingdom", d:"landmark", src:"engrXiv 7011", p:1}, {n:"Simon Fraser University", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"Royal Columbian Hospital, Fraser Health Authority", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"National Research Council of Canada", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"King's College Hospital NHS Foundation Trust", c:"United Kingdom", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"University College London Hospitals NHS Foundation Trust", c:"United Kingdom", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"BC Children's Hospital (Research Institute)", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1},
+  {n:"Imperial College London", c:"United Kingdom", d:"landmark", src:["engrXiv 7011", "10.1145/3774906.3802787"], p:1}, {n:"Manchester University NHS Foundation Trust (Royal Manchester Children's Hospital)", c:"United Kingdom", d:"landmark", src:"engrXiv 7011", p:1}, {n:"Simon Fraser University", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"Royal Columbian Hospital, Fraser Health Authority", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"National Research Council of Canada", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"King's College Hospital NHS Foundation Trust", c:"United Kingdom", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"University College London Hospitals NHS Foundation Trust", c:"United Kingdom", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1}, {n:"BC Children's Hospital (Research Institute)", c:"Canada", d:"landmark", src:"medRxiv 10.64898/2026.07.03.26357250", p:1},
   {n:"University College London", c:"United Kingdom", d:"landmark", src:["medRxiv 10.64898/2026.07.03.26357250", "engrXiv 7011", "10.1097/WCO.0000000000001465"]},
   {n:"Great Ormond Street Hospital for Children", c:"United Kingdom", d:"landmark", src:"10.1097/WCO.0000000000001465"},
   {n:"Tsinghua University", c:"China", d:"landmark", src:"engrXiv 7011", p:1},
@@ -885,7 +889,7 @@ const INSTITUTIONS = [
   {n:"Dalian University of Technology", c:"China", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"University of Jyväskylä", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
   {n:"Tampere University", c:"Finland", d:"cited", src:"10.1109/ICASSP55912.2026.11462444"},
-  {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Kurume University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Nanjing University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Montreal Heart Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Mila–Québec AI Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Université de Montréal", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Fondation Rothschild", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1}, {n:"Florida State University", c:"United States", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"University of Osaka", c:"Japan", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"Technical University of Denmark", c:"Denmark", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Politecnico di Torino", c:"Italy", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Martinsburg VA Medical Center", c:"United States", d:"editorial", src:"10.1212/CPJ.0000000000200247"}, {n:"Zhuhai UM Science and Technology Research Institute", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Neijiang Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"University of Electronic Science and Technology of China", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Northwest Minzu University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"German Sleep Society (DGSM e.V.)", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"}, {n:"Beth Israel Deaconess Medical Center", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"}, {n:"108 Military Central Hospital, Hanoi", c:"Vietnam", d:"cited", src:"10.56651/lqdtu.jst.v14.n02.1112.ict"}, {n:"The University of Tokyo", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Juntendo University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
+  {n:"Toranomon Hospital", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Kurume University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Nanjing University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Montreal Heart Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Mila–Québec AI Institute", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Université de Montréal", c:"Canada", d:"trained", src:"medRxiv 10.64898/2026.07.22.26358591", p:1}, {n:"Fondation Rothschild", c:"France", d:"landmark", src:"arXiv:2605.08495", p:1}, {n:"Florida State University", c:"United States", d:"trained", src:"arXiv:2605.09505", p:1}, {n:"University of Osaka", c:"Japan", d:"trained", src:["arXiv:2601.22197", "arXiv:2605.09505"], p:1}, {n:"Technical University of Denmark", c:"Denmark", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Politecnico di Torino", c:"Italy", d:"editorial", src:"10.1093/sleep/zsaf147"}, {n:"Martinsburg VA Medical Center", c:"United States", d:"editorial", src:"10.1212/CPJ.0000000000200247"}, {n:"Zhuhai UM Science and Technology Research Institute", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Neijiang Normal University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"University of Electronic Science and Technology of China", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"Northwest Minzu University", c:"China", d:"cited", src:"10.3390/e27090919"}, {n:"German Sleep Society (DGSM e.V.)", c:"Germany", d:"cited", src:"10.1007/s40675-026-00396-6"}, {n:"Beth Israel Deaconess Medical Center", c:"United States", d:"landmark", src:"10.1038/s41746-026-03101-7"}, {n:"108 Military Central Hospital, Hanoi", c:"Vietnam", d:"cited", src:"10.56651/lqdtu.jst.v14.n02.1112.ict"}, {n:"The University of Tokyo", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"}, {n:"Juntendo University", c:"Japan", d:"cited", src:"10.1093/sleepadvances/zpag054"},
   {n:"International University of Health and Welfare", c:"Japan", d:"landmark", src:"10.1038/s41746-026-03101-7"},
 ];
 const CITATIONS = [
