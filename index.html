@@ -588,7 +588,7 @@ const PREPRINTS = [
   {d:20260512, w:"Pretraining Strategies and Scaling for ECG Foundation Models", inst:"AI4Health Division, Carl von Ossietzky Universität Oldenburg", geo:"Germany", cites:[{w:"Harvard–Emory ECG Database", t:"Paper and dataset"}], how:"9,922,934 HEEDB + 950,441 HEEDB-Emory samples, ~97% of the 11M pre-training corpus", id:"arXiv:2605.12241", url:"https://arxiv.org/abs/2605.12241", posted:"12 May 2026", dep:false},
 
   {d:20260901, w:"Temporally constraining source imaging estimates in an underdetermined neural system with eigenmodes of cortical geometry", inst:"University of Melbourne; Graeme Clark Institute; Grenoble Institut des Neurosciences / INSERM; St Vincent's Hospital, Melbourne", geo:"Australia / France", cites:[{w:"Harvard EEG Database", t:"Paper"}], how:"Cites the Harvard Electroencephalography Database alongside the Human Connectome Project as the large multimodal neuroimaging datasets that could supply population-level transfer functions for EEG source imaging", id:"arXiv:2609.00809", url:"https://arxiv.org/abs/2609.00809", posted:"1 Sep 2026", dep:false},
-  {d:20260901, w:"The DYNAM-O Toolbox: Characterizing Individualized Neural Signatures in Sleep EEG", inst:"Brigham and Women's Hospital; Harvard Medical School; Stanford School of Medicine; Stanford University", geo:"United States", cites:[{w:"Human Sleep Project", t:"Paper"}, {w:"Brain health from sleep EEG", t:"Paper"}], how:"Cites the Human Sleep Project among the major polysomnography repositories that have created the need for automated sleep-EEG analysis, and separately cites the NEJM AI sleep-EEG biomarker study among deep-learning methods predicting health outcomes", id:"bioRxiv:2026.08.26.747401", url:"https://doi.org/10.64898/2026.08.26.747401", posted:"1 Sep 2026", dep:false},
+  {d:20260901, w:"The DYNAM-O Toolbox: Characterizing Individualized Neural Signatures in Sleep EEG", inst:"Brigham and Women's Hospital; Harvard Medical School; Stanford School of Medicine; Stanford University", geo:"United States", cites:[{w:"Human Sleep Project", t:"Paper"}, {w:"Brain health from sleep EEG", t:"Paper"}], how:"Cites the Human Sleep Project among the major polysomnography repositories that have created the need for automated sleep-EEG analysis, and separately cites the NEJM AI sleep-EEG biomarker study among deep-learning methods predicting health outcomes", id:"10.64898/2026.08.26.747401", url:"https://doi.org/10.64898/2026.08.26.747401", posted:"1 Sep 2026", dep:false},
   {d:20260706, w:"ImputeECG, Deep Learning Reconstruction of Complete 12-Lead Electrocardiograms",
    inst:"Peking University; Peking University Health Science Center; Tianjin University of Technology; University of the Chinese Academy of Sciences", geo:"China",
    cites:[{w:"Harvard–Emory ECG Database", t:"Paper"}],
@@ -800,7 +800,7 @@ const INSTITUTIONS = [
   {n:"University of Cambridge", c:"United Kingdom", d:"cited", src:"10.1145/3774906.3802787"},
   {n:"Seoul National University", c:"South Korea", d:"landmark", src:["10.1038/s41746-026-03101-7", "10.14802/jmd.26098"]},
   {n:"Yonsei University", c:"South Korea", d:"landmark", src:"10.1038/s41746-026-03101-7"},
-  {n:"Harvard University", c:"United States", d:"trained", src:["arXiv:2511.02754", "bioRxiv:2026.08.26.747401", "10.1038/s41746-026-03101-7"], p:1},
+  {n:"Harvard University", c:"United States", d:"landmark", src:["arXiv:2511.02754", "10.64898/2026.08.26.747401", "10.1038/s41746-026-03101-7"]},
   {n:"Ottawa Hospital Research Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"University of Ottawa Heart Institute", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
   {n:"The Ottawa Hospital", c:"Canada", d:"cited", src:"10.1161/JAHA.125.046964"},
@@ -819,7 +819,7 @@ const INSTITUTIONS = [
   {n:"Geneva University Hospitals", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"Kantonsspital Winterthur", c:"Switzerland", d:"cited", src:"10.3390/make8080248"},
   {n:"University of Pennsylvania", c:"United States", d:"trained", src:["arXiv:2602.15677", "10.1002/epi.70168", "10.1088/1741-2552/ae805d"], p:1},
-  {n:"Brigham and Women's Hospital", c:"United States", d:"cited", src:["10.64898/2026.08.26.747401", "arXiv:2511.02754"], p:1}, {n:"Stanford University", c:"United States", d:"trained", src:["bioRxiv:2026.08.26.747401", "10.1016/j.ncl.2026.07.015"], p:1}, {n:"Alphabet Inc. (Google for Health; Platforms and Devices)", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"NYU Langone Health", c:"United States", d:"trained", src:"arXiv:2606.14957", p:1},
+  {n:"Brigham and Women's Hospital", c:"United States", d:"cited", src:["10.64898/2026.08.26.747401", "arXiv:2511.02754"], p:1}, {n:"Stanford University", c:"United States", d:"cited", src:["10.64898/2026.08.26.747401", "10.1016/j.ncl.2026.07.015"]}, {n:"Alphabet Inc. (Google for Health; Platforms and Devices)", c:"United States", d:"cited", src:"10.1016/j.ncl.2026.07.015", k:"industry"}, {n:"NYU Langone Health", c:"United States", d:"trained", src:"arXiv:2606.14957", p:1},
   {n:"Korea University", c:"South Korea", d:"trained", src:"10.1109/BCI69045.2026.11435041"},
   {n:"Sun Yat-Sen University", c:"China", d:"trained", src:"10.1038/s41467-026-72436-2"},
   {n:"Carl von Ossietzky Universität Oldenburg", c:"Germany", d:"trained", src:["arXiv:2605.12241", "ICLR 2026 (Poster), OpenReview xXRqWpt3Xr"]},
@@ -1013,10 +1013,18 @@ const CITATIONS = [
   // This is authoritative: institution cards and the preprint badge are checked
   // against it, rather than inferred from whichever card happens to have a single
   // source. Add a line here whenever a work is added.
+  // One work can be cited under more than one identifier: an arXiv number and a
+  // DOI, a preprint server prefix and the bare DOI. Every identifier resolves
+  // through canonicalId() before anything looks it up, so the same work cannot
+  // carry two designations. Add a line here when a work acquires a second form.
+  var ID_ALIASES = {
+    'bioRxiv:2026.08.26.747401': '10.64898/2026.08.26.747401'
+  };
+  function canonicalId(v){ return ID_ALIASES[v] || v; }
+
   var WORK_DESIGNATIONS = {
     "arXiv:2605.12241": "trained",
     "arXiv:2602.17531": "cited",
-    "bioRxiv:2026.08.26.747401": "trained",
     "medRxiv 10.64898/2026.07.03.26357250": "landmark",
     "10.1002/epi.70077": "landmark",
     "10.1002/epi.70168": "landmark",
@@ -1236,6 +1244,7 @@ const CITATIONS = [
   function srcURL(v){
     if(!v) return '';
     v = String(v).trim();
+    v = canonicalId(v);
     if (/^https?:\/\//.test(v))            return v;
     if (/^10\./.test(v))                   return 'https://doi.org/' + v;
     if (/^arXiv:/i.test(v))                return 'https://arxiv.org/abs/' + v.replace(/^arXiv:/i,'');
@@ -1259,7 +1268,7 @@ const CITATIONS = [
     var workDes = WORK_DESIGNATIONS;
     var bad = [];
     INSTITUTIONS.forEach(function(x){
-      var s = [].concat(x.src || []);
+      var s = [].concat(x.src || []).map(canonicalId);
       var best = s.filter(function(v){ return archival[v]; })
                   .map(function(v){ return workDes[v]; })
                   .filter(Boolean)
@@ -1271,7 +1280,7 @@ const CITATIONS = [
     // Every card must equal the strongest designation its own sources justify,
     // and every source an institution cites must exist in the map.
     INSTITUTIONS.forEach(function(x){
-      var s = [].concat(x.src || []);
+      var s = [].concat(x.src || []).map(canonicalId);
       s.forEach(function(v){
         if (!WORK_DESIGNATIONS[v]) bad.push(x.n + ': source not in WORK_DESIGNATIONS: ' + v);
       });
@@ -1279,6 +1288,13 @@ const CITATIONS = [
                   .filter(Boolean)
                   .sort(function(a,b){ return RANK[a]-RANK[b]; })[0];
       if (best && best !== x.d) bad.push(x.n + ': shows ' + x.d + ', sources justify ' + best);
+    });
+    // No two identifiers for the same work may carry different designations.
+    Object.keys(ID_ALIASES).forEach(function(alias){
+      var canon = ID_ALIASES[alias];
+      if (WORK_DESIGNATIONS[alias] && WORK_DESIGNATIONS[alias] !== WORK_DESIGNATIONS[canon])
+        bad.push('alias ' + alias + ' designated ' + WORK_DESIGNATIONS[alias] +
+                 ' but ' + canon + ' is ' + WORK_DESIGNATIONS[canon]);
     });
     if (bad.length) console.warn('designation audit:', bad);
   })();
