@@ -1,0 +1,27 @@
+name: Verify prerender
+
+# index.html stores the evidence twice: as data arrays, and as static markup
+# pre-rendered from them so the page reads without JavaScript. Editing an array
+# without running `node prerender.js` leaves the static copy stale, and the
+# staleness is invisible in a browser because the page repaints on load.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node prerender.js --check
+
+      # Shows whether the data edit was wrong or the re-render was forgotten.
+      - name: Diff a re-render would produce
+        if: failure()
+        run: |
+          node prerender.js || true
+          git --no-pager diff
