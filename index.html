@@ -277,7 +277,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 
 <section class="sec" id="institutions"><div class="sec-head"><h2>Institutions independently citing, using, or assessing the work</h2><span class="n" id="n-inst"></span></div>
 <p class="lede">Named institutions represented in qualifying works with no shared authorship. The count is of distinct organizationally independent institutions named in the author affiliations of those works; internal subunits are folded into their parent institution, as set out in the <a href="#method">method</a>. Depth of engagement is marked: some trained, tuned, validated, benchmarked, or evaluated models using the data, some named it among the field’s key resources, some wrote invited editorials assessing the work, and some cite it as prior work.</p>
-<div class="legend"><span><i class="dot trained"></i>Documented downstream use: trained, tuned, validated, benchmarked, or evaluated using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work not yet peer-reviewed</span></div>
+<div class="legend"><span><i class="dot trained"></i>Documented downstream use: trained, tuned, validated, benchmarked, or evaluated using the data</span><span><i class="dot landmark"></i>Named it a landmark or key resource</span><span><i class="dot editorial"></i>Wrote an invited editorial on the work</span><span><i class="dot cited"></i>Cited as prior work</span><span style="color:var(--rust)">· preprint = the strongest relationship shown rests on a work whose citable record here remains a preprint</span></div>
 <div class="inst-grid" id="inst-grid"></div>
 
 <div class="sec-head sub"><h3 id="industry">Industry</h3><span class="n" id="n-ind"></span></div>
@@ -285,7 +285,7 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <div class="inst-grid" id="ind-grid"></div>
 
 <div class="sec-head sub"><h3 id="us">U.S. institutions</h3><span class="n" id="n-us"></span></div>
-<p class="lede">The domestic subset, drawn from the same list above and counted in the same total. The <em>preprint</em> marker means that the institution’s strongest relationship shown here rests on work that has not yet been peer-reviewed.</p>
+<p class="lede">The domestic subset, drawn from the same list above and counted in the same total. The <em>preprint</em> marker means that the institution’s strongest relationship shown here rests on a work whose citable record here remains a preprint.</p>
 <div class="inst-grid" id="us-grid"></div></section>
 
 <section class="sec" id="publications"><div class="sec-head"><h2>Publications</h2><span class="n" id="n-pubs"></span></div>
@@ -1242,26 +1242,29 @@ const CITATIONS = [
     if (/^engrXiv\s+(\S+)/i.test(v))       return 'https://engrxiv.org/preprint/view/' + /^engrXiv\s+(\S+)/i.exec(v)[1];
     return '';
   }
-// The preprint badge is not a free-standing flag: it must mean that no
-  // peer-reviewed source justifies the designation being displayed. This derives
-  // each source's work-level designation from the data and checks every card.
-  // It logs rather than throws, so a bad flag is visible without breaking the page.
+// The preprint badge is not a free-standing flag: it must mean that no ARCHIVALLY
+  // PUBLISHED source justifies the designation being displayed. Archival, not
+  // peer-reviewed, is the test: CELM is reviewed at a non-archival workshop and
+  // still belongs to the preprint tier, so its citable record is the arXiv entry.
+  // This derives each source's work-level designation from the data and checks
+  // every card. It logs rather than throws, so a bad flag is visible without
+  // breaking the page.
   (function auditPreprintBadge(){
     var RANK = {trained:0, landmark:1, editorial:2, cited:3};
-    var peer = {};
-    CITATIONS.forEach(function(c){ peer[c.doi] = true; });
-    EDITORIALS.forEach(function(e){ peer[e.doi] = true; });
+    var archival = {};
+    CITATIONS.forEach(function(c){ archival[c.doi] = true; });
+    EDITORIALS.forEach(function(e){ archival[e.doi] = true; });
     var workDes = WORK_DESIGNATIONS;
     var bad = [];
     INSTITUTIONS.forEach(function(x){
       var s = [].concat(x.src || []);
-      var best = s.filter(function(v){ return peer[v]; })
+      var best = s.filter(function(v){ return archival[v]; })
                   .map(function(v){ return workDes[v]; })
                   .filter(Boolean)
                   .sort(function(a,b){ return RANK[a]-RANK[b]; })[0];
       var justified = best && RANK[best] <= RANK[x.d];
-      if (justified && x.p) bad.push(x.n + ': badged, but ' + best + ' is peer-reviewed');
-      if (!justified && !x.p) bad.push(x.n + ': unbadged, but no peer-reviewed source reaches ' + x.d);
+      if (justified && x.p) bad.push(x.n + ': badged, but ' + best + ' comes from an archivally published work');
+      if (!justified && !x.p) bad.push(x.n + ': unbadged, but no archivally published source reaches ' + x.d);
     });
     // Every card must equal the strongest designation its own sources justify,
     // and every source an institution cites must exist in the map.
