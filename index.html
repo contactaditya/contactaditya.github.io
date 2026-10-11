@@ -36,16 +36,9 @@ th.sortable,th.dsort,th.psort,th.prsort,th.nsort,th.esort{padding:0}
 .jump-in > a:last-child{margin-right:auto}
 .jump a{flex:0 0 auto;padding:9px 10px;font-family:var(--cond);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--grey);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
 .jump a:hover{color:var(--ink);background:var(--hover)}
-  /* Group labels in the jump bar. Not links: they name the three questions the
-     sections answer. The bar already scrolls horizontally, so these add width
-     rather than height and the sticky bar keeps its single-row height. */
-  .jump-g{flex:0 0 auto;padding:9px 9px 9px 13px;font-family:var(--cond);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--ink);opacity:.5;white-space:nowrap;border-left:1px solid var(--rule)}
-  .jump-g:first-child{border-left:0;padding-left:0}
-  /* Grouping costs width: the bar is 1638px against a 1180px wrap, so without
-     wrapping the last links sit off-screen behind a scrollbar that
-     scrollbar-width:none hides. Wrap on desktop so every link is visible.
-     Below 900px the bar stays one scrolling row, because wrapping there makes
-     a 271px sticky header on a phone. */
+  /* Fifteen links measure 1420px against the 1180px wrap, and the bar hides its
+     scrollbar, so on one row the last link ("Contact") is unreachable. Wrap to a
+     second row from 900px up; below that the bar is a deliberate scroller. */
   @media (min-width:900px){.jump-in{flex-wrap:wrap;gap:0 2px}}
 .jump a.here{color:var(--indigo);border-bottom-color:var(--indigo)}
 .sec{scroll-margin-top:56px}
@@ -304,11 +297,9 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <p class="meth-link"><a href="#method">Method and counting rules</a></p>
 </div></header>
 <nav class="jump" aria-label="Section navigation"><div class="jump-in">
-<span class="jump-g">My work</span>
 <a href="#pipeline">Engineering</a>
 <a href="#datasets">Datasets</a>
 <a href="#publications">Publications</a>
-<span class="jump-g">Adoption and impact</span>
 <a href="#adoption">Highlights</a>
 <a href="#models">Models</a>
 <a href="#uses">Uses</a>
@@ -316,12 +307,9 @@ footer p{font-family:var(--mono);font-size:11.5px;color:var(--grey);margin:0}
 <a href="#citations">Citations</a>
 <a href="#nature">Nature</a>
 <a href="#institutions">Institutions</a>
-<span class="jump-g">Supporting evidence</span>
 <a href="#funding">Funding</a>
 <a href="#hosting">Listings</a>
 <a href="#preprints">Preprints</a>
-<a href="#method">Method</a>
-<a href="#contact">Contact</a>
 </div></nav>
 <main class="wrap">
 <section class="sec" id="adoption"><div class="sec-head"><h2>Selected downstream research uses and an international research challenge</h2><span class="n">Selected examples</span></div>
