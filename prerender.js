@@ -27,12 +27,12 @@ const CHECK_ONLY = process.argv.includes('--check');
 // Enough of a document for the page's renderers to run under Node. Each
 // getElementById returns a recording node; nothing is laid out or displayed.
 function makeStub() {
-  const html = {}, text = {}, nodes = {};
+  const html = {}, text = {}, staticText = {}, nodes = {};
   const node = id => ({
     set innerHTML(v) { html[id] = v; },
     get innerHTML() { return html[id] || ''; },
     set textContent(v) { text[id] = v; },
-    get textContent() { return text[id] || ''; },
+    get textContent() { return text[id] || staticText[id] || ''; },
     style: {}, className: '',
     setAttribute() {}, getAttribute() { return null; }, appendChild() {},
     querySelector() { return null; }, querySelectorAll() { return []; },
@@ -43,7 +43,7 @@ function makeStub() {
   });
   const get = id => (nodes[id] = nodes[id] || node(id));
   return {
-    html, text,
+    html, text, staticText,
     document: {
       getElementById: get,
       querySelector: () => get('_q'),
@@ -67,6 +67,14 @@ function render(source) {
   const script = source.match(/<script>([\s\S]*)<\/script>/);
   if (!script) throw new Error('no <script> block found in index.html');
   const stub = makeStub();
+  // Hand-written prose the page never writes into. Seeded read-only so the page's
+  // own prose audit can read it under Node; kept out of `text` so `apply` never
+  // rewrites it and its inline markup survives.
+  AUDITED_PROSE.forEach(id => {
+    const at = range(source, id);
+    if (at) stub.staticText[id] = source.slice(at.start, at.end)
+      .replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  });
   const warnings = [];
   const realWarn = console.warn;
   global.document = stub.document;
@@ -102,6 +110,10 @@ function range(source, id) {
 // Counters set via textContent that are derived from the data. `theme` and
 // `count` are interaction state, not evidence, so they are left alone.
 const SKIP_TEXT = new Set(['theme', 'count']);
+
+// Hand-written prose that states a derived number. The page's prose audit asserts
+// these, but can only see them if they are seeded into the DOM stub first.
+const AUDITED_PROSE = ['reach-lede'];
 
 // ---------------------------------------------------------------------- go
 let source = fs.readFileSync(FILE, 'utf8');
