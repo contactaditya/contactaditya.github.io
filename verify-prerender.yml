@@ -1,0 +1,64 @@
+name: Verify prerender
+
+# index.html stores the evidence twice: as data arrays, and as static markup
+# pre-rendered from them so the page reads without JavaScript. Editing an array
+# without running `node prerender.js` leaves the static copy stale, and the
+# staleness is invisible in a browser because the page repaints on load.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node prerender.js --check
+
+      # Shows whether the data edit was wrong or the re-render was forgotten.
+      - name: Diff a re-render would produce
+        if: failure()
+        run: |
+          node prerender.js || true
+          git --no-pager diff
+
+  map:
+    # citation_map_verified.png is the one published claim prerender.js cannot
+    # reach: it rebuilds markup from the data arrays, but it cannot rebuild a
+    # PNG and --check cannot inspect one. In November 2026 the image sat six
+    # days behind the data after Singapore entered, and Hong Kong and Macau had
+    # never been drawn at all. Nothing reported either, because nothing looked.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install geopandas matplotlib pillow numpy
+
+      # Pinned to the commit the committed map was generated from, so a border
+      # revision upstream cannot fail this check on its own. Bumping it is a
+      # deliberate act and should come with a regenerated map.
+      - name: Fetch country geometry
+        env:
+          NE_COMMIT: ca96624a56bd078437bca8184e78163e5039ad19
+        run: |
+          curl -fsSL -o ne_50m.geojson \
+            "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/$NE_COMMIT/geojson/ne_50m_admin_0_countries.geojson"
+
+      # Reads the committed PNG and asks what the page claims about it: is every
+      # country in REGIONS shaded, and is anything shaded that is not counted?
+      # Deliberately not a byte-diff against a fresh render -- matplotlib,
+      # libpng and freetype differ between machines, and a check that fails on a
+      # clean checkout is one people switch off.
+      - run: python3 check_citation_map.py ne_50m.geojson
+
+      - name: Regenerate the map and show what changed
+        if: failure()
+        run: |
+          python3 make_citation_map.py ne_50m.geojson || true
+          git --no-pager diff --stat
