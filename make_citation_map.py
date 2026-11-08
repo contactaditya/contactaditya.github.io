@@ -36,7 +36,13 @@ def regions_countries(index_html):
                           re.search(r"countries:\s*\[([^\]]*)\]", row).group(1))
     return out
 
-def main(geojson, index_html="index.html", out="citation_map_verified.png"):
+def load(geojson, index_html="index.html"):
+    """Geometry, the counted country names, and the frame the map is drawn in.
+
+    Shared with check_citation_map.py so the checker measures the committed PNG
+    against the same projection and frame the generator used. If the two ever
+    computed the bbox separately, a check could pass against the wrong pixels.
+    """
     want = set(regions_countries(index_html))
     g = gpd.read_file(geojson)
     g = g[g["NAME"] != "Antarctica"].copy()
@@ -57,7 +63,11 @@ def main(geojson, index_html="index.html", out="citation_map_verified.png"):
     gg = g.to_crs(PROJ)
     b = gg.total_bounds
     pad = (b[2] - b[0]) * 0.0012
-    x0, x1, y0, y1 = b[0] - pad, b[2] + pad, b[1] - pad, b[3] + pad
+    return gg, want, (b[0] - pad, b[2] + pad, b[1] - pad, b[3] + pad)
+
+
+def main(geojson, index_html="index.html", out="citation_map_verified.png"):
+    gg, want, (x0, x1, y0, y1) = load(geojson, index_html)
     sx = W / (x1 - x0)
 
     fig = plt.figure(figsize=(W / 100, H / 100), dpi=100)
